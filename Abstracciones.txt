@@ -1,0 +1,65 @@
+Usuario: 
+ - Lista de trivias
+ - Usuario 
+ - Contraseña
+
+Trivia: 
+ - Id
+ - Puntuaciones: 
+    diccionario con username -> punteo, tiempo total 
+    (Puede que sea mejor manejar las puntuaciones en una lista general de puntuaciones en el servidord
+    Guardar entonces: username, idtrivia, tiempo_total, punteo)
+
+
+
+
+
+
+
+
+
+
+SERVIDOR: 
+ - Recibe trivias por un puerto para crearlas
+ - Logueo de usuario
+ - Muestra todas las trivias creadas por el usuario
+
+ - Manejo de solicitud / solicitudes
+ - Manejo de respuesta / resupuestas
+
+ - Lista de usuarios
+    - Lista de trivias 
+
+
+
+
+
+
+ APP WEB:
+ - Crear usuarios
+ - Crear trivias por usuario 
+
+ - Logueo de usuario
+ - Muestra todas las trivias creadas por el usuario
+
+ - Area de codigo xson (con linea y columna del cursor)
+ - Area de consultas SQLKV
+ - Opcion para vargar y exportar trivias (usando archivos)
+
+ - Area de respuesta del servidor (errores o respuestas)
+
+
+
+
+
+ APLICACION: 
+ para consumir trivias generadas
+ - Muestra todas las trivias disponibles 
+ - Logueo de usuario:
+    + El servidor responde si se puede iniciar o no la comunicación 
+    + El logueo es con codigo xson, o sea, debe escribirse el codigo xson 
+
+- Area de logueo 
+- Area de trivias 
+- Area de respuesta tabular (errores o respuestas)
+
