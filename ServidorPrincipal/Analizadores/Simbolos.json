@@ -4,9 +4,9 @@ Expresiones regulares:
 
 
 NUMEROS 
-IDENTIFICADORES 
+IDENTIFICADORES =   identificador = [a-zA-Z_-$][a-zA-Z0-9_-$]*
 espacio
-string
+string [a-zA-Z0-9\s]+
 
 <?xson version=”1.0” ?>
 <
