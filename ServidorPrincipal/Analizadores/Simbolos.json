@@ -1,0 +1,210 @@
+SERVIDOR (SOLICITUDES)
+
+Expresiones regulares:
+
+
+NUMEROS 
+IDENTIFICADORES 
+espacio
+string
+
+<?xson version=”1.0” ?>
+<
+>
+!
+:
+{
+}
+[
+]
+""
+,
+
+
+<!realizar_solicitud:
+<fin_solicitud_realizada!>
+
+USUARIO_NUEVO
+DATOS_USUARIO
+USUARIO
+PASSWORD
+NOMBRE
+INSTITUCION
+
+MODIFICAR_USUARIO
+USUARIO_ANTIGUO
+NUEVO_PASSWORD
+
+ELIMINAR_USUARIO
+
+LOGIN_USUARIO
+
+
+
+
+NUEVA_TRIVIA
+PARAMETROS_TRIVIA
+ID_TRIVIA
+TIEMPO_PREGUNTA
+NOMBRE
+TEMA
+
+ELIMINAR_TRIVIA
+
+MODIFICAR_TRIVIA
+
+AGREGAR_COMPONENTE
+ID
+TRIVIA
+RESPUESTA
+CLASE
+TEXTO_VISIBLE
+OPCIONES
+INDICE
+FILAS
+COLUMNAS
+
+
+
+    USUARIOS
+
+        Usuario nuevo - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        <?xson version=”1.0” ?> 
+        <!realizar_solicitud: "USUARIO_NUEVO" > 
+            { "DATOS_USUARIO":[{ 
+                "USUARIO": "juanito619", 
+                "PASSWORD": "12345678", 
+                "NOMBRE": "JUAN PEREZ", 
+                “INSTITUCION”: "CUNOC" 
+            }] 
+            } 
+        <fin_solicitud_realizada!> 
+
+        Modificar usuario - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        <!realizar_solicitud: "MODIFICAR_USUARIO" > 
+        { "DATOS_USUARIO":[{ 
+        "USUARIO_ANTIGUO": "juanito619", 
+        "USUARIO_NUEVO": "juanito619lopez", 
+        "NUEVO_PASSWORD": "12345678910" 
+        } 
+        ]} 
+        <fin_solicitud_realizada!> 
+
+
+        Eliminar usuario - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        <!realizar_solicitud: "ELIMINAR_USUARIO" > 
+        { "DATOS_USUARIO":[{ 
+                "USUARIO": "juanito619lopez" 
+            } 
+            ]} 
+        <fin_solicitud_realizada!> 
+
+        Login - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        <!realizar_solicitud: "LOGIN_USUARIO" > 
+            { "DATOS_USUARIO":[{ 
+                "USUARIO": "juanito619", 
+                "PASSWORD": "12345678" 
+            } 
+            ]} 
+        <fin_solicitud_realizada!> 
+
+
+
+
+
+
+
+    
+    
+    TRIVIAS 
+        
+        Nueva trivia - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        
+        <!realizar_solicitud: " NUEVA_TRIVIA" > 
+        { "PARAMETROS_TRIVIA":[{ 
+                "ID_TRIVIA": "$trivia1", 
+                "TIEMPO_PREGUNTA": 45, 
+                "NOMBRE": "Cultura de Guatemala", 
+                "TEMA": "cultura", 
+        } 
+        ]} 
+        <fin_solicitud_realizada!> 
+
+        Eliminar trivia - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - -
+
+        <!realizar_solicitud: "ELIMINAR_TRIVIA" > 
+        { "PARAMETROS_TRIVIA":[{ 
+                "ID_TRIVIA": "$trivia1" 
+        } 
+        ]} 
+        <fin_solicitud_realizada!> 
+
+        Modificar trivia - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        <!realizar_solicitud: "MODIFICAR_TRIVIA" > 
+        { "PARAMETROS_TRIVIA":[{ 
+                "ID_TRIVIA": "$trivia1", 
+                "TIEMPO_PREGUNTA": 30, 
+                "NOMBRE": "Comidas tipicas de Guatemala ", 
+                "TEMA": "Cultura" 
+        } 
+        ]} 
+        <fin_solicitud_realizada!> 
+
+        Agregar componentes (DEPENDEN DEL TIPO DE COMPONENTE) - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+            - CLASE*: la clase de componente. Puede ser CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, COMBO. 
+            - OPCIONES: Solo cuenta en los componentes clase: CHECKBOX, RADIO, y COMBO. Además, debe estar definido como: item1 | item2 | item3 | itemN….. (si la respuesta son varios debe de ir de la misma forma) 
+            - FILAS: Solo aplica al componente AREA_TEXTO, y hace referencia al número de filas. 
+            - COLUMNAS: Solo aplica al componente AREA_TEXTO, y hace referencia al número de columnas. 
+            
+            <!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+            { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_text_nombre_autor", 
+                "TRIVIA": "$trivia1", 
+                "CLASE": "CAMPO_TEXTO", 
+                "TEXTO_VISIBLE": "Nombre del autor de la letra del Himno de Guatemala: ", 
+                "RESPUESTA": "José Joaquín Palma", 
+            } 
+            ]} 
+            <fin_solicitud_realizada!>
+            
+            <!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+            { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_soldado_presidente", 
+                "TRIVIA": "$trivia1", 
+                "RESPUESTA": "Jacobo Arbenz", 
+                "CLASE": "RADIO", 
+                "TEXTO_VISIBLE": "A quie se le conoce como el soldado del pueblo? ", 
+                "OPCIONES": "Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Otro" 
+            } 
+            ]} 
+            <fin_solicitud_realizada!> 
+
+        Eliminar componentes - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        <!realizar_solicitud: "ELIMINAR_COMPONENTE" > 
+        { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_soldado_presidente", 
+                "TRIVIA": "$trivia1", 
+        } 
+        ]} 
+        <fin_solicitud_realizada!> 
+
+        Modificar componente - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        <!realizar_solicitud: "MODIFICAR_COMPONENTE" > 
+        { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_soldado_presidente", 
+                "TRIVIA": "$trivia1", 
+                "CLASE": "CHECKBOX", 
+                "INDICE": "1", 
+                "TEXTO_VISIBLE": "Quienes fueron parte de la revolucion del 20 de octubre? ", 
+                "OPCIONES": "Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Maria Chichilla" 
+                "RESPUESTA": "Jacobo Arbenz|Jose Arebalo", 
+        } 
+        ]} 
+        <fin_solicitud_realizada!> 
+
