@@ -1,0 +1,55 @@
+package com.jbrod.servidorprincipal.analizadores;
+import java_cup.runtime.*;
+
+parser code{:
+    
+    // Conectar el parser al escaner
+    public Parser(Lexer lex){
+        super(lex);
+    }
+
+    public void syntax_error(Symbol cur_token){
+        System.out.println("Simbolo con error:" + symbl_name_from_id(cur_token.sym));
+        System.out.println("Linea " + cur_token.left);
+        System.out.println("Columna " + cur_token.right);
+        if (expected_token_ids().isEmpty()) {
+            System.out.println("Ya no se esperaba ningun simbolo");
+            //reporteErrores.agregarError(symbl_name_from_id(cur_token.sym),cur_token.left,cur_token.right, "Sintactico", "Ya no se esperaba ningun simbolo." );
+        }else{
+            //reporteErrores.agregarError(symbl_name_from_id(cur_token.sym),cur_token.left,cur_token.right, "Sintactico", "Se esperaba otro simbolo." );
+        }
+    }
+
+    /*public void unrecovered_syntax_error(Symbol cur_token) {
+        System.out.println("Error irrecuperable sobrecargado");
+    }*/
+
+:}
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - Terminales - - - - - - - - - - - - - - - - - - - - - - - */
+    /* Numeros, Identificadores, Strings */
+    terminal NUMERO, IDENTIFICADOR, STRING, ENCABEZADO;
+
+    /* Operadores */
+    terminal MENQUE, MAYQUE, EXCLAM, DOSPUN, LLAVOP, LLAVCL, COROPN, CORCLS, COMMA, QSTMRK, COMILL;
+
+    /* Encabezados de solicitudes */
+    terminal REALIZAR_SOL, FIN_SOL_REAL;
+
+    /* Usuarios */
+    terminal USUARIO_NUEV, DATOS_USUARI, USUARIO, PASSWORD, NOMBRE, INSTITUCION;
+
+    /* Modificar usuarios */
+    terminal MODI_USUARIO, USUA_ANTIGUO, NUEVO_PASSWO, ELIMINAR_USU;
+
+    /* Login usuario */
+    terminal LOGIN_USUARI;
+
+    /* Trivias */
+    terminal NUEVA_TRIVIA, PARAM_TRIVIA, ID_TRIVIA, TIEMPO_PREGU, TEMA;
+
+    /* Modificar trivias */
+    terminal ELIMINAR_TRI, MODIF_TRIVIA, AGREGAR_COMP, ID, TRIVIA, RESPUESTA, CLASE, TEXTO_VISIBL, OPCIONES, INDICE, FILAS, COLUMNAS;
+
+
+    /* - - - - - - - - - - - - - - - - - - - - - - No terminales - - - - - - - - - - - - - - - - - - - - - - */

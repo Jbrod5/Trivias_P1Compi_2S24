@@ -1,5 +1,6 @@
 /* - - - - - - - - - - - - - - - - - CODIGO DE USUARIO - - - - - - - - - - - - - - - - - */
 
+package com.jbrod.servidorprincipal.analizadores;
 import java_cup.runtime.*;
 
 
@@ -14,9 +15,9 @@ import java_cup.runtime.*;
 %column
 
 numero = [0-9]+
-identificador = [a-zA-Z_-$][a-zA-Z0-9_-$]*
 
 string = [a-zA-Z0-9\s]+
+identificador = ([a-zA-Z]|"_"|"-"|"$")([a-zA-Z0-9]|"_"|"-"|"$")*
 
 menque = "<"
 mayque = ">"
@@ -27,6 +28,10 @@ llavcl = "}"
 coropn = "["
 corcls = "]"
 comma  = ","
+qstmrk = "?"
+comill = "\""
+
+encabezado = "<?xson version=”1.0” ?>"
 
 
 realizar_sol = ("r"|"R")("e"|"E")("a"|"A")("l"|"L")("i"|"I")("z"|"Z")("a"|"A")("r"|"R")"_"("s"|"S")("o"|"O")("l"|"L")("i"|"I")("c"|"I")("t"|"T")("u"|"U")("d"|"D") 
@@ -68,3 +73,89 @@ opciones     = ("o"|"O")("p"|"P")("c"|"C")("i"|"I")("o"|"O")("n"|"N")("e"|"E")("
 indice       = ("i"|"I")("n"|"N")("d"|"D")("i"|"I")("c"|"C")("e"|"E")
 filas        = ("f"|"F")("i"|"I")("l"|"L")("a"|"A")("s"|"S")
 columnas     = ("c"|"C")("o"|"O")("l"|"L")("u"|"U")("m"|"M")("n"|"N")("a"|"A")("s"|"S")
+
+
+%{
+
+    private Symbol symbol(int type){
+        return new Symbol(type, yyline +1, yycolumn +1);
+    }
+
+    private Symbol(type, value){
+        System.out.println("Token reconocido: " + yytext());
+        return new Symbol(type, yyline +1, yycolumn + 1, value);
+    }
+
+    private void error (String message){
+        System.out.println("Error en la linea: " + (yyline +1) + " columna: " + (yycolumn +1) + " : " + message);
+    }
+
+%}
+
+
+%%
+
+/*  - - - - - - - - - - - - - - - - - REGLAS LEXICAS  - - - - - - - - - - - - - - - - - */
+
+{numero}          { return symbol(sym.NUMERO       , Integer.parseInt(yytext())); }
+
+{menque}          { return symbol(sym.MENQUE); }          
+{mayque}          { return symbol(sym.MAYQUE); }            
+{exclam}          { return symbol(sym.EXCLAM); }            
+{dospun}          { return symbol(sym.DOSPUN); }                        
+{llavop}          { return symbol(sym.LLAVOP); }            
+{llavcl}          { return symbol(sym.LLAVCL); }            
+{coropn}          { return symbol(sym.COROPN); }            
+{corcls}          { return symbol(sym.CORCLS); }            
+{comma}           { return symbol(sym.COMMA);  }
+{qstmrk}          { return symbol(sym.QSTMRK); }
+{comill}          { return symbol(sym.COMILL); }
+
+{realizar_sol} { return symbol(sym.REALIZAR_SOL); }
+{fin_sol_real} { return symbol(sym.FIN_SOL_REAL); }
+
+{usuario_nuev} { return symbol(sym.USUARIO_NUEV); }    
+{datos_usuari} { return symbol(sym.DATOS_USUARI); }    
+{usuario}      { return symbol(sym.USUARIO);      }   
+{password}     { return symbol(sym.PASSWORD);     }   
+{nombre}       { return symbol(sym.NOMBRE);       }   
+{institucion}  { return symbol(sym.INSTITUCION);  }  
+
+{modi_usuario} { return symbol(sym.MODI_USUARIO); }
+{usua_antiguo} { return symbol(sym.USUA_ANTIGUO); }
+{nuevo_passwo} { return symbol(sym.NUEVO_PASSWO); }
+
+{eliminar_usu} { return symbol(sym.ELIMINAR_USU); }
+
+{login_usuari} { return symbol(sym.LOGIN_USUARI); }
+
+{nueva_trivia} { return symbol(sym.NUEVA_TRIVIA); } 
+{param_trivia} { return symbol(sym.PARAM_TRIVIA); } 
+{id_trivia}    { return symbol(sym.ID_TRIVIA);    }
+{tiempo_pregu} { return symbol(sym.TIEMPO_PREGU); }
+{nombre}       { return symbol(sym.NOMBRE);       } 
+{tema}         { return symbol(sym.TEMA);         }
+
+{eliminar_tri} { return symbol(sym.ELIMINAR_TRI); }
+
+{modif_trivia}   { return symbol(sym.MODIF_TRIVIA); }
+
+{agregar_comp}   { return symbol(sym.AGREGAR_COMP); }
+{id}             { return symbol(sym.ID);           }  
+{trivia}         { return symbol(sym.TRIVIA);       }   
+{respuesta}      { return symbol(sym.RESPUESTA);    }    
+{clase}          { return symbol(sym.CLASE);        }    
+{texto_visibl}   { return symbol(sym.TEXTO_VISIBL); }   
+{opciones}       { return symbol(sym.OPCIONES);     }   
+{indice}         { return symbol(sym.INDICE);       }   
+{filas}          { return symbol(sym.FILAS);        } 
+{columnas}       { return symbol(sym.COLUMNAS);     }   
+
+{encabezado}      { return symbol(sym.ENCABEZADO); }
+{identificador}   { return symbol(sym.IDENTIFICADOR, yytexyt());                  }
+{string}          { return symbol(sym.STRING, yytext());                          }
+
+
+[^]            { System.out.println("No se reconocio el lexema " + yytext() + " como un token valido y se ignoro.");
+                 errores.agregarError(yytext(), yyline +1, yycolumn + 1, "Lexico", "El simbolo no se encuentra definido en el alfabeto.");}
+<<EOF>>        { return symbol(sym.EOF); }
