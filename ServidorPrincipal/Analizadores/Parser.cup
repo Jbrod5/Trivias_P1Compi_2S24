@@ -26,30 +26,42 @@ parser code{:
 
 :}
 
-    /* - - - - - - - - - - - - - - - - - - - - - - - Terminales - - - - - - - - - - - - - - - - - - - - - - - */
-    /* Numeros, Identificadores, Strings */
-    terminal NUMERO, IDENTIFICADOR, STRING, ENCABEZADO;
+/* - - - - - - - - - - - - - - - - - - - - - - - Terminales - - - - - - - - - - - - - - - - - - - - - - - */
+/* Numeros, Identificadores, Strings */
+terminal NUMERO, IDENTIFICADOR, STRING, ENCABEZADO;
 
-    /* Operadores */
-    terminal MENQUE, MAYQUE, EXCLAM, DOSPUN, LLAVOP, LLAVCL, COROPN, CORCLS, COMMA, QSTMRK, COMILL;
+/* Operadores */
+terminal MENQUE, MAYQUE, EXCLAM, DOSPUN, LLAVOP, LLAVCL, COROPN, CORCLS, COMMA, QSTMRK, COMILL;
 
-    /* Encabezados de solicitudes */
-    terminal REALIZAR_SOL, FIN_SOL_REAL;
+/* Encabezados de solicitudes */
+terminal REALIZAR_SOL, FIN_SOL_REAL;
 
-    /* Usuarios */
-    terminal USUARIO_NUEV, DATOS_USUARI, USUARIO, PASSWORD, NOMBRE, INSTITUCION;
+/* Usuarios */
+terminal USUARIO_NUEV, DATOS_USUARI, USUARIO, PASSWORD, NOMBRE, INSTITUCION;
 
-    /* Modificar usuarios */
-    terminal MODI_USUARIO, USUA_ANTIGUO, NUEVO_PASSWO, ELIMINAR_USU;
+/* Modificar usuarios */
+terminal MODI_USUARIO, USUA_ANTIGUO, NUEVO_PASSWO, ELIMINAR_USU;
 
-    /* Login usuario */
-    terminal LOGIN_USUARI;
+/* Login usuario */
+terminal LOGIN_USUARI;
 
-    /* Trivias */
-    terminal NUEVA_TRIVIA, PARAM_TRIVIA, ID_TRIVIA, TIEMPO_PREGU, TEMA;
+/* Trivias */
+terminal NUEVA_TRIVIA, PARAM_TRIVIA, ID_TRIVIA, TIEMPO_PREGU, TEMA;
 
-    /* Modificar trivias */
-    terminal ELIMINAR_TRI, MODIF_TRIVIA, AGREGAR_COMP, ID, TRIVIA, RESPUESTA, CLASE, TEXTO_VISIBL, OPCIONES, INDICE, FILAS, COLUMNAS;
+/* Modificar trivias */
+terminal ELIMINAR_TRI, MODIF_TRIVIA, AGREGAR_COMP, ID, TRIVIA, RESPUESTA, CLASE, TEXTO_VISIBL, OPCIONES, INDICE, FILAS, COLUMNAS;
+
+/* - - - - - - - - - - - - - - - - - - - - - - No terminales - - - - - - - - - - - - - - - - - - - - - - */
+non terminal inicio; 
+
+/* Solicitudes */
+non terminal solicitud, solicitudes; 
+
+non terminal solicitud_simple, usuario_nuevo, modificar_usuario, eliminar_usuario, login_usuario;
+non terminal nueva_trivia, eliminar_trivia, modificar_parametros_trivia, agregar_componente_trivia, eliminar_componente_trivia, modificar_componente_trivia; 
 
 
-    /* - - - - - - - - - - - - - - - - - - - - - - No terminales - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - Producciones - - - - - - - - - - - - - - - - - - - - - - - */
+start with inicio; 
+inicio ::= solicitud_simple;  
+inicio ::= solicitudes;

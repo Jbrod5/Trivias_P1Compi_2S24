@@ -31,7 +31,7 @@ comma  = ","
 qstmrk = "?"
 comill = "\""
 
-encabezado = "<?xson version=”1.0” ?>"
+encabezado = "<?xson version=\"1.0\" ?>"
 
 
 realizar_sol = ("r"|"R")("e"|"E")("a"|"A")("l"|"L")("i"|"I")("z"|"Z")("a"|"A")("r"|"R")"_"("s"|"S")("o"|"O")("l"|"L")("i"|"I")("c"|"I")("t"|"T")("u"|"U")("d"|"D") 
@@ -81,7 +81,7 @@ columnas     = ("c"|"C")("o"|"O")("l"|"L")("u"|"U")("m"|"M")("n"|"N")("a"|"A")("
         return new Symbol(type, yyline +1, yycolumn +1);
     }
 
-    private Symbol(type, value){
+    private Symbol symbol(int type, Object value){
         System.out.println("Token reconocido: " + yytext());
         return new Symbol(type, yyline +1, yycolumn + 1, value);
     }
@@ -98,6 +98,7 @@ columnas     = ("c"|"C")("o"|"O")("l"|"L")("u"|"U")("m"|"M")("n"|"N")("a"|"A")("
 /*  - - - - - - - - - - - - - - - - - REGLAS LEXICAS  - - - - - - - - - - - - - - - - - */
 
 {numero}          { return symbol(sym.NUMERO       , Integer.parseInt(yytext())); }
+{encabezado}      { return symbol(sym.ENCABEZADO); }
 
 {menque}          { return symbol(sym.MENQUE); }          
 {mayque}          { return symbol(sym.MAYQUE); }            
@@ -151,11 +152,11 @@ columnas     = ("c"|"C")("o"|"O")("l"|"L")("u"|"U")("m"|"M")("n"|"N")("a"|"A")("
 {filas}          { return symbol(sym.FILAS);        } 
 {columnas}       { return symbol(sym.COLUMNAS);     }   
 
-{encabezado}      { return symbol(sym.ENCABEZADO); }
-{identificador}   { return symbol(sym.IDENTIFICADOR, yytexyt());                  }
+{identificador}   { return symbol(sym.IDENTIFICADOR, yytext());                  }
 {string}          { return symbol(sym.STRING, yytext());                          }
 
 
 [^]            { System.out.println("No se reconocio el lexema " + yytext() + " como un token valido y se ignoro.");
-                 errores.agregarError(yytext(), yyline +1, yycolumn + 1, "Lexico", "El simbolo no se encuentra definido en el alfabeto.");}
+                 //errores.agregarError(yytext(), yyline +1, yycolumn + 1, "Lexico", "El simbolo no se encuentra definido en el alfabeto.");
+                 }
 <<EOF>>        { return symbol(sym.EOF); }
