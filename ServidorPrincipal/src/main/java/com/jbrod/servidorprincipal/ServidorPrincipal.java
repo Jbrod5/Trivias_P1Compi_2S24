@@ -17,10 +17,15 @@ public class ServidorPrincipal {
         try {
             System.out.println("Hello World!");
             
-            String txt ="<!realizar_solicitud: \"ELIMINAR_COMPONENTE\" > \n" +
+            String txt ="<!realizar_solicitud: \"AGREGAR_COMPONENTE\" > \n" +
 "      { \"PARAMETROS_COMPONENTE\":[{ \n" +
 "                \"ID\": \"$_soldado_presidente\", \n" +
-"                \"TRIVIA\": \"$trivia1\"\n" +
+"                \"TRIVIA\": \"$trivia1\", \n" +
+"                \"CLASE\": \"Combo\", \n" +
+"                \"INDICE\" : 5, \n" +
+"                \"TEXTO_VISIBLE\": \"A quie se le conoce como el soldado del pueblo? \", \n" +
+"                \"RESPUESTA\": \"Jacobo Arbenz\", \n" +
+"                \"OPCIONES\": \"Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Otro\" \n" +
 "        } \n" +
 "        ]} \n" +
 "<fin_solicitud_realizada!> ";

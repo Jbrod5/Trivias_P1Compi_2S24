@@ -1,0 +1,76 @@
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+{ "PARAMETROS_COMPONENTE":[{ 
+          "ID": "$_text_nombre_autor", 
+          "TRIVIA": "$trivia1", 
+          "CLASE": "CAMPO_TEXTO",
+          "INDICE": 2,
+          "TEXTO_VISIBLE": "Nombre del autor de la letra del Himno de Guatemala: ", 
+          "RESPUESTA": "Jose Joaquin Palma"
+  } 
+  ]} 
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+{ "PARAMETROS_COMPONENTE":[{ 
+          "ID": "$_text_nombre_autor", 
+          "TRIVIA": "$trivia1", 
+          "CLASE": "AREA_TEXTO",
+          "INDICE": 2,
+          "TEXTO_VISIBLE": "Nombre del autor de la letra del Himno de Guatemala: ", 
+          "RESPUESTA": "Jose Joaquin Palma",
+          "FILAS": 3,
+          "COLUMNAS": 5
+  } 
+  ]} 
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_soldado_presidente", 
+                "TRIVIA": "$trivia1", 
+                "CLASE": "CHECKBOX", 
+                "INDICE" : 4, 
+                "TEXTO_VISIBLE": "A quie se le conoce como el soldado del pueblo? ", 
+                "RESPUESTA": "Jacobo Arbenz", 
+                "OPCIONES": "Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Otro" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_soldado_presidente", 
+                "TRIVIA": "$trivia1", 
+                "CLASE": "RADIO", 
+                "INDICE" : 5, 
+                "TEXTO_VISIBLE": "A quie se le conoce como el soldado del pueblo? ", 
+                "RESPUESTA": "Jacobo Arbenz", 
+                "OPCIONES": "Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Otro" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_soldado_presidente", 
+                "TRIVIA": "$trivia1", 
+                "CLASE": "FICHERO", 
+                "INDICE" : 5, 
+                "TEXTO_VISIBLE": "A quie se le conoce como el soldado del pueblo? "
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_soldado_presidente", 
+                "TRIVIA": "$trivia1", 
+                "CLASE": "Combo", 
+                "INDICE" : 5, 
+                "TEXTO_VISIBLE": "A quie se le conoce como el soldado del pueblo? ", 
+                "RESPUESTA": "Jacobo Arbenz", 
+                "OPCIONES": "Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Otro" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 

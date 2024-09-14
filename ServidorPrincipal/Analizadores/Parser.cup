@@ -26,6 +26,14 @@ parser code{:
         System.out.println("Error irrecuperable sobrecargado");
     }*/
 
+   private String secureString(Object o){
+        if( o != null){
+            return o.toString();
+        }else{
+            return "";
+        }
+   }
+
 :}
 
 /* - - - - - - - - - - - - - - - - - - - - - - - Terminales - - - - - - - - - - - - - - - - - - - - - - - */
@@ -33,7 +41,7 @@ parser code{:
 terminal NUMERO, IDENTIFICADOR, STRING, ENCABEZADO;
 
 /* Operadores */
-terminal MENQUE, MAYQUE, EXCLAM, DOSPUN, LLAVOP, LLAVCL, COROPN, CORCLS, COMMA, QSTMRK, COMILL;
+terminal MENQUE, MAYQUE, EXCLAM, DOSPUN, LLAVOP, LLAVCL, COROPN, CORCLS, COMMA, QSTMRK, COMILL, ORSYMB;
 
 /* Encabezados de solicitudes */
 terminal REALIZAR_SOL, FIN_SOL_REAL;
@@ -51,6 +59,8 @@ terminal LOGIN_USUARI;
 terminal NUEVA_TRIVIA, PARAM_TRIVIA, ID_TRIVIA, TIEMPO_PREGU, TEMA;
 
 /* Modificar trivias */
+terminal CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, COMBO;
+
 terminal ELIMINAR_TRI, MODIF_TRIVIA, AGREGAR_COMP, ELIMINAR_COM, PARAMETROS_C, ID, TRIVIA, RESPUESTA, CLASE, TEXTO_VISIBL, OPCIONES, INDICE, FILAS, COLUMNAS;
 
 /* - - - - - - - - - - - - - - - - - - - - - - No terminales - - - - - - - - - - - - - - - - - - - - - - */
@@ -64,6 +74,10 @@ non terminal nueva_trivia, eliminar_trivia, modificar_parametros_trivia, agregar
 
 /* Auxiliares */
 non terminal id_st;
+non terminal opciones; 
+
+/* Componentes */
+non terminal componente_trivia ,campo_texto, area_texto, checkbox, radio, fichero, combo; 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - Producciones - - - - - - - - - - - - - - - - - - - - - - - */
 start with inicio; 
@@ -148,3 +162,70 @@ eliminar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL ELIMINAR
                 resultado += "Eliminar componente: " + cm.toString() + " " + tr.toString() + " \n";
             :};
 
+
+
+
+agregar_componente_trivia ::=  MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL AGREGAR_COMP COMILL MAYQUE
+                LLAVOP COMILL PARAMETROS_C COMILL DOSPUN COROPN LLAVOP
+                componente_trivia:c
+                LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
+                resultado += "Agregar componente: " + c.toString() + " \n";
+            :};
+
+
+    opciones ::= id_st:op {: RESULT = op.toString(); :}; 
+    opciones ::= id_st:op ORSYMB opciones:opcs {: RESULT = op.toString() + "|" + opcs.toString(); :}; 
+
+    componente_trivia ::= campo_texto:r {:RESULT = r;:}| area_texto:r {:RESULT = r;:} | checkbox:r {:RESULT = r;:} | radio:r {:RESULT = r;:} | fichero:r {:RESULT = r;:} | combo:r {:RESULT = r;:};
+
+    campo_texto ::= COMILL ID           COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA
+                    COMILL TRIVIA       COMILL DOSPUN COMILL IDENTIFICADOR:tv COMILL COMMA
+                    COMILL CLASE        COMILL DOSPUN COMILL CAMPO_TEXTO      COMILL COMMA
+                    COMILL INDICE       COMILL DOSPUN        id_st:in                COMMA 
+                    COMILL TEXTO_VISIBL COMILL DOSPUN COMILL id_st:tx         COMILL COMMA
+                    COMILL RESPUESTA    COMILL DOSPUN COMILL id_st:rs         COMILL 
+                    {: RESULT =  "Campo de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) + "\n"; :};
+
+    area_texto ::=  COMILL ID           COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA
+                    COMILL TRIVIA       COMILL DOSPUN COMILL IDENTIFICADOR:tv COMILL COMMA
+                    COMILL CLASE        COMILL DOSPUN COMILL AREA_TEXTO       COMILL COMMA
+                    COMILL INDICE       COMILL DOSPUN        id_st:in                COMMA 
+                    COMILL TEXTO_VISIBL COMILL DOSPUN COMILL id_st:tx         COMILL COMMA
+                    COMILL RESPUESTA    COMILL DOSPUN COMILL id_st:rs         COMILL COMMA
+                    COMILL FILAS        COMILL DOSPUN        id_st:fl                COMMA
+                    COMILL COLUMNAS     COMILL DOSPUN        id_st:cl          
+                    {: RESULT =  "Area de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + secureString(fl)+ " " + secureString(cl) + "\n"; :};
+
+    checkbox ::=    COMILL ID           COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA
+                    COMILL TRIVIA       COMILL DOSPUN COMILL IDENTIFICADOR:tv COMILL COMMA
+                    COMILL CLASE        COMILL DOSPUN COMILL CHECKBOX         COMILL COMMA
+                    COMILL INDICE       COMILL DOSPUN        id_st:in                COMMA 
+                    COMILL TEXTO_VISIBL COMILL DOSPUN COMILL id_st:tx         COMILL COMMA
+                    COMILL RESPUESTA    COMILL DOSPUN COMILL id_st:rs         COMILL COMMA
+                    COMILL OPCIONES     COMILL DOSPUN COMILL opciones:op      COMILL 
+                    {: RESULT =  "Checkbox: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; :};
+
+    radio    ::=    COMILL ID           COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA
+                    COMILL TRIVIA       COMILL DOSPUN COMILL IDENTIFICADOR:tv COMILL COMMA
+                    COMILL CLASE        COMILL DOSPUN COMILL RADIO            COMILL COMMA
+                    COMILL INDICE       COMILL DOSPUN        id_st:in                COMMA 
+                    COMILL TEXTO_VISIBL COMILL DOSPUN COMILL id_st:tx         COMILL COMMA
+                    COMILL RESPUESTA    COMILL DOSPUN COMILL id_st:rs         COMILL COMMA
+                    COMILL OPCIONES     COMILL DOSPUN COMILL opciones:op      COMILL 
+                    {: RESULT =  "Radio: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; :};
+
+    fichero ::=     COMILL ID           COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA
+                    COMILL TRIVIA       COMILL DOSPUN COMILL IDENTIFICADOR:tv COMILL COMMA
+                    COMILL CLASE        COMILL DOSPUN COMILL FICHERO          COMILL COMMA
+                    COMILL INDICE       COMILL DOSPUN        id_st:in                COMMA 
+                    COMILL TEXTO_VISIBL COMILL DOSPUN COMILL id_st:tx         COMILL 
+                    {: RESULT =  "Fichero: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx) + "\n"; :};
+    
+    combo ::=       COMILL ID           COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA
+                    COMILL TRIVIA       COMILL DOSPUN COMILL IDENTIFICADOR:tv COMILL COMMA
+                    COMILL CLASE        COMILL DOSPUN COMILL COMBO            COMILL COMMA
+                    COMILL INDICE       COMILL DOSPUN        id_st:in                COMMA 
+                    COMILL TEXTO_VISIBL COMILL DOSPUN COMILL id_st:tx         COMILL COMMA
+                    COMILL RESPUESTA    COMILL DOSPUN COMILL id_st:rs         COMILL COMMA
+                    COMILL OPCIONES     COMILL DOSPUN COMILL opciones:op      COMILL 
+                    {: RESULT =  "Combo: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; :};

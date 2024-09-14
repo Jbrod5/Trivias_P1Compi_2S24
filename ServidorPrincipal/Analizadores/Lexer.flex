@@ -16,8 +16,8 @@ import java_cup.runtime.*;
 
 numero = [0-9]+
 
-string = [a-zA-Z0-9][a-zA-Z0-9\s]+
-identificador = [[a-zA-Z]|"_"|"-"|"$"][[a-zA-Z0-9]|"_"|"-"|"$"]*
+string = [a-zA-Z0-9\¿][a-zA-Z0-9:\¿\?\s]*
+identificador = ([a-zA-Z]|"_"|"-"|"$")([a-zA-Z0-9]|"_"|"-"|"$")*
 
 menque = "<"
 mayque = ">"
@@ -29,7 +29,8 @@ coropn = "["
 corcls = "]"
 comma  = ","
 qstmrk = "?"
-comill = "\""|"“"|"”" 
+comill = "\""|"“"|"”"
+orsymb = "|" 
 
 encabezado = "<?xson version=\"1.0\" ?>"
 LineTerminator = \r|\n|\r\n
@@ -84,6 +85,13 @@ indice       = ("i"|"I")("n"|"N")("d"|"D")("i"|"I")("c"|"C")("e"|"E")
 filas        = ("f"|"F")("i"|"I")("l"|"L")("a"|"A")("s"|"S")
 columnas     = ("c"|"C")("o"|"O")("l"|"L")("u"|"U")("m"|"M")("n"|"N")("a"|"A")("s"|"S")
 
+/* CLASES */
+campo_texto = ("C"|"c")("A"|"a")("M"|"m")("P"|"p")("O"|"o")("_")("T"|"t")("E"|"e")("X"|"x")("T"|"t")("O"|"o")
+area_texto  = ("a"|"A")("r"|"R")("e"|"E")("a"|"A")"_"("t"|"T")("e"|"E")("x"|"X")("t"|"T")("o"|"O")
+checkbox    = ("c"|"C")("h"|"H")("e"|"E")("c"|"C")("k"|"K")("b"|"B")("o"|"O")("x"|"X")
+radio       = ("R"|"r")("A"|"a")("D"|"d")("I"|"i")("O"|"o")
+fichero     = ("F"|"f")("I"|"i")("C"|"c")("H"|"h")("E"|"e")("R"|"r")("O"|"o")
+combo       = ("c"|"C")("o"|"O")("m"|"M")("b"|"B")("o"|"O")
 
 %{
 
@@ -121,6 +129,7 @@ columnas     = ("c"|"C")("o"|"O")("l"|"L")("u"|"U")("m"|"M")("n"|"N")("a"|"A")("
 {comma}           { return symbol(sym.COMMA);  }
 {qstmrk}          { return symbol(sym.QSTMRK); }
 {comill}          { return symbol(sym.COMILL); }
+{orsymb}          { return symbol(sym.ORSYMB); }
 
 {realizar_sol} { return symbol(sym.REALIZAR_SOL); }
 {fin_sol_real} { return symbol(sym.FIN_SOL_REAL); }
@@ -162,7 +171,15 @@ columnas     = ("c"|"C")("o"|"O")("l"|"L")("u"|"U")("m"|"M")("n"|"N")("a"|"A")("
 {opciones}       { return symbol(sym.OPCIONES);     }   
 {indice}         { return symbol(sym.INDICE);       }   
 {filas}          { return symbol(sym.FILAS);        } 
-{columnas}       { return symbol(sym.COLUMNAS);     }   
+{columnas}       { return symbol(sym.COLUMNAS);     }  
+
+/* Clases */
+{campo_texto}   { return symbol(sym.CAMPO_TEXTO); }
+{area_texto}    { return symbol(sym.AREA_TEXTO) ; }
+{checkbox}      { return symbol(sym.CHECKBOX)   ; }
+{radio}         { return symbol(sym.RADIO)      ; }
+{fichero}       { return symbol(sym.FICHERO)    ; }
+{combo}         { return symbol(sym.COMBO)      ; }
 
 {identificador}   { return symbol(sym.IDENTIFICADOR, yytext());                   }
 {string}          { return symbol(sym.STRING, yytext());                          }

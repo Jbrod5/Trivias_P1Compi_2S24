@@ -9,54 +9,61 @@ package com.jbrod.servidorprincipal.analizadores;
 public class sym {
   /* terminals */
   public static final int NUMERO = 2;
-  public static final int REALIZAR_SOL = 17;
+  public static final int REALIZAR_SOL = 18;
   public static final int MENQUE = 6;
-  public static final int ELIMINAR_TRI = 35;
-  public static final int ID_TRIVIA = 32;
+  public static final int ELIMINAR_TRI = 42;
+  public static final int ID_TRIVIA = 33;
   public static final int QSTMRK = 15;
-  public static final int NOMBRE = 23;
+  public static final int NOMBRE = 24;
+  public static final int CHECKBOX = 38;
   public static final int CORCLS = 13;
-  public static final int RESPUESTA = 42;
+  public static final int RESPUESTA = 49;
   public static final int EXCLAM = 8;
-  public static final int INDICE = 46;
-  public static final int NUEVO_PASSWO = 27;
+  public static final int INDICE = 53;
+  public static final int NUEVO_PASSWO = 28;
+  public static final int ORSYMB = 17;
   public static final int IDENTIFICADOR = 3;
-  public static final int USUARIO = 21;
-  public static final int MODIF_TRIVIA = 36;
+  public static final int USUARIO = 22;
+  public static final int MODIF_TRIVIA = 43;
   public static final int COMMA = 14;
-  public static final int TRIVIA = 41;
-  public static final int PARAMETROS_C = 39;
-  public static final int USUA_ANTIGUO = 26;
-  public static final int ID = 40;
-  public static final int TIEMPO_PREGU = 33;
-  public static final int USUARIO_NUEV = 19;
+  public static final int TRIVIA = 48;
+  public static final int PARAMETROS_C = 46;
+  public static final int USUA_ANTIGUO = 27;
+  public static final int ID = 47;
+  public static final int TIEMPO_PREGU = 34;
+  public static final int FICHERO = 40;
+  public static final int USUARIO_NUEV = 20;
   public static final int EOF = 0;
   public static final int LLAVCL = 11;
   public static final int COMILL = 16;
-  public static final int ELIMINAR_USU = 28;
-  public static final int CLASE = 43;
+  public static final int ELIMINAR_USU = 29;
+  public static final int CLASE = 50;
   public static final int COROPN = 12;
   public static final int error = 1;
   public static final int LLAVOP = 10;
   public static final int ENCABEZADO = 5;
-  public static final int TEXTO_VISIBL = 44;
-  public static final int PASSWORD = 22;
-  public static final int LOGIN_USUARI = 29;
+  public static final int TEXTO_VISIBL = 51;
+  public static final int PASSWORD = 23;
+  public static final int LOGIN_USUARI = 30;
   public static final int MAYQUE = 7;
-  public static final int TEMA = 34;
+  public static final int TEMA = 35;
   public static final int DOSPUN = 9;
-  public static final int INSTITUCION = 24;
-  public static final int DATOS_USUARI = 20;
-  public static final int FIN_SOL_REAL = 18;
-  public static final int NUEVA_TRIVIA = 30;
+  public static final int RADIO = 39;
+  public static final int INSTITUCION = 25;
+  public static final int COMBO = 41;
+  public static final int DATOS_USUARI = 21;
+  public static final int FIN_SOL_REAL = 19;
+  public static final int NUEVA_TRIVIA = 31;
   public static final int STRING = 4;
-  public static final int AGREGAR_COMP = 37;
-  public static final int PARAM_TRIVIA = 31;
-  public static final int COLUMNAS = 48;
-  public static final int FILAS = 47;
-  public static final int MODI_USUARIO = 25;
-  public static final int ELIMINAR_COM = 38;
-  public static final int OPCIONES = 45;
+  public static final int AGREGAR_COMP = 44;
+  public static final int PARAM_TRIVIA = 32;
+  public static final int COLUMNAS = 55;
+  public static final int FILAS = 54;
+  public static final int AREA_TEXTO = 37;
+  public static final int CAMPO_TEXTO = 36;
+  public static final int MODI_USUARIO = 26;
+  public static final int ELIMINAR_COM = 45;
+  public static final int OPCIONES = 52;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -75,6 +82,7 @@ public class sym {
   "COMMA",
   "QSTMRK",
   "COMILL",
+  "ORSYMB",
   "REALIZAR_SOL",
   "FIN_SOL_REAL",
   "USUARIO_NUEV",
@@ -93,6 +101,12 @@ public class sym {
   "ID_TRIVIA",
   "TIEMPO_PREGU",
   "TEMA",
+  "CAMPO_TEXTO",
+  "AREA_TEXTO",
+  "CHECKBOX",
+  "RADIO",
+  "FICHERO",
+  "COMBO",
   "ELIMINAR_TRI",
   "MODIF_TRIVIA",
   "AGREGAR_COMP",
