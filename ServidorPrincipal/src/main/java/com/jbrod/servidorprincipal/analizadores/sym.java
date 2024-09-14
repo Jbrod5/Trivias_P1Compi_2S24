@@ -16,29 +16,30 @@ public class sym {
   public static final int QSTMRK = 15;
   public static final int NOMBRE = 23;
   public static final int CORCLS = 13;
-  public static final int RESPUESTA = 40;
+  public static final int RESPUESTA = 42;
   public static final int EXCLAM = 8;
-  public static final int INDICE = 44;
+  public static final int INDICE = 46;
   public static final int NUEVO_PASSWO = 27;
   public static final int IDENTIFICADOR = 3;
   public static final int USUARIO = 21;
   public static final int MODIF_TRIVIA = 36;
   public static final int COMMA = 14;
-  public static final int TRIVIA = 39;
+  public static final int TRIVIA = 41;
+  public static final int PARAMETROS_C = 39;
   public static final int USUA_ANTIGUO = 26;
-  public static final int ID = 38;
+  public static final int ID = 40;
   public static final int TIEMPO_PREGU = 33;
   public static final int USUARIO_NUEV = 19;
   public static final int EOF = 0;
   public static final int LLAVCL = 11;
   public static final int COMILL = 16;
   public static final int ELIMINAR_USU = 28;
-  public static final int CLASE = 41;
+  public static final int CLASE = 43;
   public static final int COROPN = 12;
   public static final int error = 1;
   public static final int LLAVOP = 10;
   public static final int ENCABEZADO = 5;
-  public static final int TEXTO_VISIBL = 42;
+  public static final int TEXTO_VISIBL = 44;
   public static final int PASSWORD = 22;
   public static final int LOGIN_USUARI = 29;
   public static final int MAYQUE = 7;
@@ -51,10 +52,11 @@ public class sym {
   public static final int STRING = 4;
   public static final int AGREGAR_COMP = 37;
   public static final int PARAM_TRIVIA = 31;
-  public static final int COLUMNAS = 46;
-  public static final int FILAS = 45;
+  public static final int COLUMNAS = 48;
+  public static final int FILAS = 47;
   public static final int MODI_USUARIO = 25;
-  public static final int OPCIONES = 43;
+  public static final int ELIMINAR_COM = 38;
+  public static final int OPCIONES = 45;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -94,6 +96,8 @@ public class sym {
   "ELIMINAR_TRI",
   "MODIF_TRIVIA",
   "AGREGAR_COMP",
+  "ELIMINAR_COM",
+  "PARAMETROS_C",
   "ID",
   "TRIVIA",
   "RESPUESTA",

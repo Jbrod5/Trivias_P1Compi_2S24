@@ -3,6 +3,8 @@ import java_cup.runtime.*;
 
 parser code{:
     
+    public String resultado = "";
+
     // Conectar el parser al escaner
     public Parser(Lexer lex){
         super(lex);
@@ -49,7 +51,7 @@ terminal LOGIN_USUARI;
 terminal NUEVA_TRIVIA, PARAM_TRIVIA, ID_TRIVIA, TIEMPO_PREGU, TEMA;
 
 /* Modificar trivias */
-terminal ELIMINAR_TRI, MODIF_TRIVIA, AGREGAR_COMP, ID, TRIVIA, RESPUESTA, CLASE, TEXTO_VISIBL, OPCIONES, INDICE, FILAS, COLUMNAS;
+terminal ELIMINAR_TRI, MODIF_TRIVIA, AGREGAR_COMP, ELIMINAR_COM, PARAMETROS_C, ID, TRIVIA, RESPUESTA, CLASE, TEXTO_VISIBL, OPCIONES, INDICE, FILAS, COLUMNAS;
 
 /* - - - - - - - - - - - - - - - - - - - - - - No terminales - - - - - - - - - - - - - - - - - - - - - - */
 non terminal inicio; 
@@ -60,8 +62,89 @@ non terminal solicitud, solicitudes;
 non terminal solicitud_simple, usuario_nuevo, modificar_usuario, eliminar_usuario, login_usuario;
 non terminal nueva_trivia, eliminar_trivia, modificar_parametros_trivia, agregar_componente_trivia, eliminar_componente_trivia, modificar_componente_trivia; 
 
+/* Auxiliares */
+non terminal id_st;
 
 /* - - - - - - - - - - - - - - - - - - - - - - - Producciones - - - - - - - - - - - - - - - - - - - - - - - */
 start with inicio; 
 inicio ::= solicitud_simple;  
 inicio ::= solicitudes;
+
+solicitud_simple ::= usuario_nuevo | modificar_usuario | eliminar_usuario | login_usuario;
+solicitud_simple ::= nueva_trivia | eliminar_trivia | modificar_parametros_trivia | agregar_componente_trivia | eliminar_componente_trivia | modificar_componente_trivia;
+solicitudes ::= solicitud_simple solicitud | /* nada */;
+
+id_st ::= IDENTIFICADOR:id {: RESULT = id; :} 
+        | STRING:st {: RESULT = st; :};
+
+/* Usuarios */
+usuario_nuevo ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL USUARIO_NUEV COMILL MAYQUE LLAVOP COMILL DATOS_USUARI COMILL DOSPUN COROPN LLAVOP
+            COMILL USUARIO COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA
+            COMILL PASSWORD COMILL DOSPUN COMILL id_st:ps COMILL COMMA
+            COMILL NOMBRE COMILL DOSPUN COMILL id_st:nm COMILL COMMA
+            COMILL INSTITUCION COMILL DOSPUN COMILL id_st:in COMILL 
+            LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
+                resultado += "Usuario nuevo: " +  id.toString() + " " + ps.toString() + " " + nm.toString() + " " + in.toString () + "\n";
+            :};
+
+modificar_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODI_USUARIO COMILL MAYQUE
+                LLAVOP COMILL DATOS_USUARI COMILL DOSPUN COROPN LLAVOP
+                COMILL USUA_ANTIGUO COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA 
+                COMILL USUARIO_NUEV COMILL DOSPUN COMILL IDENTIFICADOR:nid COMILL COMMA
+                COMILL NUEVO_PASSWO COMILL DOSPUN COMILL id_st:ps COMILL 
+                LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
+                resultado += "Modificar usuario: " + id.toString() + " " + nid.toString() + " " + ps.toString() + "\n";
+            :};
+
+eliminar_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL ELIMINAR_USU COMILL MAYQUE
+                LLAVOP COMILL DATOS_USUARI COMILL DOSPUN COROPN LLAVOP
+                COMILL USUARIO COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL
+                LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
+                resultado += "Eliminar usuario: " + id.toString() + " \n";
+            :};
+
+login_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL LOGIN_USUARI COMILL MAYQUE
+                LLAVOP COMILL DATOS_USUARI COMILL DOSPUN COROPN LLAVOP
+                COMILL USUARIO COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA
+                COMILL PASSWORD COMILL DOSPUN COMILL id_st:ps COMILL
+                LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
+                resultado += "Login: " + id.toString() + " " + ps.toString() + " \n";
+            :};
+
+
+/* Trivias */
+nueva_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL NUEVA_TRIVIA COMILL MAYQUE
+                LLAVOP COMILL PARAM_TRIVIA COMILL DOSPUN COROPN LLAVOP 
+                COMILL ID_TRIVIA COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA
+                COMILL TIEMPO_PREGU COMILL DOSPUN STRING:tp COMMA
+                COMILL NOMBRE COMILL DOSPUN COMILL id_st:nm COMILL COMMA
+                COMILL TEMA COMILL DOSPUN COMILL id_st:tm COMILL
+                LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
+                resultado += "Nueva trivia: " + id.toString() + " " + tp.toString()+ " " + nm.toString() + " " + tm.toString() + " \n";
+            :};
+
+eliminar_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL ELIMINAR_TRI COMILL MAYQUE
+                LLAVOP COMILL PARAM_TRIVIA COMILL DOSPUN COROPN LLAVOP 
+                COMILL ID_TRIVIA COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL 
+                LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
+                resultado += "Eliminar trivia: " + id.toString() + " \n";
+            :};
+
+modificar_parametros_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODIF_TRIVIA COMILL MAYQUE
+                LLAVOP COMILL PARAM_TRIVIA COMILL DOSPUN COROPN LLAVOP 
+                COMILL ID_TRIVIA COMILL DOSPUN COMILL id_st:id COMILL COMMA
+                COMILL TIEMPO_PREGU COMILL DOSPUN STRING:tp COMMA
+                COMILL NOMBRE COMILL DOSPUN COMILL id_st:nm COMILL COMMA
+                COMILL TEMA COMILL DOSPUN COMILL id_st:tm COMILL 
+                LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
+                resultado += "Modificar trivia: " + id.toString() + " " + tp.toString()+ " " + nm.toString() + " " + tm.toString() + " \n";
+            :};
+
+eliminar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL ELIMINAR_COM COMILL MAYQUE
+                LLAVOP COMILL PARAMETROS_C COMILL DOSPUN COROPN LLAVOP 
+                COMILL ID COMILL DOSPUN COMILL IDENTIFICADOR:cm COMILL COMMA
+                COMILL TRIVIA COMILL DOSPUN COMILL IDENTIFICADOR:tr COMILL
+                LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
+                resultado += "Eliminar componente: " + cm.toString() + " " + tr.toString() + " \n";
+            :};
+

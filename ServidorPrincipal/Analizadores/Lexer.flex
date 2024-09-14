@@ -16,8 +16,8 @@ import java_cup.runtime.*;
 
 numero = [0-9]+
 
-string = [a-zA-Z0-9\s]+
-identificador = ([a-zA-Z]|"_"|"-"|"$")([a-zA-Z0-9]|"_"|"-"|"$")*
+string = [a-zA-Z0-9][a-zA-Z0-9\s]+
+identificador = [[a-zA-Z]|"_"|"-"|"$"][[a-zA-Z0-9]|"_"|"-"|"$"]*
 
 menque = "<"
 mayque = ">"
@@ -29,15 +29,23 @@ coropn = "["
 corcls = "]"
 comma  = ","
 qstmrk = "?"
-comill = "\""
+comill = "\""|"“"|"”" 
 
 encabezado = "<?xson version=\"1.0\" ?>"
+LineTerminator = \r|\n|\r\n
+WhiteSpace = {LineTerminator} | [ \t\f\s]
 
 
-realizar_sol = ("r"|"R")("e"|"E")("a"|"A")("l"|"L")("i"|"I")("z"|"Z")("a"|"A")("r"|"R")"_"("s"|"S")("o"|"O")("l"|"L")("i"|"I")("c"|"I")("t"|"T")("u"|"U")("d"|"D") 
+//realizar_sol = [["r"|"R"]["e"|"E"]["a"|"A"]["l"|"L"]["i"|"I"]["z"|"Z"]["a"|"A"]["r"|"R"]"_"["s"|"S"]["o"|"O"]["l"|"L"]["i"|"I"]["c"|"I"]["t"|"T"]["u"|"U"]["d"|"D"]]
+
+//realizar_sol = ([Rr][Ee][Aa][Ll][Ii][Zz][Aa][Rr]"_"[Ss][Oo][Ll][Ii][Cc][Ii][Tt][Uu][Dd])                              
+realizar_sol = (("r"|"R")("e"|"E")("a"|"A")("l"|"L")("i"|"I")("z"|"Z")("a"|"A")("r"|"R")"_"("s"|"S")("o"|"O")("l"|"L")("i"|"I")("c"|"C")("i"|"I")("t"|"T")("u"|"U")("d"|"D"))
+//realizar_sol = (("r"|"R")("e"|"E")("a"|"A")("l"|"L")("i"|"I")("z"|"Z")("a"|"A")("r"|"R")"_"("s"|"S")("o"|"O")("l"|"L")("i"|"I")("c"|"I")("t"|"T")("u"|"U")("d"|"D")) | "realizar_solicitud"
+//realizar_sol = "REALIZAR_SOLICITUD"
+
 fin_sol_real = ("f"|"F")("i"|"I")("n"|"N")"_"("s"|"S")("o"|"O")("l"|"L")("i"|"I")("c"|"I")("i"|"I")("t"|"T")("u"|"U")("d"|"D")"_"("r"|"R")("e"|"E")("a"|"A")("l"|"L")("i"|"I")("z"|"Z")("a"|"A")("d"|"D")("a"|"A")
 
-usuario_nuev = ("u"|"U")("s"|"S")("u"|"U")("a"|"A")("r"|"R")("i"|"O")"_"("n"|"N")("u"|"U")("e"|"E")("v"|"V")("o"|"O")
+usuario_nuev = (("u"|"U")("s"|"S")("u"|"U")("a"|"A")("r"|"R")("i"|"I")("o"|"O")"_"("n"|"N")("u"|"U")("e"|"E")("v"|"V")("o"|"O"))
 datos_usuari = ("d"|"D")("a"|"A")("t"|"T")("o"|"O")("s"|"S")"_"("u"|"U")("s"|"S")("u"|"U")("a"|"A")("r"|"R")("i"|"I")("o"|"O")
 usuario      = ("u"|"U")("s"|"S")("u"|"U")("a"|"A")("r"|"R")("i"|"I")("o"|"O")
 password     = ("p"|"P")("a"|"A")("s"|"S")("s"|"S")("w"|"W")("o"|"O")("r"|"R")("d"|"D")
@@ -64,6 +72,8 @@ eliminar_tri = ("e"|"E")("l"|"L")("i"|"I")("m"|"M")("i"|"I")("n"|"N")("a"|"A")("
 modif_trivia = ("m"|"M")("o"|"O")("d"|"D")("i"|"I")("f"|"F")("i"|"I")("c"|"C")("a"|"A")("r"|"R")"_"("t"|"T")("r"|"R")("i"|"I")("v"|"V")("i"|"I")("a"|"A")
 
 agregar_comp = ("a"|"A")("g"|"G")("r"|"R")("e"|"E")("g"|"G")("a"|"A")("r"|"R")"_"("c"|"C")("o"|"O")("m"|"M")("p"|"P")("o"|"O")("n"|"N")("e"|"E")("n"|"N")("t"|"T")("e"|"E")
+eliminar_com = ("e"|"E")("l"|"L")("i"|"I")("m"|"M")("i"|"I")("n"|"N")("a"|"A")("r"|"R")"_"("c"|"C")("o"|"O")("m"|"M")("p"|"P")("o"|"O")("n"|"N")("e"|"E")("n"|"N")("t"|"T")("e"|"E")
+parametros_c = ("p"|"P")("a"|"A")("r"|"R")("a"|"A")("m"|"M")("e"|"E")("t"|"T")("r"|"R")("o"|"O")("s"|"S")"_"("c"|"C")("o"|"O")("m"|"M")("p"|"P")("o"|"O")("n"|"N")("e"|"E")("n"|"N")("t"|"T")("e"|"E")
 id           = ("i"|"I")("d"|"D")
 trivia       = ("t"|"T")("r"|"R")("i"|"I")("v"|"V")("i"|"I")("a"|"A")
 respuesta    = ("r"|"R")("e"|"E")("s"|"S")("p"|"P")("u"|"U")("e"|"E")("s"|"S")("t"|"T")("a"|"A")
@@ -82,7 +92,7 @@ columnas     = ("c"|"C")("o"|"O")("l"|"L")("u"|"U")("m"|"M")("n"|"N")("a"|"A")("
     }
 
     private Symbol symbol(int type, Object value){
-        System.out.println("Token reconocido: " + yytext());
+        System.out.println("Token con valor reconocido: " + yytext());
         return new Symbol(type, yyline +1, yycolumn + 1, value);
     }
 
@@ -97,8 +107,8 @@ columnas     = ("c"|"C")("o"|"O")("l"|"L")("u"|"U")("m"|"M")("n"|"N")("a"|"A")("
 
 /*  - - - - - - - - - - - - - - - - - REGLAS LEXICAS  - - - - - - - - - - - - - - - - - */
 
-{numero}          { return symbol(sym.NUMERO       , Integer.parseInt(yytext())); }
 {encabezado}      { return symbol(sym.ENCABEZADO); }
+{WhiteSpace}      { /* Ignorar */}
 
 {menque}          { return symbol(sym.MENQUE); }          
 {mayque}          { return symbol(sym.MAYQUE); }            
@@ -142,6 +152,8 @@ columnas     = ("c"|"C")("o"|"O")("l"|"L")("u"|"U")("m"|"M")("n"|"N")("a"|"A")("
 {modif_trivia}   { return symbol(sym.MODIF_TRIVIA); }
 
 {agregar_comp}   { return symbol(sym.AGREGAR_COMP); }
+{eliminar_com}   { return symbol(sym.ELIMINAR_COM); }
+{parametros_c}   { return symbol(sym.PARAMETROS_C); }
 {id}             { return symbol(sym.ID);           }  
 {trivia}         { return symbol(sym.TRIVIA);       }   
 {respuesta}      { return symbol(sym.RESPUESTA);    }    
@@ -152,8 +164,9 @@ columnas     = ("c"|"C")("o"|"O")("l"|"L")("u"|"U")("m"|"M")("n"|"N")("a"|"A")("
 {filas}          { return symbol(sym.FILAS);        } 
 {columnas}       { return symbol(sym.COLUMNAS);     }   
 
-{identificador}   { return symbol(sym.IDENTIFICADOR, yytext());                  }
+{identificador}   { return symbol(sym.IDENTIFICADOR, yytext());                   }
 {string}          { return symbol(sym.STRING, yytext());                          }
+{numero}          { return symbol(sym.NUMERO       , Integer.parseInt(yytext())); }
 
 
 [^]            { System.out.println("No se reconocio el lexema " + yytext() + " como un token valido y se ignoro.");
