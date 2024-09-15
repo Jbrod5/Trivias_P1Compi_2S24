@@ -17,7 +17,7 @@ public class Fichero extends Componente {
                 + "    \"TRIVIA\" : "        + id_trivia + ",     \n"
                 + "    \"CLASE\" : "         + "FICHERO,          \n"
                 + "    \"INDICE\" : "        + indice + ",        \n"
-                + "    \"TEXTO_VISIBLE\" : " + texto_visible + " \n"
+                + "    \"TEXTO_VISIBLE\" : " + texto_visible + "  \n"
                 + "}";
     }
 
