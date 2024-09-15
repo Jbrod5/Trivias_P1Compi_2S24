@@ -25,4 +25,32 @@ public class Usuario {
         this.password = password;
     }
 
+    public LinkedList<Trivia> getTrivias() {
+        return trivias;
+    }
+
+    public void setTrivias(LinkedList<Trivia> trivias) {
+        this.trivias = trivias;
+    }
+
+    public String getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(String id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
+    
+    
+
 }
