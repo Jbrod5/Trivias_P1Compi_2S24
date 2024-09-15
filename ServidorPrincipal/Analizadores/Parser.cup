@@ -61,7 +61,7 @@ terminal NUEVA_TRIVIA, PARAM_TRIVIA, ID_TRIVIA, TIEMPO_PREGU, TEMA;
 /* Modificar trivias */
 terminal CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, COMBO;
 
-terminal ELIMINAR_TRI, MODIF_TRIVIA, AGREGAR_COMP, ELIMINAR_COM, PARAMETROS_C, ID, TRIVIA, RESPUESTA, CLASE, TEXTO_VISIBL, OPCIONES, INDICE, FILAS, COLUMNAS;
+terminal ELIMINAR_TRI, MODIF_TRIVIA, AGREGAR_COMP, ELIMINAR_COM, MODIFICAR_CM, PARAMETROS_C, ID, TRIVIA, RESPUESTA, CLASE, TEXTO_VISIBL, OPCIONES, INDICE, FILAS, COLUMNAS;
 
 /* - - - - - - - - - - - - - - - - - - - - - - No terminales - - - - - - - - - - - - - - - - - - - - - - */
 non terminal inicio; 
@@ -164,8 +164,15 @@ eliminar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL ELIMINAR
 
 
 
-
+/* Hacer que los componentes devuelvan el componente creado y utilizarlo en base a lo que se necesite */
 agregar_componente_trivia ::=  MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL AGREGAR_COMP COMILL MAYQUE
+                LLAVOP COMILL PARAMETROS_C COMILL DOSPUN COROPN LLAVOP
+                componente_trivia:c
+                LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
+                resultado += "Agregar componente: " + c.toString() + " \n";
+            :};
+
+modificar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODIFICAR_CM COMILL MAYQUE
                 LLAVOP COMILL PARAMETROS_C COMILL DOSPUN COROPN LLAVOP
                 componente_trivia:c
                 LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
@@ -229,3 +236,4 @@ agregar_componente_trivia ::=  MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL AGREGAR_
                     COMILL RESPUESTA    COMILL DOSPUN COMILL id_st:rs         COMILL COMMA
                     COMILL OPCIONES     COMILL DOSPUN COMILL opciones:op      COMILL 
                     {: RESULT =  "Combo: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; :};
+

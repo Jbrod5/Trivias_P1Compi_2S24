@@ -74,6 +74,7 @@ modif_trivia = ("m"|"M")("o"|"O")("d"|"D")("i"|"I")("f"|"F")("i"|"I")("c"|"C")("
 
 agregar_comp = ("a"|"A")("g"|"G")("r"|"R")("e"|"E")("g"|"G")("a"|"A")("r"|"R")"_"("c"|"C")("o"|"O")("m"|"M")("p"|"P")("o"|"O")("n"|"N")("e"|"E")("n"|"N")("t"|"T")("e"|"E")
 eliminar_com = ("e"|"E")("l"|"L")("i"|"I")("m"|"M")("i"|"I")("n"|"N")("a"|"A")("r"|"R")"_"("c"|"C")("o"|"O")("m"|"M")("p"|"P")("o"|"O")("n"|"N")("e"|"E")("n"|"N")("t"|"T")("e"|"E")
+modificar_cm = ("m"|"M")("o"|"O")("d"|"D")("i"|"I")("f"|"F")("i"|"I")("c"|"C")("a"|"A")("r"|"R")"_"("c"|"C")("o"|"O")("m"|"M")("p"|"P")("o"|"O")("n"|"N")("e"|"E")("n"|"N")("t"|"T")("e"|"E")
 parametros_c = ("p"|"P")("a"|"A")("r"|"R")("a"|"A")("m"|"M")("e"|"E")("t"|"T")("r"|"R")("o"|"O")("s"|"S")"_"("c"|"C")("o"|"O")("m"|"M")("p"|"P")("o"|"O")("n"|"N")("e"|"E")("n"|"N")("t"|"T")("e"|"E")
 id           = ("i"|"I")("d"|"D")
 trivia       = ("t"|"T")("r"|"R")("i"|"I")("v"|"V")("i"|"I")("a"|"A")
@@ -162,6 +163,7 @@ combo       = ("c"|"C")("o"|"O")("m"|"M")("b"|"B")("o"|"O")
 
 {agregar_comp}   { return symbol(sym.AGREGAR_COMP); }
 {eliminar_com}   { return symbol(sym.ELIMINAR_COM); }
+{modificar_cm}   { return symbol(sym.MODIFICAR_CM); }
 {parametros_c}   { return symbol(sym.PARAMETROS_C); }
 {id}             { return symbol(sym.ID);           }  
 {trivia}         { return symbol(sym.TRIVIA);       }   

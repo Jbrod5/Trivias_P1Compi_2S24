@@ -1,3 +1,7 @@
+Lista de usuarios
+Lista de trivias
+Lista de puntuaciones
+
 Usuario: 
  - Lista de trivias
  - Usuario 
@@ -5,11 +9,28 @@ Usuario:
 
 Trivia: 
  - Id
+ - id_usuario
+ - fecha creacion
  - Puntuaciones: 
     diccionario con username -> punteo, tiempo total 
     (Puede que sea mejor manejar las puntuaciones en una lista general de puntuaciones en el servidord
     Guardar entonces: username, idtrivia, tiempo_total, punteo)
 
+   
+Componente: 
+- id_componente
+- id_trivia
+- clase
+- indice
+- Texto VIsible
+- respuesta
+
+
+puntuacion: 
+ID_TRIVIA
+id_usuario
+tiempo_total
+punteo total
 
 
 
