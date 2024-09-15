@@ -1,5 +1,5 @@
 
-package com.jbrod.servidorprincipal.Trivias;
+package com.jbrod.servidorprincipal.trivias;
 
 /**
  *

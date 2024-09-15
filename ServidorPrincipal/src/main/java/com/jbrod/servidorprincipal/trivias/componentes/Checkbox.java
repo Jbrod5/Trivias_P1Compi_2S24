@@ -1,5 +1,7 @@
 
-package com.jbrod.servidorprincipal.Trivias;
+package com.jbrod.servidorprincipal.trivias.componentes;
+
+import com.jbrod.servidorprincipal.trivias.Componente;
 
 /**
  *
