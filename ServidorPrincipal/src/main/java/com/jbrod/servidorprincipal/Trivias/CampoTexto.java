@@ -18,6 +18,7 @@ public class CampoTexto extends Componente{
                 + "    \"CLASE\" : "        + "CAMPO_TEXTO,       \n"
                 + "    \"INDICE\": "        + indice + ",         \n"
                 + "    \"TEXTO_VISIBLE\": " + texto_visible + ",  \n"
+                + "    \"RESPUESTA\": "     + respuesta + "       \n"
                 + "}";
                 
     }
