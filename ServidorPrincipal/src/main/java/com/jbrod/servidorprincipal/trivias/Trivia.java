@@ -85,6 +85,18 @@ public class Trivia {
     }
     
     
+    public String exportarTrivia(){
+        String trivia = "";
+        
+        for (Componente componente : componentes) {
+            if(componente != null){
+                trivia += componente.obtenerCodigo() + "\n";
+            }
+        }
+        
+        return trivia;
+    }
+    
     
     
 

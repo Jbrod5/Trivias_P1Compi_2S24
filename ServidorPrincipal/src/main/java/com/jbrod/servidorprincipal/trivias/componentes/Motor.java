@@ -152,5 +152,15 @@ public class Motor {
         return "No se pudo modificar el componente porque no se encontro la trivia con id " + idTrivia + ".";
     }
     
+    public String exportarTrivias(){
+        String exp = "";
+        for (Trivia trivia : trivias) {
+            if(trivia != null){
+                exp += trivia.exportarTrivia() + "\n";
+            }
+        }
+        return exp;
+    }
+    
     
 }
