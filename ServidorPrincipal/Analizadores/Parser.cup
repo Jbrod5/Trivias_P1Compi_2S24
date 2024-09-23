@@ -2,13 +2,19 @@ package com.jbrod.servidorprincipal.analizadores;
 import java_cup.runtime.*;
 import com.jbrod.servidorprincipal.trivias.componentes.Motor;
 
+import com.jbrod.servidorprincipal.trivias.Componente;
+import com.jbrod.servidorprincipal.trivias.Usuario;
+
+
 parser code{:
     
     public String resultado = "";
+    private Motor motor;
 
     // Conectar el parser al escaner
-    public Parser(Lexer lex){
+    public Parser(Lexer lex, Motor motor){
         super(lex);
+        this.motor = motor;
     }
 
     public void syntax_error(Symbol cur_token){
@@ -33,6 +39,10 @@ parser code{:
         }else{
             return "";
         }
+   }
+
+   private void imprimir(String st){
+        System.out.println(st + "\n\n\n\n");
    }
 
 :}
@@ -101,6 +111,8 @@ usuario_nuevo ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL USUARIO_NUEV COMILL M
             COMILL INSTITUCION COMILL DOSPUN COMILL id_st:in COMILL 
             LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
                 resultado += "Usuario nuevo: " +  id.toString() + " " + ps.toString() + " " + nm.toString() + " " + in.toString () + "\n";
+                Usuario usuario = new Usuario(secureString(id), secureString(ps), secureString(nm), secureString(in));
+                imprimir(motor.agregarUsuario(usuario));
             :};
 
 modificar_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODI_USUARIO COMILL MAYQUE
@@ -110,6 +122,7 @@ modificar_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODI_USUARIO COMI
                 COMILL NUEVO_PASSWO COMILL DOSPUN COMILL id_st:ps COMILL 
                 LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
                 resultado += "Modificar usuario: " + id.toString() + " " + nid.toString() + " " + ps.toString() + "\n";
+                imprimir( motor.modificarUsuario( secureString(id), secureString(nid), secureString(ps) ) );
             :};
 
 eliminar_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL ELIMINAR_USU COMILL MAYQUE
@@ -117,6 +130,7 @@ eliminar_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL ELIMINAR_USU COMIL
                 COMILL USUARIO COMILL DOSPUN COMILL IDENTIFICADOR:id COMILL
                 LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
                 resultado += "Eliminar usuario: " + id.toString() + " \n";
+                imprimir( motor.eliminarUsuario(secureString(id)) );
             :};
 
 login_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL LOGIN_USUARI COMILL MAYQUE
@@ -125,7 +139,10 @@ login_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL LOGIN_USUARI COMILL M
                 COMILL PASSWORD COMILL DOSPUN COMILL id_st:ps COMILL
                 LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
                 resultado += "Login: " + id.toString() + " " + ps.toString() + " \n";
+                imprimir( motor.loginUsuario(secureString(id), secureString(ps)) );
             :};
+
+            
 
 
 /* Trivias */

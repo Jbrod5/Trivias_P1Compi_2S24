@@ -54,7 +54,7 @@ public class ServidorPrincipal {
             
             StringReader sb = new StringReader(txt);
             Lexer lex = new Lexer(sb);
-            Parser parser = new Parser(lex);
+            Parser parser = new Parser(lex, motor);
             
             parser.parse();
             

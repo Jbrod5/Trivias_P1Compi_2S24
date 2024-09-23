@@ -1,0 +1,89 @@
+queda: 
+agregar componente
+modificar componente
+
+
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_soldado_presidente", 
+                "TRIVIA": "$trivia1", 
+                "RESPUESTA": "Jacobo Arbenz", 
+                "CLASE": "RADIO", 
+                "TEXTO_VISIBLE": "A quie se le conoce como el soldado del pueblo? ", 
+                "OPCIONES": "Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Otro" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+ 
+
+COMUNES
+ id
+ trivia1
+ respuesta
+ indice 
+ texto visible 
+
+ agregar opciones a flex
+
+CAMPO_TEXTO
+
+AREA_TEXTO
+  filas 
+  columnas 
+CHECKBOX
+  opciones
+
+RADIO
+  opciones
+
+FICHERO
+
+COMBO
+  opciones
+
+
+
+
+
+
+ESTRUCTURA DE GUARDADO: 
+
+new.trivia(
+
+ID_TRIVIA
+NOMBRE
+TEMA
+TIEMPO PREGUNTA
+USUARIO CREACION
+<COMPONENTE: id>{
+ 
+    parametro:valor,
+
+
+}
+
+<COMPONENTE: id>{
+    parametro:valor,
+
+}
+
+)
+
+
+LOS METODOS AGRGAR; MODIFICAR; ELIMINAR SERAN METODOS STRING
+SI NO SE ENCUENTRA UN ID REGRESAR ESE STRING; ETC
+
+QUEDA:
+ - Analizador de carga de archivos de guardado
+ - Sitio web :c
+ - Exportar las trivias / bases de datos
+ - Analizador de reportes :c
+ - Android: Todo basicamente
+
+
+
+
+ a usuario hay que agregarle la fecha de creacion :c
+ pueden haber multiples respuestas :c

@@ -7,6 +7,8 @@ package com.jbrod.servidorprincipal.analizadores;
 
 import java_cup.runtime.*;
 import com.jbrod.servidorprincipal.trivias.componentes.Motor;
+import com.jbrod.servidorprincipal.trivias.Componente;
+import com.jbrod.servidorprincipal.trivias.Usuario;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -551,10 +553,12 @@ public class Parser extends java_cup.runtime.lr_parser {
 
     
     public String resultado = "";
+    private Motor motor;
 
     // Conectar el parser al escaner
-    public Parser(Lexer lex){
+    public Parser(Lexer lex, Motor motor){
         super(lex);
+        this.motor = motor;
     }
 
     public void syntax_error(Symbol cur_token){
@@ -579,6 +583,10 @@ public class Parser extends java_cup.runtime.lr_parser {
         }else{
             return "";
         }
+   }
+
+   private void imprimir(String st){
+        System.out.println(st + "\n\n\n\n");
    }
 
 
@@ -780,6 +788,8 @@ class CUP$Parser$actions {
 		Object in = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
                 resultado += "Usuario nuevo: " +  id.toString() + " " + ps.toString() + " " + nm.toString() + " " + in.toString () + "\n";
+                Usuario usuario = new Usuario(secureString(id), secureString(ps), secureString(nm), secureString(in));
+                imprimir(motor.agregarUsuario(usuario));
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("usuario_nuevo",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-52)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -800,6 +810,7 @@ class CUP$Parser$actions {
 		Object ps = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
                 resultado += "Modificar usuario: " + id.toString() + " " + nid.toString() + " " + ps.toString() + "\n";
+                imprimir( motor.modificarUsuario( secureString(id), secureString(nid), secureString(ps) ) );
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("modificar_usuario",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-44)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -814,6 +825,7 @@ class CUP$Parser$actions {
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
                 resultado += "Eliminar usuario: " + id.toString() + " \n";
+                imprimir( motor.eliminarUsuario(secureString(id)) );
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("eliminar_usuario",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-28)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -831,6 +843,7 @@ class CUP$Parser$actions {
 		Object ps = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
                 resultado += "Login: " + id.toString() + " " + ps.toString() + " \n";
+                imprimir( motor.loginUsuario(secureString(id), secureString(ps)) );
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("login_usuario",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-36)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
