@@ -590,9 +590,14 @@ public class Parser extends java_cup.runtime.lr_parser {
    private int secureInt(Object o){
         String i = secureString(o);
         System.out.println("A convertir: " + i);
-        int n = Integer.parseInt(i);
-        System.out.println("Convertido: " + n);
-        return n;
+        try{
+            int n = Integer.parseInt(i);
+            System.out.println("Convertido: " + n);
+            return n;
+        }catch(NumberFormatException e){
+            System.out.println("Hubo un error al convertir un numero.");
+            return 10;
+        }
    }
 
    private void imprimir(String st){
