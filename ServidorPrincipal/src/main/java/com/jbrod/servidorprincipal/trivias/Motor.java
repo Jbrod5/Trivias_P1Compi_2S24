@@ -1,5 +1,5 @@
 
-package com.jbrod.servidorprincipal.trivias.componentes;
+package com.jbrod.servidorprincipal.trivias;
 
 import com.jbrod.servidorprincipal.trivias.Componente;
 import com.jbrod.servidorprincipal.trivias.Puntuacion;

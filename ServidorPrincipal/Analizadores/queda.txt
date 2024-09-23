@@ -86,4 +86,5 @@ QUEDA:
 
 
  a usuario hay que agregarle la fecha de creacion :c
- pueden haber multiples respuestas :c
+ OJO: pueden haber multiples respuestas.
+ a trivia hay que agregarle el usuario y la fecha de creacion

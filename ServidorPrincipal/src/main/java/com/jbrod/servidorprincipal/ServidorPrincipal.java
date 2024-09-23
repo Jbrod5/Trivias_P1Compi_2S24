@@ -3,7 +3,7 @@ package com.jbrod.servidorprincipal;
 
 import com.jbrod.servidorprincipal.analizadores.Lexer;
 import com.jbrod.servidorprincipal.analizadores.Parser;
-import com.jbrod.servidorprincipal.trivias.componentes.Motor;
+import com.jbrod.servidorprincipal.trivias.Motor;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

@@ -47,13 +47,22 @@
         ]} 
 <fin_solicitud_realizada!> 
 
+<!realizar_solicitud: "MODIFICAR_TRIVIA" > 
+      { "PARAMETROS_TRIVIA":[{ 
+                "ID_TRIVIA": "$trivia1", 
+                "TIEMPO_PREGUNTA": 30, 
+                "NOMBRE": "Comidas tipicas de Guatemala ", 
+                "TEMA": "Cultura" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
 <!realizar_solicitud: "ELIMINAR_TRIVIA" > 
        { "PARAMETROS_TRIVIA":[{ 
                 "ID_TRIVIA": "$trivia1" 
         } 
         ]} 
 <fin_solicitud_realizada!> 
-
 
 
 

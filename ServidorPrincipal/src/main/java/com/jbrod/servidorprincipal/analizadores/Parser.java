@@ -6,9 +6,11 @@
 package com.jbrod.servidorprincipal.analizadores;
 
 import java_cup.runtime.*;
-import com.jbrod.servidorprincipal.trivias.componentes.Motor;
+import com.jbrod.servidorprincipal.trivias.Motor;
 import com.jbrod.servidorprincipal.trivias.Componente;
 import com.jbrod.servidorprincipal.trivias.Usuario;
+import com.jbrod.servidorprincipal.trivias.Trivia;
+import com.jbrod.servidorprincipal.trivias.componentes.*;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -585,6 +587,14 @@ public class Parser extends java_cup.runtime.lr_parser {
         }
    }
 
+   private int secureInt(Object o){
+        String i = secureString(o);
+        System.out.println("A convertir: " + i);
+        int n = Integer.parseInt(i);
+        System.out.println("Convertido: " + n);
+        return n;
+   }
+
    private void imprimir(String st){
         System.out.println(st + "\n\n\n\n");
    }
@@ -867,6 +877,16 @@ class CUP$Parser$actions {
 		Object tm = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
                 resultado += "Nueva trivia: " + id.toString() + " " + tp.toString()+ " " + nm.toString() + " " + tm.toString() + " \n";
+                Trivia trivia = new Trivia(
+                    secureString(id),
+                    secureString(nm),
+                    secureString(tm),
+                    "Falta agregar usuario",
+                    "Falta agregar fecha", 
+                    secureInt(tp)
+
+                );
+                imprimir( motor.agregarTrivia(trivia) );
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("nueva_trivia",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-50)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -881,6 +901,7 @@ class CUP$Parser$actions {
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
                 resultado += "Eliminar trivia: " + id.toString() + " \n";
+                imprimir( motor.eliminarTrivia(secureString(id)) );
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("eliminar_trivia",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-28)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -904,6 +925,12 @@ class CUP$Parser$actions {
 		Object tm = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
                 resultado += "Modificar trivia: " + id.toString() + " " + tp.toString()+ " " + nm.toString() + " " + tm.toString() + " \n";
+                imprimir( motor.modificarParametrosTrivia(
+                    secureString(id),
+                    secureInt(tp),
+                    secureString(nm),
+                    secureString(tm)
+                ) );
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("modificar_parametros_trivia",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-50)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -921,6 +948,9 @@ class CUP$Parser$actions {
 		Object tr = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
                 resultado += "Eliminar componente: " + cm.toString() + " " + tr.toString() + " \n";
+                imprimir(
+                    motor.eliminarComponenteTrivia(secureString(tr), secureString(cm))
+                );
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("eliminar_componente_trivia",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-36)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -934,7 +964,9 @@ class CUP$Parser$actions {
 		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
 		 
-                resultado += "Agregar componente: " + c.toString() + " \n";
+                //resultado += "Agregar componente: " + c.toString() + " \n";
+                imprimir(motor.agregarComponenteTrivia(((Componente)c).getId_trivia(), ((Componente)c)));
+
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("agregar_componente_trivia",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-22)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -948,7 +980,8 @@ class CUP$Parser$actions {
 		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
 		 
-                resultado += "Agregar componente: " + c.toString() + " \n";
+                //resultado += "Agregar componente: " + c.toString() + " \n";
+                imprimir(motor.modificarComponenteTrivia(((Componente)c).getId_trivia(), ((Componente)c)));
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("modificar_componente_trivia",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-22)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1084,7 +1117,17 @@ class CUP$Parser$actions {
 		int rsleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int rsright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object rs = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT =  "Campo de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) + "\n"; 
+		 
+                        resultado +=  "COMPONENTE: Campo de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) + "\n"; 
+                        CampoTexto campo = new CampoTexto(
+                            secureString(id),
+                            secureString(tv),
+                            secureInt(in),
+                            secureString(tx),
+                            secureString(rs)
+                        );
+                        RESULT = campo;
+                    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("campo_texto",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-44)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1114,7 +1157,20 @@ class CUP$Parser$actions {
 		int clleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int clright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object cl = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT =  "Area de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + secureString(fl)+ " " + secureString(cl) + "\n"; 
+		 
+                        resultado +=  "COMPONENTE: Area de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + secureString(fl)+ " " + secureString(cl) + "\n"; 
+                        AreaTexto area = new AreaTexto(
+                            secureInt(fl),
+                            secureInt(cl),
+
+                            secureString(id),
+                            secureString(tv),
+                            secureInt(in),
+                            secureString(tx),
+                            secureString(rs)
+                        );
+                        RESULT = area;
+                    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("area_texto",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-56)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1141,7 +1197,19 @@ class CUP$Parser$actions {
 		int opleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT =  "Checkbox: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+		 
+                        resultado +=  "COMPONENTE: Checkbox: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                        Checkbox checkbox = new Checkbox(
+                            secureString(op),
+                            secureString(id),
+                            secureString(tv),
+
+                            secureInt(in),
+                            secureString(tx),
+                            secureString(rs)
+                        );
+                        RESULT = checkbox;
+                    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("checkbox",20, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-52)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1168,7 +1236,19 @@ class CUP$Parser$actions {
 		int opleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT =  "Radio: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+		 
+                        resultado +=  "COMPONENTE: Radio: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                        Radio radio = new Radio(
+                            secureString(op),
+                            secureString(id),
+                            secureString(tv),
+
+                            secureInt(in),
+                            secureString(tx),
+                            secureString(rs)
+                        );
+                        RESULT = radio; 
+                    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("radio",21, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-52)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1189,7 +1269,17 @@ class CUP$Parser$actions {
 		int txleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int txright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object tx = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT =  "Fichero: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx) + "\n"; 
+		 
+                        resultado +=  "Fichero: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx) + "\n"; 
+                        Fichero fichero = new Fichero(
+                            secureString(id),
+                            secureString(tv),
+
+                            secureInt(in),
+                            secureString(tx)
+                        );
+                        RESULT = fichero;
+                    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("fichero",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-36)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1216,7 +1306,19 @@ class CUP$Parser$actions {
 		int opleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT =  "Combo: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+		 
+                        resultado +=  "Combo: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                        Combo combo = new Combo(
+                            secureString(op),
+                            secureString(id),
+                            secureString(tv),
+
+                            secureInt(in),
+                            secureString(tx),
+                            secureString(rs)
+                        );
+                        RESULT = combo;
+                    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("combo",23, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-52)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
