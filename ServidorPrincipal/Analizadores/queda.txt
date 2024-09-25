@@ -77,7 +77,7 @@ SI NO SE ENCUENTRA UN ID REGRESAR ESE STRING; ETC
 
 QUEDA:
  - Analizador de carga de archivos de guardado
- - Sitio web :c
+ - Sitio web :c 
  - Exportar las trivias / bases de datos
  - Analizador de reportes :c
  - Android: Todo basicamente
@@ -88,3 +88,10 @@ QUEDA:
  a usuario hay que agregarle la fecha de creacion :c
  OJO: pueden haber multiples respuestas.
  a trivia hay que agregarle el usuario y la fecha de creacion
+
+ Al exportar trivias, verificar que todos los elementos se estén exportando
+
+ CREAR UNA INTERFAZ SIMPLE PARA PODER USAR HILOS
+ LAS RESPUESTAS TIENEN UN FORMATO ESTABLECIDO!!!!
+
+ SOLO LAS ETIQUETAS XML NO SON CASE SENSITIVE, LOS PARAMETROS SI LO SON

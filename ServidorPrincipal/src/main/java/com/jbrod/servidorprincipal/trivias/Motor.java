@@ -70,7 +70,7 @@ public class Motor {
         for (Usuario usuario : usuarios) {
             if(id.equals(usuario.getId_usuario())){
                 if(password.equals(usuario.getPassword())){
-                    return "Inicio de sesion aprovado.";
+                    return "Inicio de sesion aprobado.";
                 }else{
                     return "Contrasena incorrecta.";
                 }

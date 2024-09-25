@@ -555,7 +555,10 @@ public class Parser extends java_cup.runtime.lr_parser {
 
     
     public String resultado = "";
+    public String usuarioSesionAprobada = "";
     private Motor motor;
+
+    public boolean sesionEvaluada = false;
 
     // Conectar el parser al escaner
     public Parser(Lexer lex, Motor motor){
@@ -857,8 +860,19 @@ class CUP$Parser$actions {
 		int psright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).right;
 		Object ps = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
-                resultado += "Login: " + id.toString() + " " + ps.toString() + " \n";
-                imprimir( motor.loginUsuario(secureString(id), secureString(ps)) );
+                resultado += "Login: " + id.toString() + " " + ps.toString();
+                sesionEvaluada = true;
+                String sesion = motor.loginUsuario(secureString(id), secureString(ps));
+                imprimir( sesion );
+                if(sesion.equals("No se encontro el usuario especificado") || sesion.equals("Contrasena incorrecta.")){
+                    System.out.println("Inicio de sesion denegado.");
+                    usuarioSesionAprobada = "";
+                    resultado += " Inicio de sesion denegado\n";
+                }else{
+                    System.out.println("Inicio de sesion aprobado.");
+                    resultado += " Inicio de sesion aprobado\n";
+                    usuarioSesionAprobada = secureString(id);
+                }
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("login_usuario",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-36)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

@@ -12,7 +12,10 @@ import com.jbrod.servidorprincipal.trivias.componentes.*;
 parser code{:
     
     public String resultado = "";
+    public String usuarioSesionAprobada = "";
     private Motor motor;
+
+    public boolean sesionEvaluada = false;
 
     // Conectar el parser al escaner
     public Parser(Lexer lex, Motor motor){
@@ -154,8 +157,19 @@ login_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL LOGIN_USUARI COMILL M
                        COMILL USUARIO COMILL       DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA
                        COMILL PASSWORD      COMILL DOSPUN COMILL id_st:ps COMILL
                 LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
-                resultado += "Login: " + id.toString() + " " + ps.toString() + " \n";
-                imprimir( motor.loginUsuario(secureString(id), secureString(ps)) );
+                resultado += "Login: " + id.toString() + " " + ps.toString();
+                sesionEvaluada = true;
+                String sesion = motor.loginUsuario(secureString(id), secureString(ps));
+                imprimir( sesion );
+                if(sesion.equals("No se encontro el usuario especificado") || sesion.equals("Contrasena incorrecta.")){
+                    System.out.println("Inicio de sesion denegado.");
+                    usuarioSesionAprobada = "";
+                    resultado += " Inicio de sesion denegado\n";
+                }else{
+                    System.out.println("Inicio de sesion aprobado.");
+                    resultado += " Inicio de sesion aprobado\n";
+                    usuarioSesionAprobada = secureString(id);
+                }
             :};
 
 

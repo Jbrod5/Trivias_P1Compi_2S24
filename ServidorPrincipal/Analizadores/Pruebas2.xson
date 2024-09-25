@@ -8,6 +8,35 @@
     ]} 
 <fin_solicitud_realizada!> 
 
+<!realizar_solicitud: "MODIFICAR_USUARIO" > 
+     { "DATOS_USUARIO":[{ 
+        "USUARIO_ANTIGUO": "juanito619", 
+        "USUARIO_NUEVO": "juanito619lopez", 
+        "NUEVO_PASSWORD": "12345678910" 
+    } 
+    ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "ELIMINAR_USUARIO" > 
+  { "DATOS_USUARIO":[{ 
+        "USUARIO": "juanito619lopez" 
+    } 
+    ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "LOGIN_USUARIO" > 
+    { "DATOS_USUARIO":[{ 
+        "USUARIO": "juanito619", 
+        "PASSWORD": "12345678" 
+    } 
+    ]} 
+<fin_solicitud_realizada!>
+
+
+
+
+
+
 <!realizar_solicitud: " NUEVA_TRIVIA" > 
        { "PARAMETROS_TRIVIA":[{ 
                 "ID_TRIVIA": "$trivia1", 
@@ -28,7 +57,12 @@
         ]} 
 <fin_solicitud_realizada!> 
 
-
+<!realizar_solicitud: "ELIMINAR_TRIVIA" > 
+       { "PARAMETROS_TRIVIA":[{ 
+                "ID_TRIVIA": "$trivia1" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
 
 
 
@@ -47,7 +81,7 @@
 
 <!realizar_solicitud: "AGREGAR_COMPONENTE" > 
 { "PARAMETROS_COMPONENTE":[{ 
-          "ID": "$_text_nombre_autores", 
+          "ID": "$_text_nombre_autor", 
           "TRIVIA": "$trivia1", 
           "CLASE": "AREA_TEXTO",
           "INDICE": 2,
@@ -74,7 +108,7 @@
 
 <!realizar_solicitud: "AGREGAR_COMPONENTE" > 
       { "PARAMETROS_COMPONENTE":[{ 
-                "ID": "$_soldado_presidentes", 
+                "ID": "$_soldado_presidente", 
                 "TRIVIA": "$trivia1", 
                 "CLASE": "RADIO", 
                 "INDICE" : 5, 
@@ -87,7 +121,7 @@
 
 <!realizar_solicitud: "AGREGAR_COMPONENTE" > 
       { "PARAMETROS_COMPONENTE":[{ 
-                "ID": "$_soldado_presidentez", 
+                "ID": "$_soldado_presidente", 
                 "TRIVIA": "$trivia1", 
                 "CLASE": "FICHERO", 
                 "INDICE" : 5, 
@@ -98,7 +132,7 @@
 
 <!realizar_solicitud: "AGREGAR_COMPONENTE" > 
       { "PARAMETROS_COMPONENTE":[{ 
-                "ID": "$_soldado_presidentex", 
+                "ID": "$_soldado_presidente", 
                 "TRIVIA": "$trivia1", 
                 "CLASE": "Combo", 
                 "INDICE" : 5, 
@@ -111,7 +145,7 @@
 
 <!realizar_solicitud: "MODIFICAR_COMPONENTE" > 
       { "PARAMETROS_COMPONENTE":[{ 
-                "ID": "$_soldado_presidentef", 
+                "ID": "$_soldado_presidente", 
                 "TRIVIA": "$trivia1", 
                 "CLASE": "CHECKBOX", 
                 "INDICE": 1, 
@@ -122,4 +156,11 @@
         ]} 
 <fin_solicitud_realizada!> 
 
+<!realizar_solicitud: "ELIMINAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_soldado_presidente", 
+                "TRIVIA": "$trivia1" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
 
