@@ -56,7 +56,7 @@ public class Trivia {
         if(componente != null){
             String nm = componente.getId_componente();
             for (Componente c : componentes) {
-                if(nm.equals(c.getId_trivia())){
+                if(nm.equals(c.getId_componente())){
                     return "No se puede agregar el componente " + nm + " en " + id_trivia + " porque ya existe un componente con ese id.";
                 }
             }

@@ -16,7 +16,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor de Código Simulado</title>
+    <title>Solicitudes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         #editor-container {
@@ -53,17 +53,18 @@
         }
     </style>
 </head>
+<h1 class="text-center" style="font-size: 22px; padding: 10px;" >Logueado como: <%= session.getAttribute("logueado") != null ? session.getAttribute("logueado") : "" %></h1>
 <body>
     <form action="SvSolicitud" method="POST">
     <div class="container mt-4">
         <div class="d-flex">
             <div id="editor-container" class="d-flex flex-grow-1">
                 <pre id="line-numbers"></pre>
-                <textarea name="codigo" id="code-area" class="form-control" rows="20">
-                <%= request.getAttribute("codigo") != null ? request.getAttribute("codigo") : "" %>
+                <textarea name="codigo" id="code-area" class="form-control" rows="20" placeholder="Codigo a procesar">
+                <%= session.getAttribute("codigo") != null ? session.getAttribute("codigo") : "" %>
                 </textarea>
             </div>
-            <textarea name="respueta" id="right-box" class="form-control ms-3">
+            <textarea name="respueta" id="right-box" class="form-control ms-3" placeholder="Respuesta del servidor">
                 <%= request.getAttribute("respuesta") != null ? request.getAttribute("respuesta") : "" %>
             </textarea>
         </div>

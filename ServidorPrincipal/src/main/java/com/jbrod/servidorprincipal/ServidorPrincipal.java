@@ -38,18 +38,20 @@ public class ServidorPrincipal {
         ServerSocket serverSocket; 
         Socket clientSocket; 
         DataInputStream in; 
-        DataOutputStream out; 
+        DataOutputStream out = null; 
     
         final int PUERTO = 6000;
 
         ui.setVisible(true);
         //HiloAnalizadorPrincipal hiloAnalizadorPrincipal = new HiloAnalizadorPrincipal(motor, ui);
-            
-        
+
+        Parser parser = null;
+        Lexer lex;
+        int contador = 0;
+        while(true){
         try {
             
-            int contador = 0;
-            while(true){
+
                 serverSocket = new ServerSocket(PUERTO); 
                 contador++;
                 System.out.println("Contador: " + contador);
@@ -63,8 +65,8 @@ public class ServidorPrincipal {
                 
                 /* Analizando la entrada */
                 StringReader sb = new StringReader(entrada);
-                Lexer lex = new Lexer(sb);
-                Parser parser = new Parser(lex, motor);
+                lex = new Lexer(sb);
+                parser = new Parser(lex, motor);
                 parser.parse();
                 
                 
@@ -83,12 +85,19 @@ public class ServidorPrincipal {
                 serverSocket.close();
                 ui.addLog("Hilo analizador principal: Cliente desconectado");
                
-            }
+           
             
         } catch (Exception e) {
             e.printStackTrace();
+            if(parser != null){
+                try {
+                    out.writeUTF(parser.resultado);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServidorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-            
+             }
             
     }
     
