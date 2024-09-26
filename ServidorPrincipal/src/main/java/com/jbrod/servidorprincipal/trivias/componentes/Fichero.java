@@ -15,12 +15,12 @@ public class Fichero extends Componente {
 
     @Override
     public String obtenerCodigo() {
-        return    "<CAMPO_TEXTO: "           + id_componente + ">{\n"
-                + "    \"TRIVIA\" : "        + id_trivia + ",     \n"
-                + "    \"CLASE\" : "         + "FICHERO,          \n"
-                + "    \"INDICE\" : "        + indice + ",        \n"
-                + "    \"TEXTO_VISIBLE\" : " + texto_visible + "  \n"
-                + "}";
+        return    "    <CAMPO_TEXTO: "           + id_componente + ">{\n"
+                + "        \"TRIVIA\" : "        + id_trivia + ",     \n"
+                + "        \"CLASE\" : "         + "FICHERO,          \n"
+                + "        \"INDICE\" : "        + indice + ",        \n"
+                + "        \"TEXTO_VISIBLE\" : " + texto_visible + "  \n"
+                +"     }";
     }
 
     

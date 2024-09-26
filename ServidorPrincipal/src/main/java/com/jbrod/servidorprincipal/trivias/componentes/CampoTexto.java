@@ -15,13 +15,13 @@ public class CampoTexto extends Componente{
 
     @Override
     public String obtenerCodigo() {
-        return    "<CAMPO_TEXTO: "          + id_componente + ">{ \n"
-                + "    \"TRIVIA\": "        + id_trivia + ",      \n"
-                + "    \"CLASE\" : "        + "CAMPO_TEXTO,       \n"
-                + "    \"INDICE\": "        + indice + ",         \n"
-                + "    \"TEXTO_VISIBLE\": " + texto_visible + ",  \n"
-                + "    \"RESPUESTA\": "     + respuesta + "       \n"
-                + "}";
+        return    "    <CAMPO_TEXTO: "          + id_componente + ">{ \n"
+                + "        \"TRIVIA\": "        + id_trivia + ",      \n"
+                + "        \"CLASE\" : "        + "CAMPO_TEXTO,       \n"
+                + "        \"INDICE\": "        + indice + ",         \n"
+                + "        \"TEXTO_VISIBLE\": " + texto_visible + ",  \n"
+                + "        \"RESPUESTA\": "     + respuesta + "       \n"
+                + "    }";
                 
     }
 

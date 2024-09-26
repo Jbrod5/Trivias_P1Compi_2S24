@@ -86,7 +86,14 @@ public class Trivia {
     
     
     public String exportarTrivia(){
-        String trivia = "";
+        String trivia = "trivia(\n";
+            trivia += "    \"ID_TRIVIA\" : " + id_trivia       + "\n";
+            trivia += "    \"NOMBRE\"    : " + nombre          + "\n";
+            trivia += "    \"CREADOR\"   : " + usuario_creador + "\n";
+            trivia += "    \"FECHA\"     : " + fecha_creacion  + "\n";
+            trivia += "    \"TIEMPO\"    : " + tiempoPregunta  + "\n";
+            trivia += "    \"TEMA\"      : " + tema            + "\n";
+            trivia += "\n";
         
         for (Componente componente : componentes) {
             if(componente != null){
@@ -94,7 +101,9 @@ public class Trivia {
             }
         }
         
+        trivia += ")";
         return trivia;
+        
     }
     
     

@@ -19,17 +19,22 @@ public class AreaTexto extends Componente{
 
     @Override
     public String obtenerCodigo() {
-        return    "<CAMPO_TEXTO: "           + id_componente + ">{\n"
-                + "    \"TRIVIA\" : "        + id_trivia + ",     \n"
-                + "    \"CLASE\" : "         + "AREA_TEXTO,       \n"
-                + "    \"INDICE\" : "        + indice + ",        \n"
-                + "    \"TEXTO_VISIBLE\" : " + texto_visible + ", \n"
-                + "    \"RESPUESTA\" :"      + respuesta + ",     \n"
-                + "    \"FILAS\" : "         + filas + ",         \n"
-                + "    \"COLUMNAS\" : "      + columnas + "       \n"
-                + "}";
+        return    "    <CAMPO_TEXTO: "           + id_componente + ">{\n"
+                + "        \"TRIVIA\" : "        + id_trivia + ",     \n"
+                + "        \"CLASE\" : "         + "AREA_TEXTO,       \n"
+                + "        \"INDICE\" : "        + indice + ",        \n"
+                + "        \"TEXTO_VISIBLE\" : " + texto_visible + ", \n"
+                + "        \"RESPUESTA\" :"      + respuesta + ",     \n"
+                + "        \"FILAS\" : "         + filas + ",         \n"
+                + "        \"COLUMNAS\" : "      + columnas + "       \n"
+                + "    }";
     }
 
+    public String getCodeAsResponse(){
+        String respuesta = "";
+        
+        return respuesta;
+    }
     
     
     

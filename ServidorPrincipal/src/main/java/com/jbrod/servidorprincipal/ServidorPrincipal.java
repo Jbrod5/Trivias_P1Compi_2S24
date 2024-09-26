@@ -1,4 +1,3 @@
-
 package com.jbrod.servidorprincipal;
 
 import com.jbrod.servidorprincipal.analizadores.Lexer;
@@ -27,19 +26,17 @@ import java.util.logging.Logger;
  * @author jorge
  */
 public class ServidorPrincipal {
-    
 
-    
     public static void main(String[] args) {
-        
-        Motor motor = new Motor(); 
+
+        Motor motor = new Motor();
         UI ui = new UI();
 
-        ServerSocket serverSocket; 
-        Socket clientSocket; 
-        DataInputStream in; 
-        DataOutputStream out = null; 
-    
+        ServerSocket serverSocket;
+        Socket clientSocket;
+        DataInputStream in;
+        DataOutputStream out = null;
+
         final int PUERTO = 6000;
 
         ui.setVisible(true);
@@ -48,57 +45,64 @@ public class ServidorPrincipal {
         Parser parser = null;
         Lexer lex;
         int contador = 0;
-        while(true){
-        try {
-            
+        while (true) {
+            try {
 
-                serverSocket = new ServerSocket(PUERTO); 
+                serverSocket = new ServerSocket(PUERTO);
                 contador++;
                 System.out.println("Contador: " + contador);
                 clientSocket = serverSocket.accept();
                 in = new DataInputStream(clientSocket.getInputStream());
                 out = new DataOutputStream(clientSocket.getOutputStream());
-                
+
                 String entrada = in.readUTF();
-                ui.addLog(" - - - - - - - - - - - - - - - - Hilo analizador principal: - - - - - - - - - - - - - - - - - - - -");
-                ui.addLog("Entrada:\n" + entrada + "\n");
-                
-                /* Analizando la entrada */
-                StringReader sb = new StringReader(entrada);
-                lex = new Lexer(sb);
-                parser = new Parser(lex, motor);
-                parser.parse();
-                
-                
-                //Si se aprobo un inicio de sesion solo enviar eso
-                if(parser.sesionEvaluada){
-                    if(parser.usuarioSesionAprobada.length() > 0){
-                        out.writeUTF(parser.usuarioSesionAprobada);
-                    }else{
-                        out.writeUTF("");
-                    }
-                }else{
-                    out.writeUTF(parser.resultado);
+                switch (entrada) {
+                    //Exportar las trivias a quien lo solicite
+                    case "OBTENER_TRIVIAS":
+                        out.writeUTF(motor.exportarTrivias());
+                        serverSocket.close();
+                        break;
+                        
+                        
+                    default:
+                        ui.addLog(" - - - - - - - - - - - - - - - - Hilo analizador principal: - - - - - - - - - - - - - - - - - - - -");
+                        ui.addLog("Entrada:\n" + entrada + "\n");
+
+                        /* Analizando la entrada */
+                        StringReader sb = new StringReader(entrada);
+                        lex = new Lexer(sb);
+                        parser = new Parser(lex, motor);
+                        parser.parse();
+
+                        //Si se aprobo un inicio de sesion solo enviar eso
+                        if (parser.sesionEvaluada) {
+                            if (parser.usuarioSesionAprobada.length() > 0) {
+                                out.writeUTF(parser.usuarioSesionAprobada);
+                            } else {
+                                out.writeUTF("");
+                            }
+                        } else {
+                            out.writeUTF(parser.resultado);
+                        }
+
+                        ui.addLog("Resultado: \n" + parser.resultado);
+                        serverSocket.close();
+                        ui.addLog("Hilo analizador principal: Cliente desconectado");
+
                 }
-                
-                ui.addLog("Resultado: \n" + parser.resultado);
-                serverSocket.close();
-                ui.addLog("Hilo analizador principal: Cliente desconectado");
-               
-           
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            if(parser != null){
-                try {
-                    out.writeUTF(parser.resultado);
-                } catch (IOException ex) {
-                    Logger.getLogger(ServidorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (parser != null) {
+                    try {
+                        out.writeUTF(parser.resultado);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ServidorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
-             }
-            
+
     }
-    
+
 }
