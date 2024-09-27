@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppTrivias"
         tools:targetApi="31">
+
         <activity
             android:name=".ConsultarTrivias"
             android:exported="false" />

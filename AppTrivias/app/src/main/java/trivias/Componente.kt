@@ -10,7 +10,4 @@ abstract class Componente(
 
 
 
-
-
-
 }

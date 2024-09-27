@@ -1,5 +1,6 @@
 package com.jbrod.apptrivias.analizadores;
 import java_cup.runtime.*;
+import trivias.*;    
 
 parser code{:
     
@@ -115,7 +116,9 @@ campo_t  ::= MENQUE CAMPO_T DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
                     COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
                     COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
                     COMILL PARAM_RES COMILL DOSPUN respuesta:rs      
-                LLAVCL;
+                LLAVCL{:
+                    RESULT = new CampoTexto(secureString(id), secureString(tri), secureInt(in), secureString(tx), secureString(rs));
+                :};
 
 area_te  ::= MENQUE AREA_TE DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
                     COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tri COMMA             
@@ -124,7 +127,9 @@ area_te  ::= MENQUE AREA_TE DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
                     COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
                     COMILL PARAM_FIL COMILL DOSPUN id_st:fl          COMMA
                     COMILL PARAM_COL COMILL DOSPUN id_st:cl                    
-                LLAVCL;
+                LLAVCL{:
+                        RESULT = new AreaTexto(secureString(id), secureString(tri), secureInt(in), secureString(tx), secureString(rs), secureInt(fl), secureInt(cl)); 
+                    :};
 
 checkbo  ::= MENQUE CHECKBO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
                     COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tri COMMA             
@@ -132,7 +137,9 @@ checkbo  ::= MENQUE CHECKBO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
                     COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
                     COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
                     COMILL PARAM_OPC COMILL DOSPUN opciones:op       
-                LLAVCL;
+                LLAVCL{:
+                        RESULT = new Checkbox(secureString(id), secureString(tri), secureInt(in), secureString(tx), secureString(rs), secureString(op));
+                    :};
 
 radio    ::= MENQUE RADIO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
                     COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tri COMMA             
@@ -140,13 +147,17 @@ radio    ::= MENQUE RADIO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
                     COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
                     COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
                     COMILL PARAM_OPC COMILL DOSPUN opciones:op       
-                LLAVCL;
+                LLAVCL{:
+                        RESULT = new Radio(secureString(id), secureString(tri), secureInt(in), secureString(tx), secureString(rs), secureString(op));
+                    :};
                 
 fichero  ::= MENQUE FICHERO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
                     COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tri COMMA             
                     COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
                     COMILL PARAM_TEX COMILL DOSPUN id_st:tx          
-                LLAVCL;
+                LLAVCL{:
+                        RESULT = new Fichero(secureString(id), secureString(tri), secureInt(in), secureString(tx),"sin respuesta");
+                    :};
             
 combo    ::= MENQUE COMBO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
                     COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tri COMMA             
@@ -154,7 +165,9 @@ combo    ::= MENQUE COMBO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
                     COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
                     COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
                     COMILL PARAM_OPC COMILL DOSPUN opciones:op       
-                LLAVCL;
+                LLAVCL{:
+                        RESULT = new Combo(secureString(id), secureString(tri), secureInt(in), secureString(tx), secureString(rs), secureString(op));
+                    :};
 
 
 

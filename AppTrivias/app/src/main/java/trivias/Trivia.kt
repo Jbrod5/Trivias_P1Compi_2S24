@@ -26,7 +26,9 @@ class Trivia(
 
 
 
-
+    fun agregarComponente(c:Componente){
+        componentes.add(c)
+    }
 
 
 
