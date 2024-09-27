@@ -19,13 +19,13 @@ public class Combo extends Componente {
     
     @Override
     public String obtenerCodigo() {
-        return    "    <CAMPO_TEXTO: "           + id_componente + ">{\n"
+        return    "    <COMBO: "           + id_componente + ">{\n"
                 + "        \"TRIVIA\" : "        + id_trivia + ",     \n"
-                + "        \"CLASE\" : "         + "COMBO,            \n"
+                //+ "        \"CLASE\" : "         + "COMBO,            \n"
                 + "        \"INDICE\" : "        + indice + ",        \n"
-                + "        \"TEXTO_VISIBLE\" : " + texto_visible + ", \n"
-                + "        \"RESPUESTA\" :"      + respuesta + ",     \n"
-                + "        \"OPCIONES\" : "      + opciones + "       \n"
+                + "        \"TEXTO_VISIBLE\" : " + texto_visible.replace(":", "") + ", \n"
+                + "        \"RESPUESTA\" :"      + respuesta.replace(":", "") + ",     \n"
+                + "        \"OPCIONES\" : "      + opciones.replace(":", "") + "       \n"
                 + "    }";
     }    
     

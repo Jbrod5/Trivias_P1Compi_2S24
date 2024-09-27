@@ -18,13 +18,13 @@ public class Checkbox extends Componente{
 
     @Override
     public String obtenerCodigo() {
-            return"    <CAMPO_TEXTO : "       + id_componente + ">{   \n"
+            return"    <CHECK-BOX: "       + id_componente + ">{   \n"
                 + "        \"TRIVIA\" : "        + id_trivia + ",     \n"
-                + "        \"CLASE\" : "         + "CHECKBOX,         \n"
+                //+ "        \"CLASE\" : "         + "CHECKBOX,         \n"
                 + "        \"INDICE\" : "        + indice + ",        \n"
-                + "        \"TEXTO_VISIBLE\" : " + texto_visible + ", \n"
-                + "        \"RESPUESTA\" :"      + respuesta + ",     \n"
-                + "        \"OPCIONES\" : "      + opciones + "       \n"
+                + "        \"TEXTO_VISIBLE\" : " + texto_visible.replace(":", "") + ", \n"
+                + "        \"RESPUESTA\" :"      + respuesta.replace(":", "") + ",     \n"
+                + "        \"OPCIONES\" : "      + opciones.replace(":", "") + "       \n"
                 + "    }";
     }
 

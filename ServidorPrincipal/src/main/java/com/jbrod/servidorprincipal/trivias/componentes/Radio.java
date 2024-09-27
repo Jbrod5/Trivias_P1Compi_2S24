@@ -18,13 +18,13 @@ public class Radio extends Componente{
 
     @Override
     public String obtenerCodigo() {
-        return    "    <CAMPO_TEXTO: "           + id_componente + ">{\n"
+        return    "    <RADIO: "           + id_componente + ">{\n"
                 + "        \"TRIVIA\" : "        + id_trivia + ",     \n"
-                + "        \"CLASE\" : "         + "RADIO,            \n"
+                //+ "        \"CLASE\" : "         + "RADIO,            \n"
                 + "        \"INDICE\" : "        + indice + ",        \n"
-                + "        \"TEXTO_VISIBLE\" : " + texto_visible + ", \n"
-                + "        \"RESPUESTA\" :"      + respuesta + ",     \n"
-                + "        \"OPCIONES\" : "      + opciones + "       \n"
+                + "        \"TEXTO_VISIBLE\" : " + texto_visible.replace(":", "") + ", \n"
+                + "        \"RESPUESTA\" :"      + respuesta.replace(":", "") + ",     \n"
+                + "        \"OPCIONES\" : "      + opciones.replace(":", "") + "       \n"
                 + "    }";
     }
 

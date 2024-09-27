@@ -16,6 +16,7 @@ class Trivia(
 
     protected var componentes: LinkedList<Componente>
 
+
     // Puedes agregar un bloque init si necesitas realizar alguna acción al crear la instancia
     init {
         println("Trivia creada: $nombre, ID: $id_trivia")

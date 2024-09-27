@@ -19,12 +19,12 @@ public class AreaTexto extends Componente{
 
     @Override
     public String obtenerCodigo() {
-        return    "    <CAMPO_TEXTO: "           + id_componente + ">{\n"
+        return    "    <AREA_TEXTO: "           + id_componente + ">{\n"
                 + "        \"TRIVIA\" : "        + id_trivia + ",     \n"
-                + "        \"CLASE\" : "         + "AREA_TEXTO,       \n"
+                //+ "        \"CLASE\" : "         + "AREA_TEXTO,       \n"
                 + "        \"INDICE\" : "        + indice + ",        \n"
-                + "        \"TEXTO_VISIBLE\" : " + texto_visible + ", \n"
-                + "        \"RESPUESTA\" :"      + respuesta + ",     \n"
+                + "        \"TEXTO_VISIBLE\" : " + texto_visible.replace(":", "") + ", \n"
+                + "        \"RESPUESTA\" :"      + respuesta.replace(":", "") + ",     \n"
                 + "        \"FILAS\" : "         + filas + ",         \n"
                 + "        \"COLUMNAS\" : "      + columnas + "       \n"
                 + "    }";

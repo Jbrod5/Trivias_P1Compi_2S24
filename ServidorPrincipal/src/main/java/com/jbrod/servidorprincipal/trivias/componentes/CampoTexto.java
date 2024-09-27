@@ -17,10 +17,10 @@ public class CampoTexto extends Componente{
     public String obtenerCodigo() {
         return    "    <CAMPO_TEXTO: "          + id_componente + ">{ \n"
                 + "        \"TRIVIA\": "        + id_trivia + ",      \n"
-                + "        \"CLASE\" : "        + "CAMPO_TEXTO,       \n"
+                //+ "        \"CLASE\" : "        + "CAMPO_TEXTO,       \n"
                 + "        \"INDICE\": "        + indice + ",         \n"
-                + "        \"TEXTO_VISIBLE\": " + texto_visible + ",  \n"
-                + "        \"RESPUESTA\": "     + respuesta + "       \n"
+                + "        \"TEXTO_VISIBLE\": " + texto_visible.replace(":", "") + ",  \n"
+                + "        \"RESPUESTA\": "     + respuesta.replace(":", "") + "       \n"
                 + "    }";
                 
     }
