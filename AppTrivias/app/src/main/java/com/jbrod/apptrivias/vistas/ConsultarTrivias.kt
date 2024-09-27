@@ -1,11 +1,11 @@
-package com.jbrod.apptrivias
+package com.jbrod.apptrivias.vistas
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -13,6 +13,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.jbrod.apptrivias.AdministradorTrivias
+import com.jbrod.apptrivias.R
 import com.jbrod.apptrivias.analizadores.Lexer
 import com.jbrod.apptrivias.analizadores.Parser
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +25,6 @@ import java.io.DataInputStream
 import java.io.DataOutputStream
 import java.io.StringReader
 import java.net.Socket
-import java.util.LinkedList
 
 class ConsultarTrivias : AppCompatActivity() {
 
@@ -121,6 +122,14 @@ class ConsultarTrivias : AppCompatActivity() {
             // Inflar el layout del card
             val inflater = LayoutInflater.from(this)
             val cardView:View = inflater.inflate(R.layout.tarjeta_trivia, linearComponentes, false)
+            // Establecer clickListener para acceder a la trivia
+            cardView.setOnClickListener{
+                val app = application as AdministradorTrivias
+                app.establecerTriviaActual(elemento.getIdTrivia())
+
+                val intent = Intent(this, ActivityComponente::class.java)
+                startActivity(intent)
+            }
 
             // Modificar los TextViews si es necesario
             val nombreTrivia = cardView.findViewById<TextView>(R.id.nombreTrivia)

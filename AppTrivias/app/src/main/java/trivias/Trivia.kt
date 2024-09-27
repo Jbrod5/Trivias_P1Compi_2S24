@@ -14,8 +14,8 @@ class Trivia(
 
 
 
-    public  var componentes: LinkedList<Componente>
-
+    public var componentes: LinkedList<Componente>
+    public var actual = 0
 
     // Puedes agregar un bloque init si necesitas realizar alguna acción al crear la instancia
     init {
@@ -24,6 +24,15 @@ class Trivia(
     }
 
 
+    fun avanzar(){
+        if(actual < componentes.size -1){
+            actual ++
+        }
+    }
+
+    fun obtenerActual():Componente{
+        return componentes.get(actual)
+    }
 
 
     fun agregarComponente(c:Componente){
@@ -56,5 +65,6 @@ class Trivia(
     fun getTema(): String {
         return tema
     }
+
 
 }

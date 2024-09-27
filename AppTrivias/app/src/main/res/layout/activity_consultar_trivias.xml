@@ -5,11 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConsultarTrivias">
+    tools:context=".vistas.ConsultarTrivias">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:foregroundGravity="center_horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,6 +18,7 @@
             android:orientation="vertical"
             android:id="@+id/linearComponentes"
             >
+
 
 
         </LinearLayout>
