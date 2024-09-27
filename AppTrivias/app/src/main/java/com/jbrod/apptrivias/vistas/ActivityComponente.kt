@@ -1,6 +1,8 @@
 package com.jbrod.apptrivias.vistas
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.view.Gravity
@@ -13,7 +15,9 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.utils.widget.MotionLabel
 import androidx.core.view.ViewCompat
@@ -32,6 +36,7 @@ class ActivityComponente : AppCompatActivity() {
 
     private var checkboxes = ArrayList<android.widget.CheckBox>()
     private var radioButtons = ArrayList<RadioButton>()
+    private var contenidoArchivo = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -168,6 +173,38 @@ class ActivityComponente : AppCompatActivity() {
                 }
                 is Fichero    -> {
 
+                    var filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+                        uri?.let { selectedUri ->
+                            val contentResolver = this.contentResolver
+                            val inputStream = contentResolver.openInputStream(selectedUri)
+
+                            val fileContent = inputStream?.bufferedReader().use { reader ->
+                                reader?.readText() // Lee todo el contenido como String
+                            }
+
+                            // Asigna el contenido o un mensaje por defecto si está vacío
+                            contenidoArchivo = fileContent ?: "Sin contenido en el archivo"
+                            println(contenidoArchivo) // Utiliza el String como desees
+                        }
+                    }
+
+                    // Crea un nuevo botón
+                    val btSeleccionarAr = Button(this).apply {
+                        text = "Seleccionar archivo"
+                        layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        )
+
+                    }
+
+                    // Establece un listener para el botón
+                    btSeleccionarAr.setOnClickListener {
+                        filePickerLauncher.launch("*/*")
+                    }
+
+                    linearInfoComponente.addView(btSeleccionarAr)
+
                     button.setOnClickListener{
                         val intent = Intent (this, ActivityComponente::class.java)
                         startActivity(intent)
@@ -201,4 +238,5 @@ class ActivityComponente : AppCompatActivity() {
 
         }
     }
+
 }
