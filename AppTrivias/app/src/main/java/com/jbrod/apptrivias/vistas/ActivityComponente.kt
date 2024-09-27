@@ -5,17 +5,20 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RadioButton
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.utils.widget.MotionLabel
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.setMargins
 import com.jbrod.apptrivias.AdministradorTrivias
 import com.jbrod.apptrivias.R
 import trivias.AreaTexto
@@ -140,8 +143,36 @@ class ActivityComponente : AppCompatActivity() {
                         startActivity(intent)
                     }
                 }
-                is Combo      -> {}
-                is Fichero    -> {}
+                is Combo      -> {
+
+                    val spinner = Spinner(this)
+                    val layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    layoutParams.setMargins(0,16,0,16)
+                    spinner.layoutParams = layoutParams
+
+                    var opciones = (componente as trivias.Combo).opciones.split("|")
+                    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
+                    spinner.adapter = adapter
+                    linearInfoComponente.addView(spinner)
+
+
+                    button.setOnClickListener{
+                        componente.respuesta = spinner.selectedItem.toString()
+                        val intent = Intent (this, ActivityComponente::class.java)
+                        startActivity(intent)
+                    }
+
+                }
+                is Fichero    -> {
+
+                    button.setOnClickListener{
+                        val intent = Intent (this, ActivityComponente::class.java)
+                        startActivity(intent)
+                    }
+                }
                 is Radio      -> {
                     var opciones = (componente as trivias.Radio).opciones.split("|")
                     var contador = 1
