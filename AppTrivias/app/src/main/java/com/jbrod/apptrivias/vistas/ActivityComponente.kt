@@ -208,6 +208,7 @@ class ActivityComponente : AppCompatActivity() {
                     button.setOnClickListener{
                         val intent = Intent (this, ActivityComponente::class.java)
                         startActivity(intent)
+                        componente.respuesta = contenidoArchivo
                     }
                 }
                 is Radio      -> {
