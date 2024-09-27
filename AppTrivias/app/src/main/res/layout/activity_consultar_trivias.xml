@@ -11,12 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:maxLines="80"
-            android:id="@+id/txtTrivias"/>
+            android:orientation="vertical"
+            android:id="@+id/linearComponentes"
+            >
+
+
+        </LinearLayout>
+
 
     </ScrollView>
 

@@ -7,6 +7,10 @@ package com.jbrod.apptrivias.analizadores;
 
 import java_cup.runtime.*;
 import trivias.*;
+import java.util.LinkedList;
+import android.app.Application;
+import com.jbrod.apptrivias.AdministradorTrivias;
+import android.content.Context;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -309,10 +313,13 @@ public class Parser extends java_cup.runtime.lr_parser {
 
     
     public String resultado = "";
+    private LinkedList<Componente> componentes = new LinkedList<>();
+    private Context context; 
 
     // Conectar el parser al escaner
-    public Parser(Lexer lex){
+    public Parser(Lexer lex, Context context){
         super(lex);
+        this.context = context;
     }
 
     public void syntax_error(Symbol cur_token){
@@ -451,7 +458,15 @@ class CUP$Parser$actions {
 		int tmleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int tmright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		Object tm = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		 
+                    Trivia trivia = new Trivia(secureString(id), secureString(nm), secureString(cd), secureString(fc), secureInt(tp), secureString(tm));
+                    trivia.setComponentes(componentes);
 
+                    AdministradorTrivias administradorTrivias = (AdministradorTrivias)context;
+                    LinkedList<Trivia> trivias = administradorTrivias.getTrivias();
+                    trivias.add(trivia);
+                    trivias = new LinkedList<>();
+                
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("trivia",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-33)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -478,7 +493,10 @@ class CUP$Parser$actions {
           case 7: // componente_trivia ::= campo_t 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 componentes.add((Componente)c); RESULT = c; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("componente_trivia",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -487,7 +505,10 @@ class CUP$Parser$actions {
           case 8: // componente_trivia ::= area_te 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 componentes.add((Componente)c); RESULT = c; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("componente_trivia",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -496,7 +517,10 @@ class CUP$Parser$actions {
           case 9: // componente_trivia ::= checkbo 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 componentes.add((Componente)c); RESULT = c; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("componente_trivia",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -505,7 +529,10 @@ class CUP$Parser$actions {
           case 10: // componente_trivia ::= radio 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 componentes.add((Componente)c); RESULT = c; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("componente_trivia",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -514,7 +541,10 @@ class CUP$Parser$actions {
           case 11: // componente_trivia ::= fichero 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 componentes.add((Componente)c); RESULT = c; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("componente_trivia",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -523,7 +553,10 @@ class CUP$Parser$actions {
           case 12: // componente_trivia ::= combo 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 componentes.add((Componente)c); RESULT = c; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("componente_trivia",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

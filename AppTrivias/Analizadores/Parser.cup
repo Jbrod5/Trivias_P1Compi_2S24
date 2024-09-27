@@ -1,14 +1,21 @@
 package com.jbrod.apptrivias.analizadores;
 import java_cup.runtime.*;
 import trivias.*;    
+import java.util.LinkedList;
+import android.app.Application;
+import com.jbrod.apptrivias.AdministradorTrivias;
+import android.content.Context;
 
 parser code{:
     
     public String resultado = "";
+    private LinkedList<Componente> componentes = new LinkedList<>();
+    private Context context; 
 
     // Conectar el parser al escaner
-    public Parser(Lexer lex){
+    public Parser(Lexer lex, Context context){
         super(lex);
+        this.context = context;
     }
 
     public void syntax_error(Symbol cur_token){
@@ -102,10 +109,23 @@ trivia ::= TRIVIA PAROPN
                 COMILL TIEMPO COMILL DOSPUN id_st: tp
                 COMILL TEMA   COMILL DOSPUN id_st: tm
                 componentes_trivia
-            PARCLS;
+            PARCLS{: 
+                    Trivia trivia = new Trivia(secureString(id), secureString(nm), secureString(cd), secureString(fc), secureInt(tp), secureString(tm));
+                    trivia.setComponentes(componentes);
+
+                    AdministradorTrivias administradorTrivias = (AdministradorTrivias)context;
+                    LinkedList<Trivia> trivias = administradorTrivias.getTrivias();
+                    trivias.add(trivia);
+                    trivias = new LinkedList<>();
+                :};
 trivias ::= trivia trivias | /*  */;
 
-componente_trivia  ::= campo_t | area_te | checkbo | radio | fichero | combo ;
+componente_trivia  ::= campo_t:c    {: componentes.add((Componente)c); RESULT = c; :} 
+                     | area_te:c    {: componentes.add((Componente)c); RESULT = c; :} 
+                     | checkbo:c    {: componentes.add((Componente)c); RESULT = c; :} 
+                     | radio:c      {: componentes.add((Componente)c); RESULT = c; :} 
+                     | fichero:c    {: componentes.add((Componente)c); RESULT = c; :} 
+                     | combo:c      {: componentes.add((Componente)c); RESULT = c; :} ;
 componentes_trivia ::= componente_trivia componentes_trivia | /* nada */;
 
 

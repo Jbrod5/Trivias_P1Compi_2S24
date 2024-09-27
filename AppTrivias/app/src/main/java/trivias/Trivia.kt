@@ -14,7 +14,7 @@ class Trivia(
 
 
 
-    protected var componentes: LinkedList<Componente>
+    public  var componentes: LinkedList<Componente>
 
 
     // Puedes agregar un bloque init si necesitas realizar alguna acción al crear la instancia

@@ -1,15 +1,29 @@
 package com.jbrod.apptrivias.analizadores;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.pm.PackageManager;
+
+import com.jbrod.apptrivias.AdministradorTrivias;
+
+import java.util.LinkedList;
+
 import trivias.AreaTexto;
 import trivias.CampoTexto;
 import trivias.Checkbox;
 import trivias.Combo;
+import trivias.Componente;
 import trivias.Fichero;
 import trivias.Radio;
+import trivias.Trivia;
 
 public class pruebita {
 
-    public void d(){
+    public static void d(){
+
+        LinkedList<Componente> componentes = new LinkedList<>();
+        //componentes.add()
+
         CampoTexto campoTexto = new CampoTexto(
                 "id-componente",
                 "id-trivia",
@@ -61,5 +75,17 @@ public class pruebita {
                 "",
                 ""
         );
+        /*
+
+        Context context
+
+        AdministradorTrivias administradorTrivias = (AdministradorTrivias)getApplicationContext();
+        LinkedList<Trivia> trivias = administradorTrivias.getTrivias();
+
+        */
+
+
     }
+
+
 }
