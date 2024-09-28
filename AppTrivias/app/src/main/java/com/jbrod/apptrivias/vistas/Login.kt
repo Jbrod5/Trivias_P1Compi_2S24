@@ -1,5 +1,6 @@
 package com.jbrod.apptrivias.vistas
 
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.jbrod.apptrivias.AdministradorTrivias
 import com.jbrod.apptrivias.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -41,6 +43,7 @@ class Login : AppCompatActivity() {
 
     private fun conectarServidor(){
         var ip:String = findViewById<EditText>(R.id.ip).getText().toString()
+        (applicationContext as AdministradorTrivias).ip = ip
         var puerto = 6000
 
         try {
@@ -60,7 +63,12 @@ class Login : AppCompatActivity() {
             runOnUiThread {
                 Toast.makeText(this, "Conectado y mensaje recibido: $respuesta", Toast.LENGTH_LONG).show()
             }
+
+            //Establecer el usuario para toda la aplicacion
+            var app = (applicationContext as AdministradorTrivias)
             Log.d("RECIBIDO: ", respuesta)
+            app.usuario = respuesta
+
 
             val intent = Intent(this, ConsultarTrivias::class.java)
             intent.putExtra("ip", ip)

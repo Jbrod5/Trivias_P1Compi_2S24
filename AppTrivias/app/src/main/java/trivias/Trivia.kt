@@ -78,5 +78,28 @@ class Trivia(
         return r
     }
 
+    fun obtenerPuntuacion(us:String, tp:Int):String{
+        var p = ""
+
+        var puntuacion = 0
+        for(componente in componentes){
+            puntuacion += componente.obtenerPuntuacion()
+        }
+        //Regla de 3 para dimensionar la puntuacion
+        puntuacion = puntuacion * 100 / (componentes.size * 100)
+
+        p += "<!realizar_solicitud: \"AGREGAR_PUNTUACION\">\n"
+        p += "{  \"PARAMETROS_PUNTUACION\":[{\n"
+        p += "    \"TRIVIA\": "     + id_trivia             + "\n"
+        p += "    \"USUARIO\":"     + us                    + "\n"
+        p += "    \"TIEMPO\":"      + tp.toString()         + "\n"
+        p += "    \"PUNTUACION\": " + puntuacion.toString() + "\n"
+        p += "}\n"
+        p += "]}\n"
+        p += "<fin_solicitud_realizada!>"
+
+        return p
+    }
+
 
 }

@@ -7,6 +7,8 @@ import java.util.LinkedList
 class AdministradorTrivias : Application(){
     var trivias = LinkedList<Trivia>()
     var triviaActual: Trivia? = null
+    var usuario = ""
+    var ip = ""
 
     fun establecerTriviaActual(id:String){
         for (trivia in trivias){

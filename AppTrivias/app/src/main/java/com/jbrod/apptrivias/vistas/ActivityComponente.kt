@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
@@ -25,12 +26,18 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.setMargins
 import com.jbrod.apptrivias.AdministradorTrivias
 import com.jbrod.apptrivias.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import trivias.AreaTexto
 import trivias.CampoTexto
 import trivias.Checkbox
 import trivias.Combo
 import trivias.Fichero
 import trivias.Radio
+import java.io.DataInputStream
+import java.io.DataOutputStream
+import java.net.Socket
 
 class ActivityComponente : AppCompatActivity() {
 
@@ -265,6 +272,32 @@ class ActivityComponente : AppCompatActivity() {
 
                 editText.setText(trivia.mostrarRespuestas())
                 linearInfoComponente.addView(editText)
+
+                //enviar las respuestas al servidor
+                var pntcn = trivia.obtenerPuntuacion(app.usuario, 100)
+                var puerto = 6000
+                var ip = app.ip
+                var res = ""
+                try {
+                    GlobalScope.launch (Dispatchers.IO){
+                        var clientSocket = Socket(ip, puerto)
+                        var inp = DataInputStream(clientSocket.getInputStream())
+                        var out = DataOutputStream(clientSocket.getOutputStream())
+
+                        Log.d("ENVIANDO: ", pntcn)
+
+                        out.writeUTF(pntcn)
+                        res = inp.readUTF()
+
+                        clientSocket.close()
+                    }
+
+                    runOnUiThread {
+                        Toast.makeText(this, "Conectado y mensaje recibido: $res", Toast.LENGTH_LONG).show()
+                    }
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
 
             }
 
