@@ -121,7 +121,7 @@ class ActivityComponente : AppCompatActivity() {
                         val editText = EditText(this).apply {
                             layoutParams = LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT
+                                LinearLayout.LayoutParams.MATCH_PARENT
                             )
                             hint = "Escribe tu respuesta" // Texto sugerido
                             maxLines = (componente as AreaTexto).filas
@@ -299,9 +299,26 @@ class ActivityComponente : AppCompatActivity() {
 
                 //mostrar respuetas
                 findViewById<MotionLabel>(R.id.textoVisible).setText("Sus respuestas fueron:")
+                var rs = trivia.mostrarRespuestas()
 
-                editText.setText(trivia.mostrarRespuestas())
+                rs += "\n\n\n\nTIEMPO TRANSCURRIDO: " + tiempoTranscurrido/1000 + " segundos."
+                editText.setText(rs)
+                editText.setTextIsSelectable(false)
+                editText.isFocusable = false
+                editText.isFocusableInTouchMode = false
                 linearInfoComponente.addView(editText)
+
+                //Crear un label donde mostrar el tiempo
+                val tm = MotionLabel(this).apply {
+                    layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                }
+                tm.setText("Tiempo transcurrido: " + tiempoTranscurrido/1000 + " segundos.")
+                linearInfoComponente.addView(tm)
+
+
 
                 //enviar las respuestas al servidor
                 var pntcn = trivia.obtenerPuntuacion(app.usuario, tiempoTranscurrido/1000)
