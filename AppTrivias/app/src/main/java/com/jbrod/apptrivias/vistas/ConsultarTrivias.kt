@@ -126,6 +126,7 @@ class ConsultarTrivias : AppCompatActivity() {
             cardView.setOnClickListener{
                 val app = application as AdministradorTrivias
                 app.establecerTriviaActual(elemento.getIdTrivia())
+                app.reiniciarTriviaActual()
 
                 val intent = Intent(this, ActivityComponente::class.java)
                 startActivity(intent)

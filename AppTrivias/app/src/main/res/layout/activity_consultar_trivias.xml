@@ -10,7 +10,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:foregroundGravity="center_horizontal">
+        android:foregroundGravity="center_horizontal"
+        android:padding="7dp"
+        android:layout_margin="7dp">
 
         <LinearLayout
             android:layout_width="match_parent"

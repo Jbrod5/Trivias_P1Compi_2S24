@@ -21,4 +21,10 @@ class AdministradorTrivias : Application(){
         triviaActual?.obtenerActual()?.respuesta ?: respuesta
     }
 
+    fun reiniciarTriviaActual(){
+        if(triviaActual != null){
+            this.triviaActual!!.actual = 0
+        }
+    }
+
 }
