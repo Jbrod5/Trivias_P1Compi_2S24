@@ -91,6 +91,9 @@ class Login : AppCompatActivity() {
 
         }catch (e: Exception){
             e.printStackTrace()
+            runOnUiThread {
+                Toast.makeText(this, "Puede que la ip sea incorrecta.", Toast.LENGTH_LONG).show()
+            }
         }
     }
 

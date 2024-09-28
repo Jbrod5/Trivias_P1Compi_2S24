@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.provider.OpenableColumns
 import android.text.InputType
 import android.util.Log
 import android.view.Gravity
@@ -24,6 +25,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.utils.widget.MotionLabel
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.marginBottom
+import androidx.core.view.marginTop
 import androidx.core.view.setMargins
 import com.jbrod.apptrivias.AdministradorTrivias
 import com.jbrod.apptrivias.R
@@ -50,6 +53,8 @@ class ActivityComponente : AppCompatActivity() {
     private var handler = Handler()
     private var runnable: Runnable = Runnable { }
     private var tiempoTranscurrido:Long = 0
+    private var fileName:String = ""
+    lateinit var lab:MotionLabel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +65,8 @@ class ActivityComponente : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        lab = MotionLabel(this)
+
         // Recuperar el cronometro
         tiempoTranscurrido = intent.getLongExtra("elapsed_time", 0)
 
@@ -227,8 +234,26 @@ class ActivityComponente : AppCompatActivity() {
                                 // Asigna el contenido o un mensaje por defecto si está vacío
                                 contenidoArchivo = fileContent ?: "Sin contenido en el archivo"
                                 println(contenidoArchivo) // Utiliza el String como desees
+
+                                // Obtener el nombre del archivo
+                                fileName = getFileName(selectedUri) ?: ""
+                                println("Nombre del archivo: $fileName") // Imprime el nombre del archivo
                             }
                         }
+
+                        // Crear un label con el nombre del archivo
+                        lab = MotionLabel(this)
+                        val layoutP = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        )
+                        lab.layoutParams = layoutP
+                        lab.setText("Aun no se selecciona un archivo")
+                        lab.setPadding(16,120,16,60)
+                        linearInfoComponente.addView(lab)
+
+
+
 
                         // Crea un nuevo botón
                         val btSeleccionarAr = Button(this).apply {
@@ -243,9 +268,8 @@ class ActivityComponente : AppCompatActivity() {
                         // Establece un listener para el botón
                         btSeleccionarAr.setOnClickListener {
                             filePickerLauncher.launch("*/*")
+                            lab.setText("Archivo seleccionado: " + fileName)
                         }
-
-                        linearInfoComponente.addView(btSeleccionarAr)
 
                         button.setOnClickListener{
                             trivia.avanzar()
@@ -254,6 +278,10 @@ class ActivityComponente : AppCompatActivity() {
                             componente.respuestaUsuario = contenidoArchivo
                             startActivity(intent)
                         }
+
+                        linearInfoComponente.addView(btSeleccionarAr)
+
+
                     }
                     is Radio      -> {
                         var opciones = (componente as trivias.Radio).opciones.split("|")
@@ -355,22 +383,59 @@ class ActivityComponente : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         handler.removeCallbacks(runnable) // Detiene el cronómetro al pausar
+        try {
+            lab.setText("Archivo seleccionado: " + fileName)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 
     override fun onResume() {
         super.onResume()
         handler.post(runnable) // Reinicia el cronómetro al reanudar
+        try {
+            lab.setText("Archivo seleccionado: " + fileName)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(runnable) // Limpia el handler
+        try {
+            lab.setText("Archivo seleccionado: " + fileName)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 
     fun establecerTiempo(intent:Intent){
         var elapsedTime = System.currentTimeMillis() - startTime
         elapsedTime += tiempoTranscurrido
         intent.putExtra("elapsed_time", elapsedTime)
+    }
+
+    // Función para obtener el nombre del archivo a partir del Uri
+    private fun getFileName(uri: Uri): String? {
+        var result: String? = null
+        if (uri.scheme == "content") {
+            val cursor = contentResolver.query(uri, null, null, null, null)
+            cursor?.use {
+                val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                if (it.moveToFirst()) {
+                    result = it.getString(nameIndex)
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.path
+            val cut = result!!.lastIndexOf('/')
+            if (cut != -1) {
+                result = result!!.substring(cut + 1)
+            }
+        }
+        return result
     }
 
 }
