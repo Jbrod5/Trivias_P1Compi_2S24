@@ -5,7 +5,7 @@ import trivias.Trivia
 import java.util.LinkedList
 
 class AdministradorTrivias : Application(){
-    val trivias = LinkedList<Trivia>()
+    var trivias = LinkedList<Trivia>()
     var triviaActual: Trivia? = null
 
     fun establecerTriviaActual(id:String){
@@ -25,6 +25,11 @@ class AdministradorTrivias : Application(){
         if(triviaActual != null){
             this.triviaActual!!.actual = 0
         }
+    }
+
+    public fun reiniciarTrivias(){
+        this.trivias = LinkedList<Trivia>()
+        triviaActual = null
     }
 
 }

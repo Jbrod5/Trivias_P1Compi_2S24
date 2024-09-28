@@ -45,6 +45,14 @@ class ConsultarTrivias : AppCompatActivity() {
 
         val btnObtenerTrivias = findViewById<Button>(R.id.btnConsultarTrivias)
         btnObtenerTrivias.setOnClickListener{
+
+            val administradorTrivias = applicationContext as AdministradorTrivias
+            var trivias = administradorTrivias.trivias
+
+            administradorTrivias.reiniciarTrivias()
+            val linearComponentes = findViewById<LinearLayout>(R.id.linearComponentes)
+            linearComponentes.removeAllViews()
+
             CoroutineScope(Dispatchers.IO).launch{
                 conectarServidor()
             }
