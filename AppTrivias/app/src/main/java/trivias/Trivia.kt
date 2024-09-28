@@ -78,7 +78,7 @@ class Trivia(
         return r
     }
 
-    fun obtenerPuntuacion(us:String, tp:Int):String{
+    fun obtenerPuntuacion(us:String, tp:Long):String{
         var p = ""
 
         var puntuacion = 0

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.text.InputType
 import android.util.Log
 import android.view.Gravity
@@ -45,6 +46,11 @@ class ActivityComponente : AppCompatActivity() {
     private var radioButtons = ArrayList<RadioButton>()
     private var contenidoArchivo = ""
 
+    private var startTime: Long = 0
+    private var handler = Handler()
+    private var runnable: Runnable = Runnable { }
+    private var tiempoTranscurrido:Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -54,6 +60,24 @@ class ActivityComponente : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        // Recuperar el cronometro
+        tiempoTranscurrido = intent.getLongExtra("elapsed_time", 0)
+
+        // Iniciar el cronometro
+        startTime    = System.currentTimeMillis()
+        runnable = object : Runnable {
+            override fun run() {
+                val elapsedTime = System.currentTimeMillis() - startTime
+                // Actualiza tu UI con el tiempo transcurrido
+                // Por ejemplo, usando un TextView
+                // findViewById<TextView>(R.id.timerTextView).text = (elapsedTime / 1000).toString()
+                handler.postDelayed(this, 1000) // Actualiza cada segundo
+            }
+        }
+        handler.post(runnable)
+
+
+
         val app = application as AdministradorTrivias
         var trivia = app.triviaActual
         if (trivia != null) {
@@ -110,6 +134,7 @@ class ActivityComponente : AppCompatActivity() {
                             trivia.avanzar()
                             componente.respuestaUsuario = editText.text.toString()
                             val intent = Intent (this, ActivityComponente::class.java)
+                            establecerTiempo(intent)
                             startActivity(intent)
                         }
 
@@ -132,6 +157,7 @@ class ActivityComponente : AppCompatActivity() {
                             trivia.avanzar()
                             componente.respuestaUsuario = editText.text.toString()
                             val intent = Intent (this, ActivityComponente::class.java)
+                            establecerTiempo(intent)
                             startActivity(intent)
                         }
 
@@ -158,6 +184,7 @@ class ActivityComponente : AppCompatActivity() {
                             }
                             componente.respuestaUsuario = seleccionados
                             val intent = Intent (this, ActivityComponente::class.java)
+                            establecerTiempo(intent)
                             startActivity(intent)
                         }
                     }
@@ -181,6 +208,7 @@ class ActivityComponente : AppCompatActivity() {
                             trivia.avanzar()
                             componente.respuestaUsuario = spinner.selectedItem.toString()
                             val intent = Intent (this, ActivityComponente::class.java)
+                            establecerTiempo(intent)
                             startActivity(intent)
                         }
 
@@ -222,8 +250,9 @@ class ActivityComponente : AppCompatActivity() {
                         button.setOnClickListener{
                             trivia.avanzar()
                             val intent = Intent (this, ActivityComponente::class.java)
-                            startActivity(intent)
+                            establecerTiempo(intent)
                             componente.respuestaUsuario = contenidoArchivo
+                            startActivity(intent)
                         }
                     }
                     is Radio      -> {
@@ -247,6 +276,7 @@ class ActivityComponente : AppCompatActivity() {
                             }
                             componente.respuestaUsuario = seleccionados
                             val intent = Intent (this, ActivityComponente::class.java)
+                            establecerTiempo(intent)
                             startActivity(intent)
                         }
                     }
@@ -274,7 +304,7 @@ class ActivityComponente : AppCompatActivity() {
                 linearInfoComponente.addView(editText)
 
                 //enviar las respuestas al servidor
-                var pntcn = trivia.obtenerPuntuacion(app.usuario, 100)
+                var pntcn = trivia.obtenerPuntuacion(app.usuario, tiempoTranscurrido/1000)
                 var puerto = 6000
                 var ip = app.ip
                 var res = ""
@@ -300,9 +330,30 @@ class ActivityComponente : AppCompatActivity() {
                 }
 
             }
-
-
         }
+    }
+
+
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(runnable) // Detiene el cronómetro al pausar
+    }
+
+    override fun onResume() {
+        super.onResume()
+        handler.post(runnable) // Reinicia el cronómetro al reanudar
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(runnable) // Limpia el handler
+    }
+
+    fun establecerTiempo(intent:Intent){
+        var elapsedTime = System.currentTimeMillis() - startTime
+        elapsedTime += tiempoTranscurrido
+        intent.putExtra("elapsed_time", elapsedTime)
     }
 
 }
