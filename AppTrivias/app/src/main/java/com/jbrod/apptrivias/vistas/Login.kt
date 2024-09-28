@@ -60,19 +60,33 @@ class Login : AppCompatActivity() {
             var respuesta:String = inp.readUTF()
 
             clientSocket.close()
-            runOnUiThread {
-                Toast.makeText(this, "Conectado y mensaje recibido: $respuesta", Toast.LENGTH_LONG).show()
-            }
+
 
             //Establecer el usuario para toda la aplicacion
             var app = (applicationContext as AdministradorTrivias)
             Log.d("RECIBIDO: ", respuesta)
-            app.usuario = respuesta
+
+            val regex = "([a-zA-Z]|_|-|\\$)([a-zA-Z0-9]|_|-|\\$)*".toRegex()
 
 
-            val intent = Intent(this, ConsultarTrivias::class.java)
-            intent.putExtra("ip", ip)
-            startActivity(intent)
+            if (respuesta.matches(regex)) {
+                println("El string cumple con la expresión regular.")
+
+                runOnUiThread {
+                    Toast.makeText(this, "Sesion iniciada como: $respuesta", Toast.LENGTH_LONG).show()
+                }
+
+                val intent = Intent(this, ConsultarTrivias::class.java)
+                intent.putExtra("ip", ip)
+                startActivity(intent)
+                app.usuario = respuesta
+            } else {
+                println("El string NO cumple con la expresión regular.")
+                runOnUiThread {
+                    Toast.makeText(this, "$respuesta no es un usuario valido", Toast.LENGTH_LONG).show()
+                }
+            }
+
 
 
         }catch (e: Exception){
