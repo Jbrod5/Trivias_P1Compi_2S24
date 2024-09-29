@@ -44,7 +44,7 @@ public class Trivia {
     
     public String eliminarComponente(String id){
         for (Componente componente : componentes) {
-            if(id.equals(componente)){
+            if(id.equals(componente.getId_componente())){
                 componentes.remove(componente);
                 return "El componente " + id + " ha sido eliminado correctamente.";
             }
@@ -71,7 +71,7 @@ public class Trivia {
         if(componente != null){
             String nm = componente.getId_componente();
             for (Componente c : componentes) {
-                if(nm.equals(c.getId_trivia())){
+                if(nm.equals(c.getId_componente())){
                     
                     componentes.add(componentes.indexOf(c), componente);
                     componentes.remove(c);

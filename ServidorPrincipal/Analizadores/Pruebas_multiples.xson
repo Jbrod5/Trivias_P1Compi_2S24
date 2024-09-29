@@ -1,0 +1,438 @@
+<!realizar_solicitud: "USUARIO_NUEVO" > 
+ 	{ "DATOS_USUARIO":[{ 
+        "USUARIO": "mario123", 
+        "PASSWORD": "12345678", 
+        "NOMBRE": "MARIO MARCOS", 
+        “INSTITUCION”: "CUNOC" 
+    }
+    ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "USUARIO_NUEVO" > 
+ 	{ "DATOS_USUARIO":[{ 
+        "USUARIO": "FLuis", 
+        "PASSWORD": "12345678", 
+        "NOMBRE": "LUIS FERNANDO", 
+        “INSTITUCION”: "CUSAM" 
+    }
+    ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "USUARIO_NUEVO" > 
+ 	{ "DATOS_USUARIO":[{ 
+        "USUARIO": "Ana3312", 
+        "PASSWORD": "12345678", 
+        "NOMBRE": "Ana Luisa", 
+        “INSTITUCION”: "CUNOC" 
+    }
+    ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "USUARIO_NUEVO" > 
+ 	{ "DATOS_USUARIO":[{ 
+        "USUARIO": "FatMengor", 
+        "PASSWORD": "12345678", 
+        "NOMBRE": "FATIMA ALMENGOR", 
+        “INSTITUCION”: "CUSAM" 
+    }
+    ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "USUARIO_NUEVO" > 
+ 	{ "DATOS_USUARIO":[{ 
+        "USUARIO": "Antoine98", 
+        "PASSWORD": "12345678", 
+        "NOMBRE": "Antonio", 
+        “INSTITUCION”: "CUNOC" 
+    }
+    ]} 
+<fin_solicitud_realizada!> 
+
+
+
+
+<!realizar_solicitud: "MODIFICAR_USUARIO" > 
+     { "DATOS_USUARIO":[{ 
+        "USUARIO_ANTIGUO": "mario123", 
+        "USUARIO_NUEVO": "Mar10", 
+        "NUEVO_PASSWORD": "Mar10" 
+    } 
+    ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "ELIMINAR_USUARIO" > 
+  { "DATOS_USUARIO":[{ 
+        "USUARIO": "Ana3312" 
+    } 
+    ]} 
+<fin_solicitud_realizada!> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!realizar_solicitud: " NUEVA_TRIVIA" > 
+       { "PARAMETROS_TRIVIA":[{ 
+                "ID_TRIVIA": "$Guatemala", 
+                "TIEMPO_PREGUNTA": 45, 
+                "NOMBRE": "Cultura de Guatemala", 
+                "TEMA": "cultura" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: " NUEVA_TRIVIA" > 
+       { "PARAMETROS_TRIVIA":[{ 
+                "ID_TRIVIA": "$Cunoc", 
+                "TIEMPO_PREGUNTA": 45, 
+                "NOMBRE": "Historia del cunoc", 
+                "TEMA": "cultura" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: " NUEVA_TRIVIA" > 
+       { "PARAMETROS_TRIVIA":[{ 
+                "ID_TRIVIA": "$Plantas", 
+                "TIEMPO_PREGUNTA": 45, 
+                "NOMBRE": "Botanica", 
+                "TEMA": "Ciencia" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: " NUEVA_TRIVIA" > 
+       { "PARAMETROS_TRIVIA":[{ 
+                "ID_TRIVIA": "$trivia1", 
+                "TIEMPO_PREGUNTA": 45, 
+                "NOMBRE": "Cultura de Guatemala", 
+                "TEMA": "cultura" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+
+
+
+
+
+
+<!realizar_solicitud: "MODIFICAR_TRIVIA" > 
+      { "PARAMETROS_TRIVIA":[{ 
+                "ID_TRIVIA": "$Plantas", 
+                "TIEMPO_PREGUNTA": 30, 
+                "NOMBRE": "Especies endemicas de Guatemala", 
+                "TEMA": "Botanica nacional" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "ELIMINAR_TRIVIA" > 
+       { "PARAMETROS_TRIVIA":[{ 
+                "ID_TRIVIA": "$trivia1" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+
+
+
+
+
+
+
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+{ "PARAMETROS_COMPONENTE":[{ 
+          "ID": "$Pregunta1", 
+          "TRIVIA": "$Guatemala", 
+          "CLASE": "CAMPO_TEXTO",
+          "INDICE": 2,
+          "TEXTO_VISIBLE": "Nombre del autor de la letra del Himno de Guatemala: ", 
+          "RESPUESTA": "Jose Joaquin Palma"
+  } 
+  ]} 
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+{ "PARAMETROS_COMPONENTE":[{ 
+          "ID": "$Pregunta1", 
+          "TRIVIA": "$Cunoc", 
+          "CLASE": "AREA_TEXTO",
+          "INDICE": 2,
+          "TEXTO_VISIBLE": "Nombre del autor de la letra del Himno de Guatemala: ", 
+          "RESPUESTA": "Jose Joaquin Palma",
+          "FILAS": 3,
+          "COLUMNAS": 5
+  } 
+  ]} 
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$Pregunta1", 
+                "TRIVIA": "$Plantas", 
+                "CLASE": "CHECKBOX", 
+                "INDICE" : 4, 
+                "TEXTO_VISIBLE": "A que genero pertenece la monja blanca? ", 
+                "RESPUESTA": "Lycaste", 
+                "OPCIONES": "Lycaste|Genero uno|Genero dos|Otro" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$Pregunta2", 
+                "TRIVIA": "$Guatemala", 
+                "CLASE": "RADIO", 
+                "INDICE" : 5, 
+                "TEXTO_VISIBLE": "A quie se le conoce como el soldado del pueblo? ", 
+                "RESPUESTA": "Jacobo Arbenz", 
+                "OPCIONES": "Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Otro" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_pregunta2", 
+                "TRIVIA": "$Cunoc", 
+                "CLASE": "FICHERO", 
+                "INDICE" : 5, 
+                "TEXTO_VISIBLE": "En que anio se fundo el cunoc? "
+        } 
+        ]} 
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$_pregunta2", 
+                "TRIVIA": "$Plantas", 
+                "CLASE": "Combo", 
+                "INDICE" : 5, 
+                "TEXTO_VISIBLE": "Que especies botanicas son simbolos patrios", 
+                "RESPUESTA": "Monja blanca|Ceiba", 
+                "OPCIONES": "Ceiba|Monja blanca|Jorge Ubico|Otro" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "AGREGAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$pregunta3", 
+                "TRIVIA": "$Guatemala", 
+                "CLASE": "Combo", 
+                "INDICE" : 5, 
+                "TEXTO_VISIBLE": "A quie se le conoce como el soldado del pueblo? ", 
+                "RESPUESTA": "Jacobo Arbenz", 
+                "OPCIONES": "Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Otro" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+<!realizar_solicitud: "MODIFICAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$pregunta3", 
+                "TRIVIA": "$Guatemala", 
+                "CLASE": "CHECKBOX", 
+                "INDICE": 1, 
+                "TEXTO_VISIBLE": "Quienes fueron parte de la revolucion del 20 de octubre? ", 
+                "RESPUESTA": "Jacobo Arbenz|Jose Arebalo",
+                "OPCIONES": "Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Maria Chichilla"
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+
+
+<!realizar_solicitud: "ELIMINAR_COMPONENTE" > 
+      { "PARAMETROS_COMPONENTE":[{ 
+                "ID": "$Pregunta1", 
+                "TRIVIA": "$Guatemala" 
+        } 
+        ]} 
+<fin_solicitud_realizada!> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  "PARAMETROS_PUNTUACION":[{
+    "TRIVIA": $Guatemala
+    "USUARIO":juanito619
+    "TIEMPO":100
+    "PUNTUACION": 16
+}
+]}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Guatemala
+      "USUARIO": maria123
+      "TIEMPO": 120
+      "PUNTUACION": 20
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Guatemala
+      "USUARIO": carlos456
+      "TIEMPO": 90
+      "PUNTUACION": 18
+   }]
+}
+<fin_solicitud_realizada!>
+
+
+
+
+
+
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Cunoc
+      "USUARIO": luisa789
+      "TIEMPO": 110
+      "PUNTUACION": 25
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Cunoc
+      "USUARIO": pepe321
+      "TIEMPO": 105
+      "PUNTUACION": 15
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Cunoc
+      "USUARIO": sofia2020
+      "TIEMPO": 130
+      "PUNTUACION": 22
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Cunoc
+      "USUARIO": david987
+      "TIEMPO": 140
+      "PUNTUACION": 30
+   }]
+}
+<fin_solicitud_realizada!>
+
+
+
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Plantas
+      "USUARIO": pablo654
+      "TIEMPO": 80
+      "PUNTUACION": 14
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Plantas
+      "USUARIO": laura333
+      "TIEMPO": 150
+      "PUNTUACION": 28
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Plantas
+      "USUARIO": jorge999
+      "TIEMPO": 95
+      "PUNTUACION": 17
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Plantas
+      "USUARIO": anita555
+      "TIEMPO": 115
+      "PUNTUACION": 19
+   }]
+}
+<fin_solicitud_realizada!>

@@ -128,7 +128,7 @@ public class Motor {
     public String eliminarComponenteTrivia(String idTrivia, String idComponente){
         for (Trivia t : trivias) {
             if(idTrivia.equals(t.getId_trivia())){
-                return t.eliminarComponente(idTrivia);
+                return t.eliminarComponente(idComponente);
             }
         }
         return "No se pudo eliminar el componente poque no se encontro la trivia con id " + idTrivia + ".";
@@ -159,8 +159,52 @@ public class Motor {
                 exp += trivia.exportarTrivia() + "\n";
             }
         }
+        exp += "\n";
         return exp;
     }
     
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    /* - - - - - - - - - - - - - - - PUNTUACIONES - - - - - - - - - - - - - - - -*/
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    
+    public void agregarPuntuacion(Puntuacion p){
+        puntuaciones.add(p);
+        System.out.println("Puntuacion agregada: " + p.obtenerPuntuacion());
+    }
+    
+    public String obtenerUsuarios(){
+        String u = "usuarios(\n";
+        
+        for(Usuario usuario : usuarios){
+            if(usuario != null){
+                u += usuario.obtenerCodigoUsuario() + "\n";
+            }
+        }
+        u+= ")\n";
+        return u;
+    }
+    
+    public String obtenerPuntuaciones(){
+        String p = "puntuaciones(";
+        for(Puntuacion pn : puntuaciones){
+            if(pn != null){
+                p += pn.obtenerPuntuacion() + "\n";
+            } 
+        }
+        
+        p += ")\n";
+        return p;
+    }
+    
+    public String obtenerCodigoPuntuaciones(){
+        String p = "puntuaciones(\n";
+        for(Puntuacion pn : puntuaciones){
+            if(pn != null){
+                p += pn.obtenerCodigoPuntuacion() + "\n";
+            } 
+        }
+        p += ")\n";
+        return p;
+    }
     
 }

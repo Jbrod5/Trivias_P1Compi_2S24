@@ -94,6 +94,13 @@ radio       = ("R"|"r")("A"|"a")("D"|"d")("I"|"i")("O"|"o")
 fichero     = ("F"|"f")("I"|"i")("C"|"c")("H"|"h")("E"|"e")("R"|"r")("O"|"o")
 combo       = ("c"|"C")("o"|"O")("m"|"M")("b"|"B")("o"|"O")
 
+/* - - - - - - - - - - - - ADICIONALES - - - - - - - - - - - - */
+/* PUNTUACIONES */
+agr_puntuacion = "AGREGAR_PUNTUACION"
+prm_puntuacion = "PARAMETROS_PUNTUACION"
+puntuacion     = "PUNTUACION"
+tiempo         = "TIEMPO"
+
 %{
 
     private Symbol symbol(int type){
@@ -182,6 +189,12 @@ combo       = ("c"|"C")("o"|"O")("m"|"M")("b"|"B")("o"|"O")
 {radio}         { return symbol(sym.RADIO)      ; }
 {fichero}       { return symbol(sym.FICHERO)    ; }
 {combo}         { return symbol(sym.COMBO)      ; }
+
+/* Puntuaciones */
+{agr_puntuacion}  { return symbol(sym.AGR_PUNTUACION); } 
+{prm_puntuacion}  { return symbol(sym.PRM_PUNTUACION); } 
+{puntuacion}      { return symbol(sym.PUNTUACION); }
+{tiempo}          { return symbol(sym.TIEMPO); }
 
 {identificador}   { return symbol(sym.IDENTIFICADOR, yytext());                   }
 {string}          { return symbol(sym.STRING, yytext());                          }
