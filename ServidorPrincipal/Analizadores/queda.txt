@@ -119,8 +119,15 @@ Importacion/Exportacion de
   usar el analizador de carga de android para importar trivias
   separarlo del analizador normal (quiza con un encabezado?)
 
+      NO: SOLAMENTE SE DEBEN CARGAR LOS ARCHIVOS AL INICIAR LA APLICACION!!!!
+      se pueden usar diferentes archivos y parsers: SEPARAR LOS PARSERS 
+      APUNTAR A ARCHIVOS ESPECIFICOS
 
 SQLKV
 
 ESTRUCTURA: ENCABEZADOS
             varias solicitudes necesitan realizar solicitudes
+
+
+BUG ANDROID
+LOGIN AMIGABLE ANDROID

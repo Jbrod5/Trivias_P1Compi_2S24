@@ -1,0 +1,158 @@
+<BASE_DE_DATOS>{
+    trivia(
+        "ID_TRIVIA" : $Guatemala
+        "NOMBRE"    : Cultura de Guatemala
+        "CREADOR"   : Falta agregar usuario
+        "FECHA"     : Falta agregar fecha
+        "TIEMPO"    : 45
+        "TEMA"      : cultura
+    
+        <RADIO: $Pregunta2>{
+            "TRIVIA" : $Guatemala,     
+            "INDICE" : 5,        
+            "TEXTO_VISIBLE" : A quie se le conoce como el soldado del pueblo? , 
+            "RESPUESTA" :Jacobo Arbenz,     
+            "OPCIONES" : Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Otro       
+        }
+        <CHECK-BOX: $pregunta3>{   
+            "TRIVIA" : $Guatemala,     
+            "INDICE" : 1,        
+            "TEXTO_VISIBLE" : Quienes fueron parte de la revolucion del 20 de octubre? , 
+            "RESPUESTA" :Jacobo Arbenz|Jose Arebalo,     
+            "OPCIONES" : Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Maria Chichilla       
+        }
+    )
+    trivia(
+        "ID_TRIVIA" : $Cunoc
+        "NOMBRE"    : Historia del cunoc
+        "CREADOR"   : Falta agregar usuario
+        "FECHA"     : Falta agregar fecha
+        "TIEMPO"    : 45
+        "TEMA"      : cultura
+    
+        <AREA_TEXTO: $Pregunta1>{
+            "TRIVIA" : $Cunoc,     
+            "INDICE" : 2,        
+            "TEXTO_VISIBLE" : Nombre del autor de la letra del Himno de Guatemala , 
+            "RESPUESTA" :Jose Joaquin Palma,     
+            "FILAS" : 3,         
+            "COLUMNAS" : 5       
+        }
+        <FICHERO: $_pregunta2>{
+            "TRIVIA" : $Cunoc,     
+            "INDICE" : 5,        
+            "TEXTO_VISIBLE" : En que anio se fundo el cunoc?   
+         }
+    )
+    trivia(
+        "ID_TRIVIA" : $Plantas
+        "NOMBRE"    : Especies endemicas de Guatemala
+        "CREADOR"   : Falta agregar usuario
+        "FECHA"     : Falta agregar fecha
+        "TIEMPO"    : 30
+        "TEMA"      : Botanica nacional
+    
+        <CHECK-BOX: $Pregunta1>{   
+            "TRIVIA" : $Plantas,     
+            "INDICE" : 4,        
+            "TEXTO_VISIBLE" : A que genero pertenece la monja blanca? , 
+            "RESPUESTA" :Lycaste,     
+            "OPCIONES" : Lycaste|Genero uno|Genero dos|Otro       
+        }
+        <COMBO: $_pregunta2>{
+            "TRIVIA" : $Plantas,     
+            "INDICE" : 5,        
+            "TEXTO_VISIBLE" : Que especies botanicas son simbolos patrios, 
+            "RESPUESTA" :Monja blanca|Ceiba,     
+            "OPCIONES" : Ceiba|Monja blanca|Jorge Ubico|Otro       
+        }
+    )
+    
+    
+    usuarios(
+        <USUARIO: juanito619>{
+            "PASSWORD": 12345678,
+            "NOMBRE": JUAN PEREZ,
+            "Institucion": CUNOC
+         }
+        <USUARIO: Mar10>{
+            "PASSWORD": Mar10,
+            "NOMBRE": MARIO MARCOS,
+            "Institucion": CUNOC
+         }
+        <USUARIO: FLuis>{
+            "PASSWORD": 12345678,
+            "NOMBRE": LUIS FERNANDO,
+            "Institucion": CUSAM
+         }
+        <USUARIO: FatMengor>{
+            "PASSWORD": 12345678,
+            "NOMBRE": FATIMA ALMENGOR,
+            "Institucion": CUSAM
+         }
+        <USUARIO: Antoine98>{
+            "PASSWORD": 12345678,
+            "NOMBRE": Antonio,
+            "Institucion": CUNOC
+         }
+    )
+    
+    puntuaciones(
+        <PUNTUACION_TRIVIA: $Guatemala>{
+            "USUARIO": juanito619,
+            "TIEMPO": 100,
+            "PUNTEO": 16
+        }
+        <PUNTUACION_TRIVIA: $Guatemala>{
+            "USUARIO": maria123,
+            "TIEMPO": 120,
+            "PUNTEO": 20
+        }
+        <PUNTUACION_TRIVIA: $Guatemala>{
+            "USUARIO": carlos456,
+            "TIEMPO": 90,
+            "PUNTEO": 18
+        }
+        <PUNTUACION_TRIVIA: $Cunoc>{
+            "USUARIO": luisa789,
+            "TIEMPO": 110,
+            "PUNTEO": 25
+        }
+        <PUNTUACION_TRIVIA: $Cunoc>{
+            "USUARIO": pepe321,
+            "TIEMPO": 105,
+            "PUNTEO": 15
+        }
+        <PUNTUACION_TRIVIA: $Cunoc>{
+            "USUARIO": sofia2020,
+            "TIEMPO": 130,
+            "PUNTEO": 22
+        }
+        <PUNTUACION_TRIVIA: $Cunoc>{
+            "USUARIO": david987,
+            "TIEMPO": 140,
+            "PUNTEO": 30
+        }
+        <PUNTUACION_TRIVIA: $Plantas>{
+            "USUARIO": pablo654,
+            "TIEMPO": 80,
+            "PUNTEO": 14
+        }
+        <PUNTUACION_TRIVIA: $Plantas>{
+            "USUARIO": laura333,
+            "TIEMPO": 150,
+            "PUNTEO": 28
+        }
+        <PUNTUACION_TRIVIA: $Plantas>{
+            "USUARIO": jorge999,
+            "TIEMPO": 95,
+            "PUNTEO": 17
+        }
+        <PUNTUACION_TRIVIA: $Plantas>{
+            "USUARIO": anita555,
+            "TIEMPO": 115,
+            "PUNTEO": 19
+        }
+    )
+    
+    }
