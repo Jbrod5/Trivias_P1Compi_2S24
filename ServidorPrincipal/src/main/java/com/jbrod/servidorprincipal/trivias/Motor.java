@@ -128,7 +128,7 @@ public class Motor {
     public String eliminarComponenteTrivia(String idTrivia, String idComponente){
         for (Trivia t : trivias) {
             if(idTrivia.equals(t.getId_trivia())){
-                return t.eliminarComponente(idTrivia);
+                return t.eliminarComponente(idComponente);
             }
         }
         return "No se pudo eliminar el componente poque no se encontro la trivia con id " + idTrivia + ".";
@@ -162,5 +162,22 @@ public class Motor {
         return exp;
     }
     
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    /* - - - - - - - - - - - - - - - PUNTUACIONES - - - - - - - - - - - - - - - -*/
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    
+    public void agregarPuntuacion(Puntuacion p){
+        puntuaciones.add(p);
+    }
+    
+    public String obtenerPuntuaciones(){
+        String p = "";
+        for(Puntuacion pn : puntuaciones){
+            if(pn != null){
+                p += pn.obtenerPuntuacion() + "\n";
+            } 
+        }
+        return p;
+    }
     
 }

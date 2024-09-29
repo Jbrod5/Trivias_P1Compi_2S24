@@ -62,7 +62,10 @@ public class ServidorPrincipal {
                         out.writeUTF(motor.exportarTrivias());
                         serverSocket.close();
                         break;
-                        
+                    case "OBTENER_PUNTUACIONES":
+                        out.writeUTF(motor.obtenerPuntuaciones());
+                        serverSocket.close();
+                        break;
                         
                     default:
                         ui.addLog(" - - - - - - - - - - - - - - - - Hilo analizador principal: - - - - - - - - - - - - - - - - - - - -");

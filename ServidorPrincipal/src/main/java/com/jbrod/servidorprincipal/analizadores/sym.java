@@ -31,11 +31,13 @@ public class sym {
   public static final int USUA_ANTIGUO = 27;
   public static final int ID = 48;
   public static final int TIEMPO_PREGU = 34;
+  public static final int PRM_PUNTUACION = 58;
   public static final int FICHERO = 40;
   public static final int USUARIO_NUEV = 20;
   public static final int EOF = 0;
   public static final int LLAVCL = 11;
   public static final int COMILL = 16;
+  public static final int AGR_PUNTUACION = 57;
   public static final int ELIMINAR_USU = 29;
   public static final int CLASE = 51;
   public static final int COROPN = 12;
@@ -47,11 +49,13 @@ public class sym {
   public static final int MODIFICAR_CM = 46;
   public static final int LOGIN_USUARI = 30;
   public static final int MAYQUE = 7;
+  public static final int PUNTUACION = 59;
   public static final int TEMA = 35;
   public static final int DOSPUN = 9;
   public static final int RADIO = 39;
   public static final int INSTITUCION = 25;
   public static final int COMBO = 41;
+  public static final int TIEMPO = 60;
   public static final int DATOS_USUARI = 21;
   public static final int FIN_SOL_REAL = 19;
   public static final int NUEVA_TRIVIA = 31;
@@ -122,7 +126,11 @@ public class sym {
   "OPCIONES",
   "INDICE",
   "FILAS",
-  "COLUMNAS"
+  "COLUMNAS",
+  "AGR_PUNTUACION",
+  "PRM_PUNTUACION",
+  "PUNTUACION",
+  "TIEMPO"
   };
 }
 

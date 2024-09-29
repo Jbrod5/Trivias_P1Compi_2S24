@@ -55,5 +55,9 @@ public class Puntuacion {
         this.puntuacion = puntuacion;
     }
     
+    public String obtenerPuntuacion(){
+        return "Usuario: " + id_usuario + " | Trivia: " + id_trivia + " | Tiempo total: " + tiempo_total + " | Puntuacion: " + puntuacion;
+    }
+    
     
 }

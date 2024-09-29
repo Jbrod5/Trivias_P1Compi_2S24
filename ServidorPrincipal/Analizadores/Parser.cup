@@ -5,7 +5,8 @@ import com.jbrod.servidorprincipal.trivias.Motor;
 import com.jbrod.servidorprincipal.trivias.Componente;
 import com.jbrod.servidorprincipal.trivias.Usuario;
 import com.jbrod.servidorprincipal.trivias.Trivia;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import com.jbrod.servidorprincipal.trivias.componentes.*;
 
 
@@ -46,16 +47,27 @@ parser code{:
             return "";
         }
    }
+   private String extractNumber(String str) {
+        Pattern pattern = Pattern.compile("\\d+"); // Expresión regular para encontrar números
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.find()) {
+            return matcher.group(); // Retorna la primera coincidencia
+        }
+        return ""; // Retorna vacío si no hay coincidencias
+    }
 
    private int secureInt(Object o){
         String i = secureString(o);
+        String x = extractNumber(i);
+
         System.out.println("A convertir: " + i);
         try{
-            int n = Integer.parseInt(i);
+            int n = Integer.parseInt(x);
             System.out.println("Convertido: " + n);
             return n;
         }catch(NumberFormatException e){
             System.out.println("Hubo un error al convertir un numero.");
+            e.printStackTrace();
             return 10;
         }
    }
@@ -93,6 +105,9 @@ terminal CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, COMBO;
 
 terminal ELIMINAR_TRI, MODIF_TRIVIA, AGREGAR_COMP, ELIMINAR_COM, MODIFICAR_CM, PARAMETROS_C, ID, TRIVIA, RESPUESTA, CLASE, TEXTO_VISIBL, OPCIONES, INDICE, FILAS, COLUMNAS;
 
+/* Puntuaciones */
+terminal AGR_PUNTUACION, PRM_PUNTUACION, PUNTUACION, TIEMPO;
+
 /* - - - - - - - - - - - - - - - - - - - - - - No terminales - - - - - - - - - - - - - - - - - - - - - - */
 non terminal inicio; 
 
@@ -110,6 +125,9 @@ non terminal respuesta;
 /* Componentes */
 non terminal componente_trivia ,campo_texto, area_texto, checkbox, radio, fichero, combo; 
 
+/* Puntuaciones */
+non terminal agregar_puntuacion, prm;
+
 /* - - - - - - - - - - - - - - - - - - - - - - - Producciones - - - - - - - - - - - - - - - - - - - - - - - */
 start with inicio; 
 inicio ::= solicitudes;
@@ -117,10 +135,32 @@ inicio ::= solicitudes;
 
 solicitudes ::= solicitud_simple solicitudes | /*  */;
 solicitud_simple ::= usuario_nuevo | modificar_usuario | eliminar_usuario | login_usuario;
-solicitud_simple ::= nueva_trivia | eliminar_trivia | modificar_parametros_trivia | agregar_componente_trivia | eliminar_componente_trivia | modificar_componente_trivia;
+solicitud_simple ::= nueva_trivia | eliminar_trivia | modificar_parametros_trivia | agregar_componente_trivia | eliminar_componente_trivia | modificar_componente_trivia | agregar_puntuacion;
 
 id_st ::= IDENTIFICADOR:id {: RESULT = id; :} 
         | STRING:st {: RESULT = st; :};
+
+prm ::= STRING | USUARIO | TRIVIA | TIEMPO | PUNTUACION;
+agregar_puntuacion ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL AGR_PUNTUACION COMILL MAYQUE
+                        LLAVOP COMILL PRM_PUNTUACION COMILL DOSPUN COROPN LLAVOP
+                        COMILL prm     COMILL DOSPUN id_st:tr
+                        COMILL prm     COMILL DOSPUN id_st:us
+                        COMILL prm     COMILL DOSPUN STRING:tp
+                        COMILL prm     COMILL DOSPUN STRING:pt
+                        LLAVCL 
+                        CORCLS LLAVCL 
+                        MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
+                            //resultado += "Agregar componente: " + c.toString() + " \n";
+                            //imprimir(motor.agregarComponenteTrivia(((Componente)c).getId_trivia(), ((Componente)c)));
+                            String trivia  = secureString(tr).replaceAll("\\s+", "");;
+                            String usuario = secureString(us).replaceAll("\\s+", ""); 
+
+                            System.out.println("AGREGAR PUNTUACION DETECTADO:");
+                            System.out.println("Usuario: "  + usuario        + "   Trivia: "     + trivia);
+                            System.out.println("Tiempo: "   + secureInt(tp)  + "   Puntuacion: " + secureInt(pt));
+                            Puntuacion p = new Puntuacion(trivia, usuario,secureInt(tp),  secureInt(pt));
+                            motor.agregarPuntuacion(p)
+                        :};
 
 /* Usuarios */
 usuario_nuevo ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL USUARIO_NUEV COMILL MAYQUE LLAVOP COMILL DATOS_USUARI COMILL DOSPUN COROPN LLAVOP
@@ -386,4 +426,3 @@ modificar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODIFIC
                         );
                         RESULT = combo;
                     :};
-
