@@ -127,3 +127,7 @@ SQLKV
 
 ESTRUCTURA: ENCABEZADOS
             varias solicitudes necesitan realizar solicitudes
+
+
+BUG ANDROID
+LOGIN AMIGABLE ANDROID

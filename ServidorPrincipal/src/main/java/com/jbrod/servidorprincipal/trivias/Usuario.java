@@ -61,7 +61,7 @@ public class Usuario {
         String c = "    <USUARIO: " + id_usuario + ">{\n";
         c +=       "        \"PASSWORD\": "     + password      + ",\n";
         c +=       "        \"NOMBRE\": "       + nombre        + ",\n";
-        c +=       "        \"Institucion\": "  + institucion   +  "\n";
+        c +=       "        \"INSTITUCION\": "  + institucion   +  "\n";
         c +=       "     }";
         
         return c; 

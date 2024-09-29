@@ -6,8 +6,10 @@
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/carga/trivias/LexerTrivias.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/trivias/Puntuacion.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/trivias/Motor.java
+/home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/carga/usuarios/LexerUsuarios.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/trivias/Componente.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/trivias/componentes/Fichero.java
+/home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/carga/usuarios/ParserUsuarios.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/trivias/Usuario.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/Parser.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/trivias/componentes/AreaTexto.java
@@ -17,4 +19,6 @@
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/trivias/componentes/Combo.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/carga/trivias/sym.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/sockets/HiloAnalizadorPrincipal.java
+/home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/carga/usuarios/sym.java
+/home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/carga/usuarios/Lexer.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/Lexer.java
