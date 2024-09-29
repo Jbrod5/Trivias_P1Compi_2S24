@@ -8,6 +8,7 @@ package com.jbrod.servidorprincipal.analizadores;
 import java_cup.runtime.*;
 import com.jbrod.servidorprincipal.trivias.Motor;
 import com.jbrod.servidorprincipal.trivias.Componente;
+import com.jbrod.servidorprincipal.trivias.Puntuacion;
 import com.jbrod.servidorprincipal.trivias.Usuario;
 import com.jbrod.servidorprincipal.trivias.Trivia;
 import java.util.regex.Matcher;
@@ -916,10 +917,12 @@ class CUP$Parser$actions {
                             //imprimir(motor.agregarComponenteTrivia(((Componente)c).getId_trivia(), ((Componente)c)));
                             String trivia  = secureString(tr).replaceAll("\\s+", "");;
                             String usuario = secureString(us).replaceAll("\\s+", ""); 
-
+                            Puntuacion p = new Puntuacion(trivia, usuario,secureInt(tp),  secureInt(pt));
+                            motor.agregarPuntuacion(p);
                             System.out.println("AGREGAR PUNTUACION DETECTADO:");
                             System.out.println("Usuario: "  + usuario        + "   Trivia: "     + trivia);
                             System.out.println("Tiempo: "   + secureInt(tp)  + "   Puntuacion: " + secureInt(pt));
+                            
                         
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("agregar_puntuacion",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-41)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

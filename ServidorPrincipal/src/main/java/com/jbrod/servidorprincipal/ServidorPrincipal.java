@@ -15,8 +15,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,6 +69,15 @@ public class ServidorPrincipal {
                         serverSocket.close();
                         break;
                         
+                    case "OBTENER_BASE_DE_DATOS":
+                        String bd = "<BASE_DE_DATOS>{\n";
+                        bd += motor.exportarTrivias() + "\n";
+                        bd += motor.obtenerUsuarios() + "\n";
+                        bd += motor.obtenerCodigoPuntuaciones() + "\n}";
+                        out.writeUTF(bd);
+                        serverSocket.close();
+                        break;
+                        
                     default:
                         ui.addLog(" - - - - - - - - - - - - - - - - Hilo analizador principal: - - - - - - - - - - - - - - - - - - - -");
                         ui.addLog("Entrada:\n" + entrada + "\n");
@@ -94,7 +105,25 @@ public class ServidorPrincipal {
 
                 }
 
-            } catch (Exception e) {
+            } catch (BindException b){
+                if (parser != null) {
+                    try {
+                        out.writeUTF(parser.resultado);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ServidorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } 
+            catch (SocketException s){
+                if (parser != null) {
+                    try {
+                        out.writeUTF(parser.resultado);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ServidorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            catch (Exception e) {
                 e.printStackTrace();
                 if (parser != null) {
                     try {

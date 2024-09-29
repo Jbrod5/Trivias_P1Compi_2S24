@@ -59,5 +59,14 @@ public class Puntuacion {
         return "Usuario: " + id_usuario + " | Trivia: " + id_trivia + " | Tiempo total: " + tiempo_total + " | Puntuacion: " + puntuacion;
     }
     
+    public String obtenerCodigoPuntuacion(){
+        String p = "    <PUNTUACION_TRIVIA: " + id_trivia + ">{\n";
+        p +=       "        \"USUARIO\": " + id_usuario   + ",\n";
+        p +=       "        \"TIEMPO\": "  + tiempo_total + ",\n";
+        p +=       "        \"PUNTEO\": "  + puntuacion   +"\n";
+        p +=       "    }";
+        return p;
+    }
+    
     
 }

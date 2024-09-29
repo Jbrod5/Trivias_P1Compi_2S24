@@ -159,6 +159,7 @@ public class Motor {
                 exp += trivia.exportarTrivia() + "\n";
             }
         }
+        exp += "\n";
         return exp;
     }
     
@@ -168,15 +169,41 @@ public class Motor {
     
     public void agregarPuntuacion(Puntuacion p){
         puntuaciones.add(p);
+        System.out.println("Puntuacion agregada: " + p.obtenerPuntuacion());
+    }
+    
+    public String obtenerUsuarios(){
+        String u = "usuarios(\n";
+        
+        for(Usuario usuario : usuarios){
+            if(usuario != null){
+                u += usuario.obtenerCodigoUsuario() + "\n";
+            }
+        }
+        u+= ")\n";
+        return u;
     }
     
     public String obtenerPuntuaciones(){
-        String p = "";
+        String p = "puntuaciones(";
         for(Puntuacion pn : puntuaciones){
             if(pn != null){
                 p += pn.obtenerPuntuacion() + "\n";
             } 
         }
+        
+        p += ")\n";
+        return p;
+    }
+    
+    public String obtenerCodigoPuntuaciones(){
+        String p = "puntuaciones(\n";
+        for(Puntuacion pn : puntuaciones){
+            if(pn != null){
+                p += pn.obtenerCodigoPuntuacion() + "\n";
+            } 
+        }
+        p += ")\n";
         return p;
     }
     

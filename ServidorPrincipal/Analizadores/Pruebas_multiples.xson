@@ -280,3 +280,159 @@
 <fin_solicitud_realizada!> 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  "PARAMETROS_PUNTUACION":[{
+    "TRIVIA": $Guatemala
+    "USUARIO":juanito619
+    "TIEMPO":100
+    "PUNTUACION": 16
+}
+]}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Guatemala
+      "USUARIO": maria123
+      "TIEMPO": 120
+      "PUNTUACION": 20
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Guatemala
+      "USUARIO": carlos456
+      "TIEMPO": 90
+      "PUNTUACION": 18
+   }]
+}
+<fin_solicitud_realizada!>
+
+
+
+
+
+
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Cunoc
+      "USUARIO": luisa789
+      "TIEMPO": 110
+      "PUNTUACION": 25
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Cunoc
+      "USUARIO": pepe321
+      "TIEMPO": 105
+      "PUNTUACION": 15
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Cunoc
+      "USUARIO": sofia2020
+      "TIEMPO": 130
+      "PUNTUACION": 22
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Cunoc
+      "USUARIO": david987
+      "TIEMPO": 140
+      "PUNTUACION": 30
+   }]
+}
+<fin_solicitud_realizada!>
+
+
+
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Plantas
+      "USUARIO": pablo654
+      "TIEMPO": 80
+      "PUNTUACION": 14
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Plantas
+      "USUARIO": laura333
+      "TIEMPO": 150
+      "PUNTUACION": 28
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Plantas
+      "USUARIO": jorge999
+      "TIEMPO": 95
+      "PUNTUACION": 17
+   }]
+}
+<fin_solicitud_realizada!>
+
+<!realizar_solicitud: "AGREGAR_PUNTUACION">
+{  
+   "PARAMETROS_PUNTUACION":[{
+      "TRIVIA": $Plantas
+      "USUARIO": anita555
+      "TIEMPO": 115
+      "PUNTUACION": 19
+   }]
+}
+<fin_solicitud_realizada!>
