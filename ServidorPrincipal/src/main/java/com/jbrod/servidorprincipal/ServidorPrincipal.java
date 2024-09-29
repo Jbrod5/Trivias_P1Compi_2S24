@@ -2,6 +2,8 @@ package com.jbrod.servidorprincipal;
 
 import com.jbrod.servidorprincipal.analizadores.Lexer;
 import com.jbrod.servidorprincipal.analizadores.Parser;
+import com.jbrod.servidorprincipal.analizadores.carga.trivias.LexerTrivias;
+import com.jbrod.servidorprincipal.analizadores.carga.trivias.ParserTrivias;
 import com.jbrod.servidorprincipal.sockets.HiloAnalizadorPrincipal;
 import com.jbrod.servidorprincipal.trivias.Motor;
 import com.jbrod.servidorprincipal.trivias.Trivia;
@@ -58,6 +60,22 @@ public class ServidorPrincipal {
                 out = new DataOutputStream(clientSocket.getOutputStream());
 
                 String entrada = in.readUTF();
+                
+                
+                //
+                if(entrada.startsWith("CARGAR_TRIVIAS")){
+                    entrada = entrada.substring("CARGAR_TRIVIAS".length());
+                    StringReader sb = new StringReader(entrada);
+                    LexerTrivias l = new LexerTrivias(sb);
+                    ParserTrivias p = new ParserTrivias(l, motor);
+                    p.parse();
+                    out.writeUTF(p.resultado);
+                    serverSocket.close();
+                    
+                }else{
+                
+                }
+                
                 switch (entrada) {
                     //Exportar las trivias a quien lo solicite
                     case "OBTENER_TRIVIAS":

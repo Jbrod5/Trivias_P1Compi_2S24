@@ -1,0 +1,286 @@
+    package com.jbrod.servidorprincipal.analizadores.carga.trivias;
+    import com.jbrod.servidorprincipal.trivias.Motor;
+
+    import com.jbrod.servidorprincipal.trivias.Componente;
+    import com.jbrod.servidorprincipal.trivias.Trivia;
+    import java_cup.runtime.*;
+
+    import com.jbrod.servidorprincipal.trivias.componentes.*;
+    import java.util.LinkedList;
+
+
+
+
+    parser code{:
+        
+        public String resultado = "";
+
+        private Motor motor; 
+        private LinkedList<Componente> componentes = new LinkedList<>();
+
+        // Conectar el parser al escaner
+        public ParserTrivias(LexerTrivias lex, Motor motor){
+            super(lex);
+            this.motor = motor;
+        }
+
+        public void syntax_error(Symbol cur_token){
+            System.out.println("Simbolo con error:" + symbl_name_from_id(cur_token.sym));
+            System.out.println("Linea " + cur_token.left);
+            System.out.println("Columna " + cur_token.right);
+            if (expected_token_ids().isEmpty()) {
+                System.out.println("Ya no se esperaba ningun simbolo");
+                //reporteErrores.agregarError(symbl_name_from_id(cur_token.sym),cur_token.left,cur_token.right, "Sintactico", "Ya no se esperaba ningun simbolo." );
+            }else{
+                //reporteErrores.agregarError(symbl_name_from_id(cur_token.sym),cur_token.left,cur_token.right, "Sintactico", "Se esperaba otro simbolo." );
+            }
+        }
+
+        /*public void unrecovered_syntax_error(Symbol cur_token) {
+            System.out.println("Error irrecuperable sobrecargado");
+        }*/
+
+    private String secureString(Object o){
+            if( o != null){
+                return o.toString();
+            }else{
+                return "";
+            }
+    }
+
+    private int secureInt(Object o){
+            String i = secureString(o);
+            //System.out.println("A convertir: " + i);
+            try{
+                int n = Integer.parseInt(i);
+                //System.out.println("Convertido: " + n);
+                return n;
+            }catch(NumberFormatException e){
+                //System.out.println("Hubo un error al convertir un numero.");
+                return 10;
+            }
+    }
+
+    private void imprimir(String st){
+            System.out.println(st + "\n\n\n\n");
+    }
+
+    :}
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - Terminales - - - - - - - - - - - - - - - - - - - - - - - */
+    /* Estructuras */
+    terminal ENCABEZADO, TRIVIA;
+    terminal IDENTIFICADOR, STRING, NUMERO;
+
+    /* Simbolos */
+    terminal MENQUE, MAYQUE, EXCLAM, DOSPUN, LLAVOP, LLAVCL, COROPN, CORCLS, PAROPN, PARCLS, COMMA, QSTMRK, COMILL, ORSYMB;
+
+    /* Atributos de las trivias */
+    terminal ID_TRI, NOMBRE, CREADO, FECHA, TIEMPO, TEMA;
+
+    /* Componentes */
+    terminal CAMPO_T, AREA_TE, CHECKBO, RADIO, FICHERO, COMBO;
+
+    /* Parametros de componentes */
+    terminal TRIVIAS, PARAM_TRI, PARAM_IND, PARAM_TEX, PARAM_RES, PARAM_OPC, PARAM_FIL, PARAM_COL;
+
+
+    /* - - - - - - - - - - - - - - - - - - - - - - No terminales - - - - - - - - - - - - - - - - - - - - - - */
+    non terminal inicio;
+
+    /* Trivias */
+    non terminal trivia, trivias, multiples_trivias;
+
+
+
+
+
+    /* Componentes */
+    non terminal componente_trivia, componentes_trivia, campo_t, area_te, checkbo, radio, fichero, combo;
+
+    /* Auxiliares */
+    non terminal id_st;
+    non terminal opciones; 
+    non terminal respuesta;
+
+    non terminal operacion, op; 
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - Producciones - - - - - - - - - - - - - - - - - - - - - - - */
+    start with inicio;
+    inicio ::= trivias;
+
+    id_st     ::= IDENTIFICADOR:id {: RESULT = id; :} 
+                    | STRING:st {: RESULT = st; :};
+
+
+    /* - TRIVIAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+    trivia ::= TRIVIA PAROPN 
+                    COMILL ID_TRI COMILL DOSPUN IDENTIFICADOR:id
+                    COMILL NOMBRE COMILL DOSPUN id_st: nm
+                    COMILL CREADO COMILL DOSPUN id_st: cd
+                    COMILL FECHA  COMILL DOSPUN id_st: fc
+                    COMILL TIEMPO COMILL DOSPUN id_st: tp
+                    COMILL TEMA   COMILL DOSPUN id_st: tm
+                    componentes_trivia
+                PARCLS{: 
+                        resultado += "Nueva trivia: " + id.toString() + " " + tp.toString()+ " " + nm.toString() + " " + tm.toString() + " \n";
+                        Trivia trivia = new Trivia(
+                            secureString(id),
+                            secureString(nm),
+                            secureString(tm),
+                            "Falta agregar usuario",
+                            "Falta agregar fecha", 
+                            secureInt(tp)
+
+                        );
+                        imprimir( motor.agregarTrivia(trivia) );
+                        for(Componente com : componentes){
+                            imprimir(motor.agregarComponenteTrivia(com.getId_trivia(), com));
+                        }
+
+                        componentes = new LinkedList<>();
+                    :};
+
+    trivias ::= trivia trivias | /*  */;
+
+    componente_trivia  ::= campo_t:c       {:RESULT = c;:}
+                        | area_te:c        {:RESULT = c;:}
+                        | checkbo:c        {:RESULT = c;:}
+                        | radio:c          {:RESULT = c;:}
+                        | fichero:c        {:RESULT = c;:}
+                        | combo:c          {:RESULT = c;:};
+    componentes_trivia ::= componente_trivia:c componentes_trivia 
+                            {:
+                                //imprimir(motor.agregarComponenteTrivia(((Componente)c).getId_trivia(), ((Componente)c)));
+                                componentes.add((Componente)c);
+                            :}
+                            | /* nada */;
+
+
+
+
+    campo_t  ::= MENQUE CAMPO_T DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tv COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
+                        COMILL PARAM_RES COMILL DOSPUN respuesta:rs      
+                    LLAVCL{:
+                        resultado +=  "COMPONENTE: Campo de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) + "\n"; 
+                        CampoTexto campo = new CampoTexto(
+                            secureString(id),
+                            secureString(tv),
+                            secureInt(in),
+                            secureString(tx),
+                            secureString(rs)
+                        );
+                        RESULT = campo;
+                    :};
+
+    area_te  ::= MENQUE AREA_TE DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tv COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
+                        COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
+                        COMILL PARAM_FIL COMILL DOSPUN id_st:fl          COMMA
+                        COMILL PARAM_COL COMILL DOSPUN id_st:cl                    
+                    LLAVCL{:
+                            resultado +=  "COMPONENTE: Area de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + secureString(fl)+ " " + secureString(cl) + "\n"; 
+                            AreaTexto area = new AreaTexto(
+                                secureInt(fl),
+                                secureInt(cl),
+
+                                secureString(id),
+                                secureString(tv),
+                                secureInt(in),
+                                secureString(tx),
+                                secureString(rs)
+                            );
+                        RESULT = area;
+                        :};
+
+    checkbo  ::= MENQUE CHECKBO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tv COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
+                        COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
+                        COMILL PARAM_OPC COMILL DOSPUN opciones:op       
+                    LLAVCL{:
+                            resultado +=  "COMPONENTE: Checkbox: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                            Checkbox checkbox = new Checkbox(
+                                secureString(op),
+                                secureString(id),
+                                secureString(tv),
+
+                                secureInt(in),
+                                secureString(tx),
+                                secureString(rs)
+                            );
+                            RESULT = checkbox;
+                        :};
+
+    radio    ::= MENQUE RADIO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tv COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
+                        COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
+                        COMILL PARAM_OPC COMILL DOSPUN opciones:op       
+                    LLAVCL{: 
+                        resultado +=  "COMPONENTE: Radio: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                        Radio radio = new Radio(
+                            secureString(op),
+                            secureString(id),
+                            secureString(tv),
+
+                            secureInt(in),
+                            secureString(tx),
+                            secureString(rs)
+                        );
+                        RESULT = radio; 
+                    :};
+                    
+    fichero  ::= MENQUE FICHERO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tv COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          
+                    LLAVCL  {: 
+                        resultado +=  "Fichero: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx) + "\n"; 
+                        Fichero fichero = new Fichero(
+                            secureString(id),
+                            secureString(tv),
+
+                            secureInt(in),
+                            secureString(tx)
+                        );
+                        RESULT = fichero;
+                    :};
+    
+                
+    combo    ::= MENQUE COMBO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tv  COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
+                        COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
+                        COMILL PARAM_OPC COMILL DOSPUN opciones:op       
+                    LLAVCL{: 
+                        resultado +=  "Combo: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                        Combo combo = new Combo(
+                            secureString(op),
+                            secureString(id),
+                            secureString(tv),
+
+                            secureInt(in),
+                            secureString(tx),
+                            secureString(rs)
+                        );
+                        RESULT = combo;
+                    :};
+
+
+
+
+    opciones ::= id_st:op {: RESULT = op.toString(); :}; 
+        opciones ::= id_st:op ORSYMB opciones:opcs {: RESULT = op.toString() + "|" + opcs.toString(); :}; 
+        respuesta ::= opciones:r {: RESULT = r.toString(); :};
+
+

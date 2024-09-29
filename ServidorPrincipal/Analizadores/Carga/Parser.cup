@@ -1,0 +1,280 @@
+
+
+    import java_cup.runtime.*;
+    import trivias.*;    
+
+
+
+
+    parser code{:
+        
+        public String resultado = "";
+        private LinkedList<Componente> componentes = new LinkedList<>();
+        private Context context; 
+
+        private Motor motor; 
+
+        // Conectar el parser al escaner
+        public Parser(Lexer lex, Motor motor){
+            super(lex);
+            this.motor = motor;
+        }
+
+        public void syntax_error(Symbol cur_token){
+            System.out.println("Simbolo con error:" + symbl_name_from_id(cur_token.sym));
+            System.out.println("Linea " + cur_token.left);
+            System.out.println("Columna " + cur_token.right);
+            if (expected_token_ids().isEmpty()) {
+                System.out.println("Ya no se esperaba ningun simbolo");
+                //reporteErrores.agregarError(symbl_name_from_id(cur_token.sym),cur_token.left,cur_token.right, "Sintactico", "Ya no se esperaba ningun simbolo." );
+            }else{
+                //reporteErrores.agregarError(symbl_name_from_id(cur_token.sym),cur_token.left,cur_token.right, "Sintactico", "Se esperaba otro simbolo." );
+            }
+        }
+
+        /*public void unrecovered_syntax_error(Symbol cur_token) {
+            System.out.println("Error irrecuperable sobrecargado");
+        }*/
+
+    private String secureString(Object o){
+            if( o != null){
+                return o.toString();
+            }else{
+                return "";
+            }
+    }
+
+    private int secureInt(Object o){
+            String i = secureString(o);
+            //System.out.println("A convertir: " + i);
+            try{
+                int n = Integer.parseInt(i);
+                //System.out.println("Convertido: " + n);
+                return n;
+            }catch(NumberFormatException e){
+                //System.out.println("Hubo un error al convertir un numero.");
+                return 10;
+            }
+    }
+
+    private void imprimir(String st){
+            System.out.println(st + "\n\n\n\n");
+    }
+
+    :}
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - Terminales - - - - - - - - - - - - - - - - - - - - - - - */
+    /* Estructuras */
+    terminal ENCABEZADO, TRIVIA;
+    terminal IDENTIFICADOR, STRING, NUMERO;
+
+    /* Simbolos */
+    terminal MENQUE, MAYQUE, EXCLAM, DOSPUN, LLAVOP, LLAVCL, COROPN, CORCLS, PAROPN, PARCLS, COMMA, QSTMRK, COMILL, ORSYMB;
+
+    /* Atributos de las trivias */
+    terminal ID_TRI, NOMBRE, CREADO, FECHA, TIEMPO, TEMA;
+
+    /* Componentes */
+    terminal CAMPO_T, AREA_TE, CHECKBO, RADIO, FICHERO, COMBO;
+
+    /* Parametros de componentes */
+    terminal TRIVIAS, PARAM_TRI, PARAM_IND, PARAM_TEX, PARAM_RES, PARAM_OPC, PARAM_FIL, PARAM_COL;
+
+
+
+    /* Usuarios */
+    terminal USUARIOS, USUARIO, PASSWORD, INSTITUC;
+
+    /* Puntuaciones */
+    terminal PUNTUACIONES, PUNTUACION_T, PUNTEO;
+
+    /* - - - - - - - - - - - - - - - - - - - - - - No terminales - - - - - - - - - - - - - - - - - - - - - - */
+    non terminal inicio;
+
+    /* Trivias */
+    non terminal trivia, trivias, multiples_trivias;
+
+    /* Usuarios */
+    non terminal usuario, multiples_usuarios, usuarios;
+
+    /* Puntuaciones */
+    non terminal puntuacion, multiples_puntuaciones, multiples_puntuaciones2, puntuaciones;
+
+
+
+    /* Componentes */
+    non terminal componente_trivia, componentes_trivia, campo_t, area_te, checkbo, radio, fichero, combo;
+
+    /* Auxiliares */
+    non terminal id_st;
+    non terminal opciones; 
+    non terminal respuesta;
+
+    non terminal operacion, op; 
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - Producciones - - - - - - - - - - - - - - - - - - - - - - - */
+    start with inicio;
+    inicio ::= operacion;
+
+    id_st     ::= IDENTIFICADOR:id {: RESULT = id; :} 
+                    | STRING:st {: RESULT = st; :};
+
+    op ::= trivias
+        | usuarios
+        | puntuaciones
+        | trivias op
+        | puntuaciones op
+        | usuarios op;
+
+    operacion ::= ENCABEZADO LLAVOP
+                        op
+                    LLAVCL;
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* - TRIVIAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+    trivia ::= TRIVIA PAROPN 
+                    COMILL ID_TRI COMILL DOSPUN IDENTIFICADOR:id
+                    COMILL NOMBRE COMILL DOSPUN id_st: nm
+                    COMILL CREADO COMILL DOSPUN id_st: cd
+                    COMILL FECHA  COMILL DOSPUN id_st: fc
+                    COMILL TIEMPO COMILL DOSPUN id_st: tp
+                    COMILL TEMA   COMILL DOSPUN id_st: tm
+                    componentes_trivia
+                PARCLS{: 
+                        Trivia trivia = new Trivia(secureString(id), secureString(nm), secureString(cd), secureString(fc), secureInt(tp), secureString(tm));
+                        trivia.setComponentes(componentes);
+
+                        AdministradorTrivias administradorTrivias = (AdministradorTrivias)context;
+                        LinkedList<Trivia> trivias = administradorTrivias.getTrivias();
+                        trivias.add(trivia);
+                        trivias = new LinkedList<>();
+                    :};
+
+    trivias ::= trivia trivias | /*  */;
+
+    componente_trivia  ::= campo_t:c    {: componentes.add((Componente)c); RESULT = c; :} 
+                        | area_te:c    {: componentes.add((Componente)c); RESULT = c; :} 
+                        | checkbo:c    {: componentes.add((Componente)c); RESULT = c; :} 
+                        | radio:c      {: componentes.add((Componente)c); RESULT = c; :} 
+                        | fichero:c    {: componentes.add((Componente)c); RESULT = c; :} 
+                        | combo:c      {: componentes.add((Componente)c); RESULT = c; :} ;
+    componentes_trivia ::= componente_trivia componentes_trivia | /* nada */;
+
+
+
+
+    campo_t  ::= MENQUE CAMPO_T DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tri COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
+                        COMILL PARAM_RES COMILL DOSPUN respuesta:rs      
+                    LLAVCL{:
+                        RESULT = new CampoTexto(secureString(id), secureString(tri), secureInt(in), secureString(tx), secureString(rs));
+                    :};
+
+    area_te  ::= MENQUE AREA_TE DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tri COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
+                        COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
+                        COMILL PARAM_FIL COMILL DOSPUN id_st:fl          COMMA
+                        COMILL PARAM_COL COMILL DOSPUN id_st:cl                    
+                    LLAVCL{:
+                            RESULT = new AreaTexto(secureString(id), secureString(tri), secureInt(in), secureString(tx), secureString(rs), secureInt(fl), secureInt(cl)); 
+                        :};
+
+    checkbo  ::= MENQUE CHECKBO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tri COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
+                        COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
+                        COMILL PARAM_OPC COMILL DOSPUN opciones:op       
+                    LLAVCL{:
+                            RESULT = new Checkbox(secureString(id), secureString(tri), secureInt(in), secureString(tx), secureString(rs), secureString(op));
+                        :};
+
+    radio    ::= MENQUE RADIO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tri COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
+                        COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
+                        COMILL PARAM_OPC COMILL DOSPUN opciones:op       
+                    LLAVCL{:
+                            RESULT = new Radio(secureString(id), secureString(tri), secureInt(in), secureString(tx), secureString(rs), secureString(op));
+                        :};
+                    
+    fichero  ::= MENQUE FICHERO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tri COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          
+                    LLAVCL{:
+                            RESULT = new Fichero(secureString(id), secureString(tri), secureInt(in), secureString(tx),"sin respuesta");
+                        :};
+                
+    combo    ::= MENQUE COMBO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL PARAM_TRI COMILL DOSPUN IDENTIFICADOR:tri COMMA             
+                        COMILL PARAM_IND COMILL DOSPUN id_st:in          COMMA
+                        COMILL PARAM_TEX COMILL DOSPUN id_st:tx          COMMA
+                        COMILL PARAM_RES COMILL DOSPUN respuesta:rs      COMMA
+                        COMILL PARAM_OPC COMILL DOSPUN opciones:op       
+                    LLAVCL{:
+                            RESULT = new Combo(secureString(id), secureString(tri), secureInt(in), secureString(tx), secureString(rs), secureString(op));
+                        :};
+
+
+
+
+    opciones ::= id_st:op {: RESULT = op.toString(); :}; 
+        opciones ::= id_st:op ORSYMB opciones:opcs {: RESULT = op.toString() + "|" + opcs.toString(); :}; 
+        respuesta ::= opciones:r {: RESULT = r.toString(); :};
+
+
+
+
+    /* - USUARIOS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+    usuario ::= MENQUE USUARIO DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                    COMILL PASSWORD COMILL DOSPUN id_st:ps COMMA
+                    COMILL NOMBRE   COMILL DOSPUN id_st:nm COMMA
+                    COMILL INSTITUC COMILL DOSPUN id_st:in COMMA
+                LLAVCL{:
+
+                :};
+
+    multiples_usuarios ::= usuario multiples_usuarios | /* */;
+
+    usuarios ::= USUARIOS PAROPN 
+                    multiples_usuarios
+                PARCLS;
+
+
+
+
+    /* - PUNTUACIONES - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    puntuaciones ::= PUNTUACIONES PAROPN
+                        multiples_puntuaciones
+                    PARCLS;
+
+    multiples_puntuaciones ::=  puntuacion multiples_puntuaciones 
+                                | puntuacion
+                                | /* */;
+
+    puntuacion ::= MENQUE PUNTUACION_T DOSPUN IDENTIFICADOR:id MAYQUE LLAVOP
+                        COMILL USUARIO COMILL DOSPUN IDENTIFICADOR:us COMMA
+                        COMILL TIEMPO  COMILL DOSPUN id_st:tp         COMMA
+                        COMILL PUNTEO  COMILL DOSPUN id_st:pn         
+                    LLAVCL{:
+
+                    :};
