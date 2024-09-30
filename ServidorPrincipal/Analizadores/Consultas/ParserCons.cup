@@ -113,7 +113,11 @@ non terminal reporte, trivias, filtrar, relac, tiempo, usuario, puntuac, opcion,
 
 
 
-    reporte ::= SELEC_REPORTE trivias filtrar;
+    reporte ::= SELEC_REPORTE trivias filtrar{:
+            for(Puntuacion p : puntuacionesResultado){
+                resultado += p.obtenerPuntuacion() + "\n";
+            }
+        :};
 
     trivias ::= IDENTIFICADOR:tv
                     {:  

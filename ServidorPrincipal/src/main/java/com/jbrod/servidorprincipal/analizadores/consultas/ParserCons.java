@@ -264,7 +264,11 @@ class CUP$ParserCons$actions {
           case 2: // reporte ::= SELEC_REPORTE trivias filtrar 
             {
               Object RESULT =null;
-
+		
+            for(Puntuacion p : puntuacionesResultado){
+                resultado += p.obtenerPuntuacion() + "\n";
+            }
+        
               CUP$ParserCons$result = parser.getSymbolFactory().newSymbol("reporte",1, ((java_cup.runtime.Symbol)CUP$ParserCons$stack.elementAt(CUP$ParserCons$top-2)), ((java_cup.runtime.Symbol)CUP$ParserCons$stack.peek()), RESULT);
             }
           return CUP$ParserCons$result;
