@@ -25,11 +25,11 @@ public class Usuario {
      **/
     public Usuario(String id, String password, String nombre, String institucion){
         trivias = new LinkedList<>();
-        id_usuario = id;
-        this.password = password;
+        id_usuario = id.replace("\n", "");
+        this.password = password.replace("\n", "");
         
-        this.nombre = nombre;
-        this.institucion = institucion; 
+        this.nombre = nombre.replace("\n", "");
+        this.institucion = institucion.replace("\n", "");                
     }
 
     public LinkedList<Trivia> getTrivias() {

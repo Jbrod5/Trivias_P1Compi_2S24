@@ -14,11 +14,11 @@ public abstract class Componente {
     protected String respuesta; 
 
     public Componente(String id_componente, String id_trivia, int indice, String texto_visible, String respuesta) {
-        this.id_componente = id_componente;
-        this.id_trivia = id_trivia;
+        this.id_componente = id_componente.replace("\n", "");;
+        this.id_trivia = id_trivia.replace("\n", "");;
         this.indice = indice;
-        this.texto_visible = texto_visible;
-        this.respuesta = respuesta;
+        this.texto_visible = texto_visible.replace("\n", "");;
+        this.respuesta = respuesta.replace("\n", "");;
     }
     
     

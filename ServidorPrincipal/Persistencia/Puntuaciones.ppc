@@ -7,6 +7,51 @@ puntuaciones(
     <PUNTUACION_TRIVIA: $Plantas>{
         "USUARIO": Antoine98,
         "TIEMPO": 8,
+        "PUNTEO": 10
+    }
+    <PUNTUACION_TRIVIA: $Cunoc>{
+        "USUARIO": luisa789,
+        "TIEMPO": 110,
+        "PUNTEO": 10
+    }
+    <PUNTUACION_TRIVIA: $Cunoc>{
+        "USUARIO": pepe321,
+        "TIEMPO": 105,
+        "PUNTEO": 10
+    }
+    <PUNTUACION_TRIVIA: $Cunoc>{
+        "USUARIO": sofia2020,
+        "TIEMPO": 130,
+        "PUNTEO": 10
+    }
+    <PUNTUACION_TRIVIA: $Cunoc>{
+        "USUARIO": david987,
+        "TIEMPO": 140,
+        "PUNTEO": 10
+    }
+    <PUNTUACION_TRIVIA: $Plantas>{
+        "USUARIO": pablo654,
+        "TIEMPO": 80,
+        "PUNTEO": 10
+    }
+    <PUNTUACION_TRIVIA: $Plantas>{
+        "USUARIO": laura333,
+        "TIEMPO": 150,
+        "PUNTEO": 10
+    }
+    <PUNTUACION_TRIVIA: $Plantas>{
+        "USUARIO": jorge999,
+        "TIEMPO": 95,
+        "PUNTEO": 10
+    }
+    <PUNTUACION_TRIVIA: $Plantas>{
+        "USUARIO": anita555,
+        "TIEMPO": 115,
+        "PUNTEO": 10
+    }
+    <PUNTUACION_TRIVIA: $Guatemala>{
+        "USUARIO": Antoine98,
+        "TIEMPO": 5,
         "PUNTEO": 8
     }
 )
