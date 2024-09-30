@@ -18,13 +18,18 @@ parser code{:
     private Motor motor;
 
     //Guarda todas las puntuaciones donde buscar
-    private LinkedList puntuacionesGenerales; 
-    private LinkedList puntuacionesResultantes;
+    private LinkedList<Puntuacion> puntuacionesGenerales = new LinkedList<>(); 
+    private LinkedList<Puntuacion> puntuacionesResultantes = new LinkedList<>();
+    private LinkedList<Puntuacion> puntuacionesResultado = new LinkedList<>();
 
     // Conectar el parser al escaner
     public ParserCons(LexerCons lex, Motor motor){
         super(lex);
         this.motor = motor;
+
+        for(Puntuacion p : motor.getPuntuaciones()){
+            puntuacionesGenerales.add(p);
+        }
     }
 
     public void syntax_error(Symbol cur_token){
@@ -108,28 +113,116 @@ non terminal reporte, trivias, filtrar, relac, tiempo, usuario, puntuac, opcion,
 
 
 
-    reporte ::= SELEC_REPORTE trivias:trivias filtrar;
+    reporte ::= SELEC_REPORTE trivias filtrar;
 
-    trivias ::= IDENTIFICADOR 
-                | IDENTIFICADOR COMMA trivias;
+    trivias ::= IDENTIFICADOR:tv
+                    {:  
+                        String trivia = secureString(tv);
+                        for(Puntuacion p : puntuacionesResultantes){
+                            if(trivia.equals(p.getId_trivia())){
+                                puntuacionesResultado.add(p);
+                            }
+                        } 
+                    :} 
+                | IDENTIFICADOR:tv COMMA trivias{:  
+                    String trivia = secureString(tv);
+                    for(Puntuacion p : puntuacionesResultantes){
+                        if(trivia.equals(p.getId_trivia())){
+                            puntuacionesResultado.add(p);
+                        }
+                    } 
+                :} 
+                | /* todas las trivias */ {: puntuacionesResultado = puntuacionesResultantes; :};
 
 
     filtrar ::=   FILTRAR opcion opcion2
                 | FILTRAR opcion
                 | /* nada */ ;
 
-    relac ::= MENQUE
-            | MAYQUE
-            | EQUALS
-            | MENQUE EQUALS
-            | MAYQUE EQUALS;
+    relac ::= MENQUE        {: RESULT = "<" ; :}
+            | MAYQUE        {: RESULT = ">" ; :}
+            | EQUALS        {: RESULT = "=" ; :}
+            | MENQUE EQUALS {: RESULT = "<="; :}
+            | MAYQUE EQUALS {: RESULT = ">="; :};
 
 
-    tiempo ::= TIEMPO relac NUMERO:num;
+    tiempo ::= TIEMPO relac:r NUMERO:num{:
 
-    usuario ::= USUARIO EQUALS COMILL IDENTIFICADOR:usuario COMILL; 
+        int n = secureInt(num);
+    
+        for(Puntuacion p : puntuacionesGenerales){
+            switch(secureString(r)){
+                case "<":
+                    if(p.getTiempo_total() < n) { 
+                        puntuacionesResultantes.add(p);
+                     }   
+                    break;
 
-    puntuac ::= PUNTUAC relac NUMERO:num;
+                case ">":
+                    if(p.getTiempo_total() > n) { 
+                        puntuacionesResultantes.add(p); 
+                    }
+                    break;
+
+                case "<=":
+                    if(p.getTiempo_total() <= n){ 
+                        puntuacionesResultantes.add(p); 
+                    }
+                    break;
+
+                case ">=":
+                    if(p.getTiempo_total() >= n){ 
+                        puntuacionesResultantes.add(p); 
+                    }
+                    break;
+
+                default:
+                    if(p.getTiempo_total() == n){ 
+                        puntuacionesResultantes.add(p);
+                    }
+            }
+        }
+
+    :};
+
+    usuario ::= USUARIO EQUALS COMILL IDENTIFICADOR:usuario COMILL{:
+        String u = secureString(usuario);    
+        for(Puntuacion p : puntuacionesGenerales){
+                if(u.equals(p.getId_usuario())){
+                    puntuacionesResultantes.add(p);
+                }
+            }
+        :}; 
+
+    puntuac ::= PUNTUAC relac:r NUMERO:num{:
+        int n = secureInt(num);
+        //LinkedList<Puntuacion> pn = new LinkedList<>(); 
+        for(Puntuacion p : puntuacionesGenerales){
+            switch(secureString(r)){
+            
+                case "<":
+                    if(p.getPuntuacion() < n) { puntuacionesResultantes.add(p); }
+                    break;
+
+                case ">":
+                    if(p.getPuntuacion() > n) { puntuacionesResultantes.add(p); }
+                    break;
+
+                case "<=":
+                    if(p.getPuntuacion() <= n){ puntuacionesResultantes.add(p); }
+                    break;
+
+                case ">=":
+                    if(p.getPuntuacion() >= n){ puntuacionesResultantes.add(p); }
+                    break;
+
+                default:
+                    if(p.getPuntuacion() == n){ puntuacionesResultantes.add(p);}
+            }
+        }
+
+        //RESULT = pn;
+    :};
 
 
 

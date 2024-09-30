@@ -186,7 +186,14 @@ public class ServidorPrincipal {
                     out.writeUTF(p.resultado);
                     serverSocket.close();
 
-                } else {
+                } else if(entrada.startsWith("SELECCIONAR")){
+                    StringReader sb = new StringReader(entrada);
+                    LexerCons l = new LexerCons(sb);
+                    ParserCons p = new ParserCons(l, motor);
+                    p.parse();
+                    out.writeUTF(p.resultado);
+                    serverSocket.close();
+                }else {
 
                     switch (entrada) {
                         //Exportar las trivias a quien lo solicite
