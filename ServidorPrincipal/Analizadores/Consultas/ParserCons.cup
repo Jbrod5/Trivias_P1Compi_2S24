@@ -1,4 +1,4 @@
-package com.jbrod.servidorprincipal.analizadores;
+package com.jbrod.servidorprincipal.analizadores.consultas;
 import java_cup.runtime.*;
 import com.jbrod.servidorprincipal.trivias.Motor;
 
@@ -9,6 +9,7 @@ import com.jbrod.servidorprincipal.trivias.Trivia;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.jbrod.servidorprincipal.trivias.componentes.*;
+import java.util.LinkedList;
 
 
 parser code{:
@@ -16,8 +17,12 @@ parser code{:
     public String resultado = "";
     private Motor motor;
 
+    //Guarda todas las puntuaciones donde buscar
+    private LinkedList puntuacionesGenerales; 
+    private LinkedList puntuacionesResultantes;
+
     // Conectar el parser al escaner
-    public ParserCons(Lexer lex, Motor motor){
+    public ParserCons(LexerCons lex, Motor motor){
         super(lex);
         this.motor = motor;
     }
@@ -93,45 +98,51 @@ terminal SELEC_REPORTE, FILTRAR, TIEMPO, USUARIO, PUNTUAC;
 non terminal inicio; 
 
 /* Solicitudes */
-non terminal ; 
+non terminal reporte, trivias, filtrar, relac, tiempo, usuario, puntuac, opcion, opcion2; 
 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - Producciones - - - - - - - - - - - - - - - - - - - - - - - */
-start with inicio; 
-inicio ::= ;  
+    start with inicio; 
+    inicio ::= reporte;  
 
 
 
-reporte ::= SELEC_REPORTE IDENTIFICADOR:reporte filtrar
 
-filtrar ::= FILTRAR 
+    reporte ::= SELEC_REPORTE trivias:trivias filtrar;
 
-relac ::= MENQUE
-        | MAYQUE
-        | EQUALS
-        | MENQUE EQUALS
-        | MAYQUE EQUALS
+    trivias ::= IDENTIFICADOR 
+                | IDENTIFICADOR COMMA trivias;
 
 
-tiempo ::= TIEMPO relac NUMERO:num
+    filtrar ::=   FILTRAR opcion opcion2
+                | FILTRAR opcion
+                | /* nada */ ;
 
-usuario ::= USUARIO EQUALS IDENTIFICADOR:usuario 
-
-puntuac ::= PUNTUAC relac NUMERO:num
-
-
-
-opcion ::= tiempo
-        | usuario
-        | putuac;
+    relac ::= MENQUE
+            | MAYQUE
+            | EQUALS
+            | MENQUE EQUALS
+            | MAYQUE EQUALS;
 
 
+    tiempo ::= TIEMPO relac NUMERO:num;
 
-opcion2 ::= 
-        | opcion AND opcion
-        | opcion OR opcion
-        | opcion AND opcion opcion2
-        | opcion OR opcion opcion2;
+    usuario ::= USUARIO EQUALS COMILL IDENTIFICADOR:usuario COMILL; 
+
+    puntuac ::= PUNTUAC relac NUMERO:num;
 
 
+
+
+
+    opcion ::= tiempo
+            | usuario
+            | puntuac;
+
+
+
+    opcion2 ::= AND opcion
+            | OR  opcion
+            | AND opcion opcion2
+            | OR  opcion opcion2;
 

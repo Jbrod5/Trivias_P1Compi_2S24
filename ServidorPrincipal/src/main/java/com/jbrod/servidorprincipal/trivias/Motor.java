@@ -162,6 +162,10 @@ public class Motor {
         exp += "\n";
         return exp;
     }
+
+    public LinkedList<Puntuacion> getPuntuaciones() {
+        return puntuaciones;
+    }
     
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
     /* - - - - - - - - - - - - - - - PUNTUACIONES - - - - - - - - - - - - - - - -*/

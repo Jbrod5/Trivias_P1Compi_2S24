@@ -1,6 +1,6 @@
 /* - - - - - - - - - - - - - - - - - CODIGO DE USUARIO - - - - - - - - - - - - - - - - - */
 
-package com.jbrod.servidorprincipal.analizadores;
+package com.jbrod.servidorprincipal.analizadores.consultas;
 import java_cup.runtime.*;
 
 
@@ -14,7 +14,7 @@ import java_cup.runtime.*;
 %line
 %column
 
-numero = [0-9]+
+numero = ([0-9]+|[0-9]+\.[0-9]+)
 identificador = ([a-zA-Z]|"_"|"-"|"$")([a-zA-Z0-9]|"_"|"-"|"$")*
 
 menque = "<"
@@ -27,7 +27,7 @@ coropn = "["
 corcls = "]"
 comma  = ","
 qstmrk = "?"
-comill = "\""|"“"|"”"
+comill = "\""|"“"|"”"|"´"|"'"|"‘"|"’"
 orsymb = "|"
 equals = "=" 
 
