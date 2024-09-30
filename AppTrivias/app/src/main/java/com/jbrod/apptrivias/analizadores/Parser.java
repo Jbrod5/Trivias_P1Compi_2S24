@@ -466,6 +466,7 @@ class CUP$Parser$actions {
                     LinkedList<Trivia> trivias = administradorTrivias.getTrivias();
                     trivias.add(trivia);
                     trivias = new LinkedList<>();
+                    componentes = new LinkedList<>(); //Esto puede solucionar el bug de android
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("trivia",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-33)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

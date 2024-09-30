@@ -54,4 +54,14 @@ puntuaciones(
         "TIEMPO": 5,
         "PUNTEO": 10
     }
+    <PUNTUACION_TRIVIA: $Plantas>{
+        "USUARIO": Mar10,
+        "TIEMPO": 5,
+        "PUNTEO": 50
+    }
+    <PUNTUACION_TRIVIA: $Plantas>{
+        "USUARIO": Mar10,
+        "TIEMPO": 67,
+        "PUNTEO": 50
+    }
 )
