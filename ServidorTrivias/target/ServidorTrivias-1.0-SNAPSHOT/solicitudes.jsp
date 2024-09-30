@@ -4,12 +4,6 @@
     Author     : jorge
 --%>
 
-<%-- 
-    Document   : solicitudes
-    Created on : 25/09/2024, 01:23:48
-    Author     : jorge
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,6 +17,7 @@
             height: 80vh;
             overflow-y: auto;
             border: 1px solid #ccc;
+            flex-basis: 60%; /* Editor ocupa 60% del espacio horizontal */
         }
         #line-numbers {
             width: 50px;
@@ -44,24 +39,24 @@
             font-size: 12px;
         }
         #right-box {
-            width: 25%;
             height: 80vh;
             overflow-y: auto;
             border: 1px solid #ccc;
             resize: none;
             font-family: monospace;
+            flex-basis: 40%; /* Respuesta ocupa 40% del espacio horizontal */
         }
     </style>
 </head>
 <h1 class="text-center" style="font-size: 22px; padding: 10px;" >Logueado como: <%= session.getAttribute("logueado") != null ? session.getAttribute("logueado") : "" %></h1>
 <body>
     <form action="SvSolicitud" method="POST">
-    <div class="container mt-4">
+    <div class="s">
         <div class="d-flex">
-            <div id="editor-container" class="d-flex flex-grow-1">
+            <div id="editor-container" class="d-flex">
                 <pre id="line-numbers"></pre>
                 <textarea name="codigo" id="code-area" class="form-control" rows="20" placeholder="Codigo a procesar">
-                <%= session.getAttribute("codigo") != null ? session.getAttribute("codigo") : "" %>
+                <%= request.getAttribute("codigo") != null ? request.getAttribute("codigo") : "" %>
                 </textarea>
             </div>
             <textarea name="respueta" id="right-box" class="form-control ms-3" placeholder="Respuesta del servidor">

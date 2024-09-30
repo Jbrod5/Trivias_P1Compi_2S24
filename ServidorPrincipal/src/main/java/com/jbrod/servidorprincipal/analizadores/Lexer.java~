@@ -1518,7 +1518,7 @@ public class Lexer implements java_cup.runtime.Scanner {
           case 1:
             { System.out.println("No se reconocio el lexema " + yytext() + " como un token valido y se ignoro.");
                  //errores.agregarError(yytext(), yyline +1, yycolumn + 1, "Lexico", "El simbolo no se encuentra definido en el alfabeto.");
-                 errores += " - ERROR LEXICO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n"
+                 errores += " - ERROR LEXICO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n";
                  errores += "No se reconocio el lexema " + yytext() + " como un token valido y se ignoro.\n";
                  errores += "Linea: " + (yyline +1) + " Columna: " + (yycolumn + 1) + "\n\n";
             }
