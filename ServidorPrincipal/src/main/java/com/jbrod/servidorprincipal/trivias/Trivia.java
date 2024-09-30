@@ -30,11 +30,11 @@ public class Trivia {
      * @param tiempo: int con el tiempo de cada pregunta.
      **/
     public Trivia(String id, String nombre, String tema, String user, String date, int tiempo){
-        this.tema = tema;
-        this.nombre = nombre;
-        id_trivia = id; 
-        usuario_creador = user; 
-        fecha_creacion = date; 
+        this.tema = tema.replace("\n", "");
+        this.nombre = nombre.replace("\n", "");
+        id_trivia = id.replace("\n", ""); 
+        usuario_creador = user.replace("\n", "");
+        fecha_creacion = date.replace("\n", ""); 
         this.tiempoPregunta = tiempo;
         
         componentes = new LinkedList<>();

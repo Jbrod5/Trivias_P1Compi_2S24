@@ -13,7 +13,7 @@ public class Checkbox extends Componente{
 
     public Checkbox(String opciones, String id_componente, String id_trivia, int indice, String texto_visible, String respuesta) {
         super(id_componente, id_trivia, indice, texto_visible, respuesta);
-        this.opciones = opciones;
+        this.opciones = opciones.replace("\n", "");;
     }
 
     @Override
