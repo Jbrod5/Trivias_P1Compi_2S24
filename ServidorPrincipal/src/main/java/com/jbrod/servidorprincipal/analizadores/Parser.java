@@ -598,6 +598,8 @@ public class Parser extends java_cup.runtime.lr_parser {
 
     
     public String resultado = "";
+    public String errores = "";
+
     public String usuarioSesionAprobada = "";
     private Motor motor;
 
@@ -613,12 +615,24 @@ public class Parser extends java_cup.runtime.lr_parser {
         System.out.println("Simbolo con error:" + symbl_name_from_id(cur_token.sym));
         System.out.println("Linea " + cur_token.left);
         System.out.println("Columna " + cur_token.right);
+        errores += " - Error sintactico - - - - - - - - - - - - - - - - \n ";
         if (expected_token_ids().isEmpty()) {
             System.out.println("Ya no se esperaba ningun simbolo");
+            errores += "Ya no se esperaba ningun simbolo\n" ;
             //reporteErrores.agregarError(symbl_name_from_id(cur_token.sym),cur_token.left,cur_token.right, "Sintactico", "Ya no se esperaba ningun simbolo." );
         }else{
-            //reporteErrores.agregarError(symbl_name_from_id(cur_token.sym),cur_token.left,cur_token.right, "Sintactico", "Se esperaba otro simbolo." );
+            //reporteErrores.agregarError(symbl_name_from_id(cur_token.sym),cur_token.left,cur_token.right, "Sintactico", "Se esperaba otro simbolo." );    
+            errores += "Se esperaban los simbolos: \n";
+            for (int tokenId : expected_token_ids()) {
+                String tokenName = symbl_name_from_id(tokenId);
+                errores += "       - " + tokenName + "\n";
+            }
         }
+        errores += "Simbolo con error:" + symbl_name_from_id(cur_token.sym) + "\n";
+        errores += "Linea " + cur_token.left + "\n";    
+        errores += "Columna " + cur_token.right + "\n";        
+
+        errores += "\n\n\n\n\n";
     }
 
     /*public void unrecovered_syntax_error(Symbol cur_token) {
