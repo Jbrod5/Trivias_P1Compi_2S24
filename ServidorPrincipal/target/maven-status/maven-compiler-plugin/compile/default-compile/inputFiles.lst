@@ -15,8 +15,8 @@
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/trivias/Trivia.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/consultas/sym.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/carga/trivias/LexerTrivias.java
-/home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/trivias/Motor.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/trivias/Puntuacion.java
+/home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/trivias/Motor.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/carga/usuarios/LexerUsuarios.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/carga/puntuaciones/sym.java
 /home/jorge/Compi_1/Trivias_P1Compi_2S24/ServidorPrincipal/src/main/java/com/jbrod/servidorprincipal/analizadores/carga/usuarios/ParserUsuarios.java

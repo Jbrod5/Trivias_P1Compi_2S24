@@ -10,6 +10,6 @@ echo " "
 echo " "
 
 echo "Compilacion de Cup"
-java -jar /home/jorge/Apps/java-cup-bin-11b-20160615/java-cup-11b.jar -parser Parser Parser.cup
+java -jar /home/jorge/Apps/java-cup-bin-11b-20160615/java-cup-11b.jar -parser Parser -expect 1 Parser.cup  
 mv Parser.java ../src/main/java/com/jbrod/servidorprincipal/analizadores
 mv sym.java ../src/main/java/com/jbrod/servidorprincipal/analizadores

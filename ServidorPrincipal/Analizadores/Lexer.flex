@@ -102,7 +102,7 @@ puntuacion     = "PUNTUACION"
 tiempo         = "TIEMPO"
 
 %{
-
+    public String errores = "";
     private Symbol symbol(int type){
         return new Symbol(type, yyline +1, yycolumn +1);
     }
@@ -203,5 +203,9 @@ tiempo         = "TIEMPO"
 
 [^]            { System.out.println("No se reconocio el lexema " + yytext() + " como un token valido y se ignoro.");
                  //errores.agregarError(yytext(), yyline +1, yycolumn + 1, "Lexico", "El simbolo no se encuentra definido en el alfabeto.");
+                 errores += " - ERROR LEXICO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n";
+                 errores += "No se reconocio el lexema " + yytext() + " como un token valido y se ignoro.\n";
+                 errores += "Linea: " + (yyline +1) + " Columna: " + (yycolumn + 1) + "\n\n";
+
                  }
 <<EOF>>        { return symbol(sym.EOF); }

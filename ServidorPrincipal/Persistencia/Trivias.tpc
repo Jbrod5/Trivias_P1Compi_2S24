@@ -1,17 +1,17 @@
 trivia(
     "ID_TRIVIA" : $Guatemala
-    "NOMBRE"    : Cultura de Guatemala
+    "NOMBRE"    : Cultura de Guatemala                                                
     "CREADOR"   : Falta agregar usuario
     "FECHA"     : Falta agregar fecha
-    "TIEMPO"    : 45
-    "TEMA"      : cultura
+    "TIEMPO"    : 10
+    "TEMA"      : cultura                                                
 
     <RADIO: $Pregunta2>{
         "TRIVIA" : $Guatemala,     
         "INDICE" : 5,        
         "TEXTO_VISIBLE" : A quie se le conoce como el soldado del pueblo? , 
         "RESPUESTA" :Jacobo Arbenz,     
-        "OPCIONES" : Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Otro       
+        "OPCIONES" : Jacobo Arbenz|Jose Arebalo|Jorge Ubico|Otro                                                                                                                                           
     }
     <CHECK-BOX: $pregunta3>{   
         "TRIVIA" : $Guatemala,     
@@ -23,11 +23,11 @@ trivia(
 )
 trivia(
     "ID_TRIVIA" : $Cunoc
-    "NOMBRE"    : Historia del cunoc
+    "NOMBRE"    : Historia del cunoc                                                
     "CREADOR"   : Falta agregar usuario
     "FECHA"     : Falta agregar fecha
-    "TIEMPO"    : 45
-    "TEMA"      : cultura
+    "TIEMPO"    : 10
+    "TEMA"      : cultura                                                
 
     <AREA_TEXTO: $Pregunta1>{
         "TRIVIA" : $Cunoc,     
@@ -35,12 +35,12 @@ trivia(
         "TEXTO_VISIBLE" : Nombre del autor de la letra del Himno de Guatemala , 
         "RESPUESTA" :Jose Joaquin Palma,     
         "FILAS" : 3,         
-        "COLUMNAS" : 5       
+        "COLUMNAS" : 10       
     }
     <FICHERO: $_pregunta2>{
         "TRIVIA" : $Cunoc,     
         "INDICE" : 5,        
-        "TEXTO_VISIBLE" : En que anio se fundo el cunoc?   
+        "TEXTO_VISIBLE" : En que anio se fundo el cunoc?                                                                                       
      }
 )
 trivia(
@@ -56,14 +56,14 @@ trivia(
         "INDICE" : 4,        
         "TEXTO_VISIBLE" : A que genero pertenece la monja blanca? , 
         "RESPUESTA" :Lycaste,     
-        "OPCIONES" : Lycaste|Genero uno|Genero dos|Otro       
+        "OPCIONES" : Lycaste|Genero uno|Genero dos|Otro                                                                                                                                           
     }
     <COMBO: $_pregunta2>{
         "TRIVIA" : $Plantas,     
         "INDICE" : 5,        
         "TEXTO_VISIBLE" : Que especies botanicas son simbolos patrios, 
         "RESPUESTA" :Monja blanca|Ceiba,     
-        "OPCIONES" : Ceiba|Monja blanca|Jorge Ubico|Otro       
+        "OPCIONES" : Ceiba|Monja blanca|Jorge Ubico|Otro                                                                                                                                           
     }
 )
 

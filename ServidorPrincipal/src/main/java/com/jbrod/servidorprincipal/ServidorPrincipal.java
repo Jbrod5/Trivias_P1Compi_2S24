@@ -44,6 +44,8 @@ public class ServidorPrincipal {
     static String cTrivias = "";
     static String cUsuarios = "";
     static String cPuntuaciones = "";
+    
+    static String respuesta = "";
 
     public static void actualizarDatos(Motor motor, String lugar) {
         /* ACTUALIZAR BASES DE DATOS */
@@ -99,7 +101,7 @@ public class ServidorPrincipal {
         ui.setVisible(true);
 
         Parser parser = null;
-        Lexer lex;
+        Lexer lex = null        ;
         int contador = 0;
 
         /* = = = = = = = = = CARGAR LOS DATOS ALMACENADOS SI LOS HAY = = = = = = = = = */
@@ -232,13 +234,14 @@ public class ServidorPrincipal {
                                 if (parser.usuarioSesionAprobada.length() > 0) {
                                     out.writeUTF(parser.usuarioSesionAprobada);
                                 } else {
-                                    out.writeUTF("");
+                                    
+                                    out.writeUTF(parser.resultado + "\n\n\n\n\n\n\n\n\n" + lex.errores + parser.errores);
                                 }
                             } else {
-                                out.writeUTF(parser.resultado);
+                                out.writeUTF(parser.resultado + "\n\n\n\n\n\n\n\n\n" + lex.errores + parser.errores);
                             }
 
-                            ui.addLog("Resultado: \n" + parser.resultado);
+                            ui.addLog("Resultado: \n" + parser.resultado + "\n\n\n" + lex.errores + parser.errores);
                             serverSocket.close();
                             ui.addLog("Hilo analizador principal: Cliente desconectado");
 
@@ -264,8 +267,11 @@ public class ServidorPrincipal {
                 
             } finally {
                 try {
-                    if(parser!= null){
-                    out.writeUTF(parser.resultado);}
+                    if(parser!= null && lex != null){
+                     out.writeUTF(parser.resultado + "\n\n\n\n\n\n\n\n\n" + lex.errores + parser.errores);
+                    }else{
+                     out.writeUTF("HUBO UN ERROR GRAVE: LEXER Y PARSER NULOS");
+                    }
                     serverSocket.close();
                 } catch (IOException ex1) {
                     Logger.getLogger(ServidorPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
