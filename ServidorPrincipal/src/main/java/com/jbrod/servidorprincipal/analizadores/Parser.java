@@ -679,6 +679,7 @@ public class Parser extends java_cup.runtime.lr_parser {
 
    private void imprimir(String st){
         System.out.println(st + "\n\n\n\n");
+        resultado += "   - Motor: " + st + "\n";
    }
 
 
@@ -974,7 +975,7 @@ class CUP$Parser$actions {
 		int inright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).right;
 		Object in = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
-                resultado += "Usuario nuevo: " +  id.toString() + " " + ps.toString() + " " + nm.toString() + " " + in.toString () + "\n";
+                resultado += "Usuario nuevo: " +  id.toString() + " \n Pass: " + ps.toString() + " Nombre: " + nm.toString() + " Institucion: " + in.toString () + "\n";
                 Usuario usuario = new Usuario(secureString(id), secureString(ps), secureString(nm), secureString(in));
                 imprimir(motor.agregarUsuario(usuario));
             
@@ -996,7 +997,7 @@ class CUP$Parser$actions {
 		int psright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).right;
 		Object ps = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
-                resultado += "Modificar usuario: " + id.toString() + " " + nid.toString() + " " + ps.toString() + "\n";
+                resultado += "Modificar usuario: " + id.toString() + "\n Nuevo id: " + nid.toString() + " Nuevo pass: " + ps.toString() + "\n";
                 imprimir( motor.modificarUsuario( secureString(id), secureString(nid), secureString(ps) ) );
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("modificar_usuario",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-44)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -1029,7 +1030,7 @@ class CUP$Parser$actions {
 		int psright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).right;
 		Object ps = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
-                resultado += "Login: " + id.toString() + " " + ps.toString();
+                resultado += "Login: \nUsuario: " + id.toString() + " Pass: " + ps.toString();
                 sesionEvaluada = true;
                 String sesion = motor.loginUsuario(secureString(id), secureString(ps));
                 imprimir( sesion );
@@ -1064,7 +1065,7 @@ class CUP$Parser$actions {
 		int tmright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).right;
 		Object tm = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
-                resultado += "Nueva trivia: " + id.toString() + " " + tp.toString()+ " " + nm.toString() + " " + tm.toString() + " \n";
+                resultado += "Nueva trivia: " + id.toString() + "\n Tiempo: " + tp.toString()+ " Nombre: " + nm.toString() + " Tema: " + tm.toString() + " \n";
                 Trivia trivia = new Trivia(
                     secureString(id),
                     secureString(nm),
@@ -1112,7 +1113,7 @@ class CUP$Parser$actions {
 		int tmright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).right;
 		Object tm = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
-                resultado += "Modificar trivia: " + id.toString() + " " + tp.toString()+ " " + nm.toString() + " " + tm.toString() + " \n";
+                resultado += "Modificar trivia: " + id.toString() + "\n Tiempo: " + tp.toString()+ " Nombre: " + nm.toString() + " Tema: " + tm.toString() + " \n";
                 imprimir( motor.modificarParametrosTrivia(
                     secureString(id),
                     secureInt(tp),
@@ -1135,7 +1136,7 @@ class CUP$Parser$actions {
 		int trright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).right;
 		Object tr = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		 
-                resultado += "Eliminar componente: " + cm.toString() + " " + tr.toString() + " \n";
+                resultado += "Eliminar componente: " + cm.toString() + " en trivia: " + tr.toString() + " \n";
                 imprimir(
                     motor.eliminarComponenteTrivia(secureString(tr), secureString(cm))
                 );
@@ -1306,7 +1307,7 @@ class CUP$Parser$actions {
 		int rsright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object rs = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 
-                        resultado +=  "COMPONENTE: Campo de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) + "\n"; 
+                        resultado +=  "COMPONENTE: Campo de texto: " + secureString(id) + " \n Trivia: " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx)+ "\n Respuesta: " + secureString(rs) + "\n"; 
                         CampoTexto campo = new CampoTexto(
                             secureString(id),
                             secureString(tv),
@@ -1346,7 +1347,7 @@ class CUP$Parser$actions {
 		int clright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object cl = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		 
-                        resultado +=  "COMPONENTE: Area de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + secureString(fl)+ " " + secureString(cl) + "\n"; 
+                        resultado +=  "COMPONENTE: Area de texto: " + secureString(id) + " \n Trivia: " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx)+ "\n Respuesta: " + secureString(rs) +  "\n Filas: " + secureString(fl)+ "\n Columnas: " + secureString(cl) + "\n"; 
                         AreaTexto area = new AreaTexto(
                             secureInt(fl),
                             secureInt(cl),
@@ -1386,7 +1387,7 @@ class CUP$Parser$actions {
 		int opright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 
-                        resultado +=  "COMPONENTE: Checkbox: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                        resultado +=  "COMPONENTE: Checkbox: " + secureString(id) + " \n Trivia: " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx)+ "\n Respuesta: " + secureString(rs) +  " " + "\n OPCIONES: " + secureString(op) + "\n"; 
                         Checkbox checkbox = new Checkbox(
                             secureString(op),
                             secureString(id),
@@ -1425,7 +1426,7 @@ class CUP$Parser$actions {
 		int opright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 
-                        resultado +=  "COMPONENTE: Radio: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                        resultado +=  "COMPONENTE: Radio: " + secureString(id) + " \n Trivia: " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx)+ "\n Respuesta: " + secureString(rs) +  " " + "\n OPCIONES: " + secureString(op) + "\n"; 
                         Radio radio = new Radio(
                             secureString(op),
                             secureString(id),
@@ -1458,7 +1459,7 @@ class CUP$Parser$actions {
 		int txright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object tx = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 
-                        resultado +=  "Fichero: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx) + "\n"; 
+                        resultado +=  "COMPONENTE: Fichero: " + secureString(id) + " \n Trivia: " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx) + "\n"; 
                         Fichero fichero = new Fichero(
                             secureString(id),
                             secureString(tv),
@@ -1495,7 +1496,7 @@ class CUP$Parser$actions {
 		int opright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 
-                        resultado +=  "Combo: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                        resultado +=  "COMPONENTE: Combo: " + secureString(id) + "\n Trivia " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx)+ "\n Respuesta: " + secureString(rs) +  " " + "\n OPCIONES: " + secureString(op) + "\n"; 
                         Combo combo = new Combo(
                             secureString(op),
                             secureString(id),

@@ -89,6 +89,7 @@ parser code{:
 
    private void imprimir(String st){
         System.out.println(st + "\n\n\n\n");
+        resultado += "   - Motor: " + st + "\n";
    }
 
 :}
@@ -185,7 +186,7 @@ usuario_nuevo ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL USUARIO_NUEV COMILL M
             COMILL NOMBRE COMILL DOSPUN COMILL id_st:nm COMILL COMMA
             COMILL INSTITUCION COMILL DOSPUN COMILL id_st:in COMILL 
             LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
-                resultado += "Usuario nuevo: " +  id.toString() + " " + ps.toString() + " " + nm.toString() + " " + in.toString () + "\n";
+                resultado += "Usuario nuevo: " +  id.toString() + " \n Pass: " + ps.toString() + " Nombre: " + nm.toString() + " Institucion: " + in.toString () + "\n";
                 Usuario usuario = new Usuario(secureString(id), secureString(ps), secureString(nm), secureString(in));
                 imprimir(motor.agregarUsuario(usuario));
             :};
@@ -196,7 +197,7 @@ modificar_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODI_USUARIO COMI
                        COMILL USUARIO_NUEV COMILL DOSPUN COMILL IDENTIFICADOR:nid COMILL COMMA
                        COMILL NUEVO_PASSWO COMILL DOSPUN COMILL id_st:ps COMILL 
                 LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
-                resultado += "Modificar usuario: " + id.toString() + " " + nid.toString() + " " + ps.toString() + "\n";
+                resultado += "Modificar usuario: " + id.toString() + "\n Nuevo id: " + nid.toString() + " Nuevo pass: " + ps.toString() + "\n";
                 imprimir( motor.modificarUsuario( secureString(id), secureString(nid), secureString(ps) ) );
             :};
 
@@ -213,7 +214,7 @@ login_usuario ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL LOGIN_USUARI COMILL M
                        COMILL USUARIO COMILL       DOSPUN COMILL IDENTIFICADOR:id COMILL COMMA
                        COMILL PASSWORD      COMILL DOSPUN COMILL id_st:ps COMILL
                 LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
-                resultado += "Login: " + id.toString() + " " + ps.toString();
+                resultado += "Login: \nUsuario: " + id.toString() + " Pass: " + ps.toString();
                 sesionEvaluada = true;
                 String sesion = motor.loginUsuario(secureString(id), secureString(ps));
                 imprimir( sesion );
@@ -243,7 +244,7 @@ nueva_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL NUEVA_TRIVIA COMILL MA
                 COMILL NOMBRE       COMILL DOSPUN COMILL id_st:nm         COMILL COMMA
                 COMILL TEMA         COMILL DOSPUN COMILL id_st:tm         COMILL
                 LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
-                resultado += "Nueva trivia: " + id.toString() + " " + tp.toString()+ " " + nm.toString() + " " + tm.toString() + " \n";
+                resultado += "Nueva trivia: " + id.toString() + "\n Tiempo: " + tp.toString()+ " Nombre: " + nm.toString() + " Tema: " + tm.toString() + " \n";
                 Trivia trivia = new Trivia(
                     secureString(id),
                     secureString(nm),
@@ -271,7 +272,7 @@ modificar_parametros_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODIF_T
                 COMILL NOMBRE       COMILL DOSPUN COMILL id_st:nm  COMILL COMMA
                 COMILL TEMA         COMILL DOSPUN COMILL id_st:tm  COMILL 
                 LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
-                resultado += "Modificar trivia: " + id.toString() + " " + tp.toString()+ " " + nm.toString() + " " + tm.toString() + " \n";
+                resultado += "Modificar trivia: " + id.toString() + "\n Tiempo: " + tp.toString()+ " Nombre: " + nm.toString() + " Tema: " + tm.toString() + " \n";
                 imprimir( motor.modificarParametrosTrivia(
                     secureString(id),
                     secureInt(tp),
@@ -290,7 +291,7 @@ eliminar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL ELIMINAR
                 COMILL ID COMILL DOSPUN COMILL IDENTIFICADOR:cm COMILL COMMA
                 COMILL TRIVIA COMILL DOSPUN COMILL IDENTIFICADOR:tr COMILL
                 LLAVCL CORCLS LLAVCL MENQUE FIN_SOL_REAL EXCLAM MAYQUE{: 
-                resultado += "Eliminar componente: " + cm.toString() + " " + tr.toString() + " \n";
+                resultado += "Eliminar componente: " + cm.toString() + " en trivia: " + tr.toString() + " \n";
                 imprimir(
                     motor.eliminarComponenteTrivia(secureString(tr), secureString(cm))
                 );
@@ -329,7 +330,7 @@ modificar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODIFIC
                     COMILL TEXTO_VISIBL COMILL DOSPUN COMILL id_st:tx         COMILL COMMA
                     COMILL RESPUESTA    COMILL DOSPUN COMILL respuesta:rs     COMILL 
                     {: 
-                        resultado +=  "COMPONENTE: Campo de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) + "\n"; 
+                        resultado +=  "COMPONENTE: Campo de texto: " + secureString(id) + " \n Trivia: " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx)+ "\n Respuesta: " + secureString(rs) + "\n"; 
                         CampoTexto campo = new CampoTexto(
                             secureString(id),
                             secureString(tv),
@@ -349,7 +350,7 @@ modificar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODIFIC
                     COMILL FILAS        COMILL DOSPUN        id_st:fl                COMMA
                     COMILL COLUMNAS     COMILL DOSPUN        id_st:cl          
                     {: 
-                        resultado +=  "COMPONENTE: Area de texto: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + secureString(fl)+ " " + secureString(cl) + "\n"; 
+                        resultado +=  "COMPONENTE: Area de texto: " + secureString(id) + " \n Trivia: " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx)+ "\n Respuesta: " + secureString(rs) +  "\n Filas: " + secureString(fl)+ "\n Columnas: " + secureString(cl) + "\n"; 
                         AreaTexto area = new AreaTexto(
                             secureInt(fl),
                             secureInt(cl),
@@ -371,7 +372,7 @@ modificar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODIFIC
                     COMILL RESPUESTA    COMILL DOSPUN COMILL respuesta:rs     COMILL COMMA
                     COMILL OPCIONES     COMILL DOSPUN COMILL opciones:op      COMILL 
                     {: 
-                        resultado +=  "COMPONENTE: Checkbox: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                        resultado +=  "COMPONENTE: Checkbox: " + secureString(id) + " \n Trivia: " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx)+ "\n Respuesta: " + secureString(rs) +  " " + "\n OPCIONES: " + secureString(op) + "\n"; 
                         Checkbox checkbox = new Checkbox(
                             secureString(op),
                             secureString(id),
@@ -392,7 +393,7 @@ modificar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODIFIC
                     COMILL RESPUESTA    COMILL DOSPUN COMILL respuesta:rs     COMILL COMMA
                     COMILL OPCIONES     COMILL DOSPUN COMILL opciones:op      COMILL 
                     {: 
-                        resultado +=  "COMPONENTE: Radio: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                        resultado +=  "COMPONENTE: Radio: " + secureString(id) + " \n Trivia: " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx)+ "\n Respuesta: " + secureString(rs) +  " " + "\n OPCIONES: " + secureString(op) + "\n"; 
                         Radio radio = new Radio(
                             secureString(op),
                             secureString(id),
@@ -411,7 +412,7 @@ modificar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODIFIC
                     COMILL INDICE       COMILL DOSPUN        id_st:in                COMMA 
                     COMILL TEXTO_VISIBL COMILL DOSPUN COMILL id_st:tx         COMILL 
                     {: 
-                        resultado +=  "Fichero: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx) + "\n"; 
+                        resultado +=  "COMPONENTE: Fichero: " + secureString(id) + " \n Trivia: " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx) + "\n"; 
                         Fichero fichero = new Fichero(
                             secureString(id),
                             secureString(tv),
@@ -430,7 +431,7 @@ modificar_componente_trivia ::= MENQUE EXCLAM REALIZAR_SOL DOSPUN COMILL MODIFIC
                     COMILL RESPUESTA    COMILL DOSPUN COMILL respuesta:rs     COMILL COMMA
                     COMILL OPCIONES     COMILL DOSPUN COMILL opciones:op      COMILL 
                     {: 
-                        resultado +=  "Combo: " + secureString(id) + " " + secureString(tv)+ " " + secureString(in)+ " " + secureString(tx)+ " " + secureString(rs) +  " " + " OPCIONES: " + secureString(op) + "\n"; 
+                        resultado +=  "COMPONENTE: Combo: " + secureString(id) + "\n Trivia " + secureString(tv)+ "\n Indice: " + secureString(in)+ "\n Texto: " + secureString(tx)+ "\n Respuesta: " + secureString(rs) +  " " + "\n OPCIONES: " + secureString(op) + "\n"; 
                         Combo combo = new Combo(
                             secureString(op),
                             secureString(id),

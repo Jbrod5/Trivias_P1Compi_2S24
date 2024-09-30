@@ -19,4 +19,39 @@ usuarios(
         "NOMBRE": Antonio,
         "INSTITUCION": CUNOC                                                                                                                                                                                              
      }
+    <USUARIO: Mar10>{
+        "PASSWORD": Mar10,
+        "NOMBRE": MARIO MARCOS,
+        "INSTITUCION": CUNOC
+     }
+    <USUARIO: Mar10>{
+        "PASSWORD": Mar10,
+        "NOMBRE": MARIO MARCOS,
+        "INSTITUCION": CUNOC
+     }
+    <USUARIO: Mar10>{
+        "PASSWORD": Mar10,
+        "NOMBRE": MARIO MARCOS,
+        "INSTITUCION": CUNOC
+     }
+    <USUARIO: Mar10>{
+        "PASSWORD": Mar10,
+        "NOMBRE": MARIO MARCOS,
+        "INSTITUCION": CUNOC
+     }
+    <USUARIO: Mar10>{
+        "PASSWORD": Mar10,
+        "NOMBRE": MARIO MARCOS,
+        "INSTITUCION": CUNOC
+     }
+    <USUARIO: Mar10>{
+        "PASSWORD": Mar10,
+        "NOMBRE": MARIO MARCOS,
+        "INSTITUCION": CUNOC
+     }
+    <USUARIO: Mar10>{
+        "PASSWORD": Mar10,
+        "NOMBRE": MARIO MARCOS,
+        "INSTITUCION": CUNOC
+     }
 )
