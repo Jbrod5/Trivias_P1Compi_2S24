@@ -64,4 +64,9 @@ puntuaciones(
         "TIEMPO": 67,
         "PUNTEO": 50
     }
+    <PUNTUACION_TRIVIA: $Cunoc>{
+        "USUARIO": Mar10,
+        "TIEMPO": 2,
+        "PUNTEO": 0
+    }
 )

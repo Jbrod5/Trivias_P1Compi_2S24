@@ -51,8 +51,27 @@ class Login : AppCompatActivity() {
             var inp = DataInputStream(clientSocket.getInputStream())
             var out = DataOutputStream(clientSocket.getOutputStream())
 
+
             var textE = findViewById<EditText>(R.id.code)
-            var code:String = textE.getText().toString()
+            var textU = findViewById<EditText>(R.id.us).getText().toString()
+            var textP = findViewById<EditText>(R.id.pw).getText().toString()
+            var code = ""
+            if(textU.length > 0 && textP.length > 0){
+                code =  "<!realizar_solicitud: \"LOGIN_USUARIO\" > \n" +
+                        "    { \"DATOS_USUARIO\":[{ \n" +
+                        "        \"USUARIO\": \""+ textU +"\", \n" +
+                        "        \"PASSWORD\": \""+ textP +"\" \n" +
+                        "    } \n" +
+                        "    ]} \n" +
+                        "<fin_solicitud_realizada!>"
+            }else{
+                code = textE.getText().toString()
+            }
+
+
+
+
+
             //val singleLineCode = code.replace("\n", "  ")
             Log.d("ENVIANDO: ", code)
 
