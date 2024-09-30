@@ -1,0 +1,12 @@
+puntuaciones(
+    <PUNTUACION_TRIVIA: $Guatemala>{
+        "USUARIO": Mar10,
+        "TIEMPO": 6,
+        "PUNTEO": 10
+    }
+    <PUNTUACION_TRIVIA: $Plantas>{
+        "USUARIO": Antoine98,
+        "TIEMPO": 8,
+        "PUNTEO": 8
+    }
+)

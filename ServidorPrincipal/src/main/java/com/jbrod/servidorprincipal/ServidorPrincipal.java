@@ -2,6 +2,8 @@ package com.jbrod.servidorprincipal;
 
 import com.jbrod.servidorprincipal.analizadores.Lexer;
 import com.jbrod.servidorprincipal.analizadores.Parser;
+import com.jbrod.servidorprincipal.analizadores.carga.puntuaciones.LexerPuntuaciones;
+import com.jbrod.servidorprincipal.analizadores.carga.puntuaciones.ParserPuntuaciones;
 import com.jbrod.servidorprincipal.analizadores.carga.trivias.LexerTrivias;
 import com.jbrod.servidorprincipal.analizadores.carga.trivias.ParserTrivias;
 import com.jbrod.servidorprincipal.analizadores.carga.usuarios.LexerUsuarios;
@@ -33,11 +35,13 @@ import java.util.logging.Logger;
  */
 public class ServidorPrincipal {
 
-    static String rTrivias  = "./Persistencia/Trivias.tpc";
-    static String rUsuarios = "./Persistencia/Usuarios.upc";
+    static String rTrivias      = "./Persistencia/Trivias.tpc"      ;
+    static String rUsuarios     = "./Persistencia/Usuarios.upc"     ;
+    static String rPuntuaciones = "./Persistencia/Puntuaciones.ppc" ;
     
-    static String cTrivias = "";
-    static String cUsuarios = "";
+    static String cTrivias      = "";
+    static String cUsuarios     = "";
+    static String cPuntuaciones = "";
     
     public static void actualizarDatos(Motor motor, String lugar) {
         /* ACTUALIZAR BASES DE DATOS */
@@ -64,6 +68,16 @@ public class ServidorPrincipal {
         try (FileWriter writer = new FileWriter(aUsuarios, false)) {
             writer.write(motor.obtenerUsuarios());
             System.out.println("Contenido escrito en " + rUsuarios + " por " + lugar);
+        } catch (IOException e) {
+            System.err.println("Error al escribir en base de trivias: " + e.getMessage());
+        }
+        
+        /* = Puntuaciones = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+        // Crear el archivo y escribir el contenido
+        File aPuntuaciones = new File(rPuntuaciones);
+        try (FileWriter writer = new FileWriter(aPuntuaciones, false)) {
+            writer.write(motor.obtenerCodigoPuntuaciones());
+            System.out.println("Contenido escrito en " + rPuntuaciones + " por " + lugar);
         } catch (IOException e) {
             System.err.println("Error al escribir en base de trivias: " + e.getMessage());
         }
@@ -121,7 +135,27 @@ public class ServidorPrincipal {
             System.err.println("Error al leer el archivo:   " + e.getMessage());
         } catch (Exception e) {
         }
+        /* - Puntuaciones  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+        try (BufferedReader br = new BufferedReader(new FileReader(rPuntuaciones))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                cPuntuaciones += linea + "\n";
+            }
 
+            StringReader sb = new StringReader(cPuntuaciones);
+            LexerPuntuaciones l = new LexerPuntuaciones(sb);
+            ParserPuntuaciones p = new ParserPuntuaciones(l, motor);
+            p.parse();
+            System.out.println("Puntuaciones cargadas correctamente desde su archivo de persistencia.");
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo:   " + e.getMessage());
+        } catch (Exception e) {
+        }
+
+        
+        
+        
+        
         /* - - - - - - - - - - - - - - - BUCLE DE ESCUCHA DEL SERVIDOR - - - - - - - - - - - - - - - */
         while (true) {
             try {

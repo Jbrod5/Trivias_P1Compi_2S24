@@ -1,9 +1,13 @@
 com/jbrod/servidorprincipal/analizadores/carga/usuarios/ParserUsuarios$CUP$ParserUsuarios$actions.class
+com/jbrod/servidorprincipal/analizadores/carga/puntuaciones/LexerPuntuaciones.class
+com/jbrod/servidorprincipal/analizadores/carga/puntuaciones/sym.class
 com/jbrod/servidorprincipal/analizadores/carga/trivias/ParserTrivias$CUP$ParserTrivias$actions.class
 com/jbrod/servidorprincipal/analizadores/carga/usuarios/Lexer.class
 com/jbrod/servidorprincipal/analizadores/carga/trivias/sym.class
 com/jbrod/servidorprincipal/analizadores/carga/trivias/ParserTrivias.class
 com/jbrod/servidorprincipal/analizadores/carga/trivias/LexerTrivias.class
+com/jbrod/servidorprincipal/analizadores/carga/puntuaciones/ParserPuntuaciones$CUP$ParserPuntuaciones$actions.class
+com/jbrod/servidorprincipal/analizadores/carga/puntuaciones/ParserPuntuaciones.class
 com/jbrod/servidorprincipal/analizadores/carga/usuarios/LexerUsuarios.class
 com/jbrod/servidorprincipal/analizadores/carga/usuarios/ParserUsuarios.class
 com/jbrod/servidorprincipal/analizadores/carga/usuarios/sym.class

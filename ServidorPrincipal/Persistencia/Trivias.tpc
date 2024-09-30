@@ -6,10 +6,16 @@ trivia(
     
     
     
+    
+    
     "CREADOR"   : Falta agregar usuario
     "FECHA"     : Falta agregar fecha
     "TIEMPO"    : 10
     "TEMA"      : cultura
+
+    
+
+    
 
     
 
@@ -32,6 +38,8 @@ trivia(
            
            
            
+           
+           
     }
     <RADIO: $Pregunta2>{
         "TRIVIA" : $Guatemala,     
@@ -44,11 +52,15 @@ trivia(
            
            
            
+           
+           
     }
 )
 trivia(
     "ID_TRIVIA" : $Cunoc
     "NOMBRE"    : Historia del cunoc
+    
+    
     
     
     
@@ -69,10 +81,16 @@ trivia(
 
     
 
+    
+
+    
+
     <FICHERO: $_pregunta2>{
         "TRIVIA" : $Cunoc,     
         "INDICE" : 5,        
         "TEXTO_VISIBLE" : En que anio se fundo el cunoc?   
+       
+       
        
        
        
@@ -96,10 +114,16 @@ trivia(
     
     
     
+    
+    
     "CREADOR"   : Falta agregar usuario
     "FECHA"     : Falta agregar fecha
     "TIEMPO"    : 10
     "TEMA"      : Botanica nacional
+
+    
+
+    
 
     
 
@@ -122,6 +146,8 @@ trivia(
            
            
            
+           
+           
     }
     <CHECK-BOX: $Pregunta1>{   
         "TRIVIA" : $Plantas,     
@@ -129,6 +155,8 @@ trivia(
         "TEXTO_VISIBLE" : A que genero pertenece la monja blanca? , 
         "RESPUESTA" :Lycaste,     
         "OPCIONES" : Lycaste|Genero uno|Genero dos|Otro       
+           
+           
            
            
            
