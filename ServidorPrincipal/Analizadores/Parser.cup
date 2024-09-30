@@ -149,7 +149,8 @@ inicio ::= solicitudes;
 //inicio ::= solicitud_simple;  
 
 solicitudes ::= solicitud_simple solicitudes | /*  */;
-solicitud_simple ::= usuario_nuevo | modificar_usuario | eliminar_usuario | login_usuario;
+solicitud_simple ::= usuario_nuevo | modificar_usuario | eliminar_usuario | login_usuario
+                    | error;
 solicitud_simple ::= nueva_trivia | eliminar_trivia | modificar_parametros_trivia | agregar_componente_trivia | eliminar_componente_trivia | modificar_componente_trivia | agregar_puntuacion;
 
 id_st ::= IDENTIFICADOR:id {: RESULT = id; :} 
