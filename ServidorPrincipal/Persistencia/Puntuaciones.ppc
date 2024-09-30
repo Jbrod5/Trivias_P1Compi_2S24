@@ -674,4 +674,9 @@ puntuaciones(
         "TIEMPO": 115,
         "PUNTEO": 19
     }
+    <PUNTUACION_TRIVIA: $Plantas>{
+        "USUARIO": Mar10,
+        "TIEMPO": 220,
+        "PUNTEO": 75
+    }
 )

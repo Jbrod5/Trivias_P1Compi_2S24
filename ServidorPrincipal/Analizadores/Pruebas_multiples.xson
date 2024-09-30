@@ -1,5 +1,4 @@
-<?xson version=”1.0” ?> 
-<!realizar_solicitudes> 
+
    <!realizar_solicitud: "USUARIO_NUEVO" > 
  	{ "DATOS_USUARIO":[{ 
         "USUARIO": "mario123", 
@@ -68,7 +67,6 @@
        } 
        ]} 
    <fin_solicitud_realizada!> 
-<!fin_solicitudes_realizada> 
 
 
 
