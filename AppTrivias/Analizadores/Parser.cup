@@ -117,6 +117,7 @@ trivia ::= TRIVIA PAROPN
                     LinkedList<Trivia> trivias = administradorTrivias.getTrivias();
                     trivias.add(trivia);
                     trivias = new LinkedList<>();
+                    componentes = new LinkedList<>(); //Esto puede solucionar el bug de android
                 :};
 trivias ::= trivia trivias | /*  */;
 

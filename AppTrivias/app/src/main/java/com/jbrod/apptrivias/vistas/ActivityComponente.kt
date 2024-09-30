@@ -368,7 +368,7 @@ class ActivityComponente : AppCompatActivity() {
                     }
 
                     runOnUiThread {
-                        Toast.makeText(this, "Conectado y mensaje recibido: $res", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Respuestas enviadas al servidor: $res", Toast.LENGTH_LONG).show()
                     }
                 }catch (e: Exception){
                     e.printStackTrace()

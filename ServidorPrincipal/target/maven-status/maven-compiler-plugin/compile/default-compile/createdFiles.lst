@@ -1,5 +1,5 @@
-com/jbrod/servidorprincipal/analizadores/carga/usuarios/ParserUsuarios$CUP$ParserUsuarios$actions.class
 com/jbrod/servidorprincipal/analizadores/carga/puntuaciones/LexerPuntuaciones.class
+com/jbrod/servidorprincipal/analizadores/carga/usuarios/ParserUsuarios$CUP$ParserUsuarios$actions.class
 com/jbrod/servidorprincipal/analizadores/carga/puntuaciones/sym.class
 com/jbrod/servidorprincipal/analizadores/carga/trivias/ParserTrivias$CUP$ParserTrivias$actions.class
 com/jbrod/servidorprincipal/analizadores/carga/usuarios/Lexer.class

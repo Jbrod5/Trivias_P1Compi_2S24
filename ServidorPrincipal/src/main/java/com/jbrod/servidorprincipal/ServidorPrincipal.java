@@ -8,6 +8,8 @@ import com.jbrod.servidorprincipal.analizadores.carga.trivias.LexerTrivias;
 import com.jbrod.servidorprincipal.analizadores.carga.trivias.ParserTrivias;
 import com.jbrod.servidorprincipal.analizadores.carga.usuarios.LexerUsuarios;
 import com.jbrod.servidorprincipal.analizadores.carga.usuarios.ParserUsuarios;
+import com.jbrod.servidorprincipal.analizadores.consultas.LexerCons;
+import com.jbrod.servidorprincipal.analizadores.consultas.ParserCons;
 import com.jbrod.servidorprincipal.sockets.HiloAnalizadorPrincipal;
 import com.jbrod.servidorprincipal.trivias.Motor;
 import com.jbrod.servidorprincipal.trivias.Trivia;
@@ -35,23 +37,23 @@ import java.util.logging.Logger;
  */
 public class ServidorPrincipal {
 
-    static String rTrivias      = "./Persistencia/Trivias.tpc"      ;
-    static String rUsuarios     = "./Persistencia/Usuarios.upc"     ;
-    static String rPuntuaciones = "./Persistencia/Puntuaciones.ppc" ;
-    
-    static String cTrivias      = "";
-    static String cUsuarios     = "";
+    static String rTrivias = "./Persistencia/Trivias.tpc";
+    static String rUsuarios = "./Persistencia/Usuarios.upc";
+    static String rPuntuaciones = "./Persistencia/Puntuaciones.ppc";
+
+    static String cTrivias = "";
+    static String cUsuarios = "";
     static String cPuntuaciones = "";
-    
+
     public static void actualizarDatos(Motor motor, String lugar) {
         /* ACTUALIZAR BASES DE DATOS */
-        
+
         // Crear la carpeta si no existe
         File carpeta = new File("./Persistencia");
         if (!carpeta.exists()) {
             carpeta.mkdirs();
         }
-        
+
         /* = Trivias = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
         // Crear el archivo y escribir el contenido
         File aTrivias = new File(rTrivias);
@@ -61,7 +63,7 @@ public class ServidorPrincipal {
         } catch (IOException e) {
             System.err.println("Error al escribir en base de trivias: " + e.getMessage());
         }
-        
+
         /* = Usuarios = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
         // Crear el archivo y escribir el contenido
         File aUsuarios = new File(rUsuarios);
@@ -71,7 +73,7 @@ public class ServidorPrincipal {
         } catch (IOException e) {
             System.err.println("Error al escribir en base de trivias: " + e.getMessage());
         }
-        
+
         /* = Puntuaciones = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
         // Crear el archivo y escribir el contenido
         File aPuntuaciones = new File(rPuntuaciones);
@@ -88,22 +90,20 @@ public class ServidorPrincipal {
         Motor motor = new Motor();
         UI ui = new UI();
 
-        ServerSocket serverSocket;
+        ServerSocket serverSocket = null;
         Socket clientSocket;
         DataInputStream in;
         DataOutputStream out = null;
 
         final int PUERTO = 6000;
-
         ui.setVisible(true);
-        //HiloAnalizadorPrincipal hiloAnalizadorPrincipal = new HiloAnalizadorPrincipal(motor, ui);
 
         Parser parser = null;
         Lexer lex;
         int contador = 0;
 
         /* = = = = = = = = = CARGAR LOS DATOS ALMACENADOS SI LOS HAY = = = = = = = = = */
-        /* - Trivias - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+ /* - Trivias - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
         try (BufferedReader br = new BufferedReader(new FileReader(rTrivias))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -152,10 +152,6 @@ public class ServidorPrincipal {
         } catch (Exception e) {
         }
 
-        
-        
-        
-        
         /* - - - - - - - - - - - - - - - BUCLE DE ESCUCHA DEL SERVIDOR - - - - - - - - - - - - - - - */
         while (true) {
             try {
@@ -178,95 +174,103 @@ public class ServidorPrincipal {
                     p.parse();
                     out.writeUTF(p.resultado);
                     serverSocket.close();
-                    
+
                     actualizarDatos(motor, "cargar trivias");
 
-                } else {
+                } else if (entrada.startsWith("CONSULTA")) {
+                    entrada = entrada.substring("CONSULTA".length());
+                    StringReader sb = new StringReader(entrada);
+                    LexerCons l = new LexerCons(sb);
+                    ParserCons p = new ParserCons(l, motor);
+                    p.parse();
+                    out.writeUTF(p.resultado);
+                    serverSocket.close();
 
-                }
+                } else if(entrada.startsWith("SELECCIONAR")){
+                    StringReader sb = new StringReader(entrada);
+                    LexerCons l = new LexerCons(sb);
+                    ParserCons p = new ParserCons(l, motor);
+                    p.parse();
+                    out.writeUTF(p.resultado);
+                    serverSocket.close();
+                }else {
 
-                switch (entrada) {
-                    //Exportar las trivias a quien lo solicite
-                    case "OBTENER_TRIVIAS":
-                        out.writeUTF(motor.exportarTrivias());
-                        serverSocket.close();
-                        break;
-                    case "OBTENER_PUNTUACIONES":
-                        out.writeUTF(motor.obtenerPuntuaciones());
-                        serverSocket.close();
-                        break;
+                    switch (entrada) {
+                        //Exportar las trivias a quien lo solicite
+                        case "OBTENER_TRIVIAS":
+                            out.writeUTF(motor.exportarTrivias());
+                            serverSocket.close();
+                            break;
+                        case "OBTENER_PUNTUACIONES":
+                            out.writeUTF(motor.obtenerPuntuaciones());
+                            serverSocket.close();
+                            break;
 
-                    case "OBTENER_BASE_DE_DATOS":
-                        String bd = "<BASE_DE_DATOS>{\n";
-                        bd += motor.exportarTrivias() + "\n";
-                        bd += motor.obtenerUsuarios() + "\n";
-                        bd += motor.obtenerCodigoPuntuaciones() + "\n}";
-                        out.writeUTF(bd);
-                        serverSocket.close();
-                        break;
+                        case "OBTENER_BASE_DE_DATOS":
+                            String bd = "<BASE_DE_DATOS>{\n";
+                            bd += motor.exportarTrivias() + "\n";
+                            bd += motor.obtenerUsuarios() + "\n";
+                            bd += motor.obtenerCodigoPuntuaciones() + "\n}";
+                            out.writeUTF(bd);
+                            serverSocket.close();
+                            break;
 
-                    default:
-                        ui.addLog(" - - - - - - - - - - - - - - - - Hilo analizador principal: - - - - - - - - - - - - - - - - - - - -");
-                        ui.addLog("Entrada:\n" + entrada + "\n");
+                        default:
+                            ui.addLog(" - - - - - - - - - - - - - - - - Hilo analizador principal: - - - - - - - - - - - - - - - - - - - -");
+                            ui.addLog("Entrada:\n" + entrada + "\n");
 
-                        /* Analizando la entrada */
-                        StringReader sb = new StringReader(entrada);
-                        lex = new Lexer(sb);
-                        parser = new Parser(lex, motor);
-                        parser.parse();
-                        System.out.println("Por default: ");
-                        actualizarDatos(motor, " default");
+                            /* Analizando la entrada */
+                            StringReader sb = new StringReader(entrada);
+                            lex = new Lexer(sb);
+                            parser = new Parser(lex, motor);
+                            parser.parse();
+                            System.out.println("Por default: ");
+                            actualizarDatos(motor, " default");
 
-                        //Si se aprobo un inicio de sesion solo enviar eso
-                        if (parser.sesionEvaluada) {
-                            if (parser.usuarioSesionAprobada.length() > 0) {
-                                out.writeUTF(parser.usuarioSesionAprobada);
+                            //Si se aprobo un inicio de sesion solo enviar eso
+                            if (parser.sesionEvaluada) {
+                                if (parser.usuarioSesionAprobada.length() > 0) {
+                                    out.writeUTF(parser.usuarioSesionAprobada);
+                                } else {
+                                    out.writeUTF("");
+                                }
                             } else {
-                                out.writeUTF("");
+                                out.writeUTF(parser.resultado);
                             }
-                        } else {
-                            out.writeUTF(parser.resultado);
-                        }
 
-                        ui.addLog("Resultado: \n" + parser.resultado);
-                        serverSocket.close();
-                        ui.addLog("Hilo analizador principal: Cliente desconectado");
-                        
-                        
+                            ui.addLog("Resultado: \n" + parser.resultado);
+                            serverSocket.close();
+                            ui.addLog("Hilo analizador principal: Cliente desconectado");
 
+                    }
                 }
 
             } catch (BindException b) {
-                if (parser != null) {
-                    try {
-                        out.writeUTF(parser.resultado);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ServidorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+               
                 b.printStackTrace();
-                
                 actualizarDatos(motor, "exc b");
+
+               
             } catch (SocketException s) {
-                if (parser != null) {
-                    try {
-                        out.writeUTF(parser.resultado);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ServidorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+               
                 s.printStackTrace();
                 actualizarDatos(motor, "exc s");
+                
             } catch (Exception e) {
                 e.printStackTrace();
-                if (parser != null) {
-                    try {
-                        out.writeUTF(parser.resultado);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ServidorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+               
                 actualizarDatos(motor, "exc e");
+
+                
+            } finally {
+                try {
+                    if(parser!= null){
+                    out.writeUTF(parser.resultado);}
+                    serverSocket.close();
+                } catch (IOException ex1) {
+                    Logger.getLogger(ServidorPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                serverSocket = null;
             }
 
         }
