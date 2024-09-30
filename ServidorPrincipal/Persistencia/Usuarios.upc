@@ -2,55 +2,30 @@ usuarios(
     <USUARIO: Mar10>{
         "PASSWORD": Mar10,
         "NOMBRE": MARIO MARCOS,
-        "INSTITUCION": CUNOC                                                                                                                                                                                              
+        "INSTITUCION": CUNOC                                                                                                                                                                                                   
      }
     <USUARIO: FLuis>{
         "PASSWORD": 12345678,
         "NOMBRE": LUIS FERNANDO,
-        "INSTITUCION": CUSAM                                                                                                                                                                                              
+        "INSTITUCION": CUSAM                                                                                                                                                                                                   
      }
     <USUARIO: FatMengor>{
         "PASSWORD": 12345678,
         "NOMBRE": FATIMA ALMENGOR,
-        "INSTITUCION": CUSAM                                                                                                                                                                                              
+        "INSTITUCION": CUSAM                                                                                                                                                                                                   
      }
     <USUARIO: Antoine98>{
         "PASSWORD": 12345678,
         "NOMBRE": Antonio,
-        "INSTITUCION": CUNOC                                                                                                                                                                                              
+        "INSTITUCION": CUNOC                                                                                                                                                                                                   
      }
     <USUARIO: Mar10>{
         "PASSWORD": Mar10,
         "NOMBRE": MARIO MARCOS,
         "INSTITUCION": CUNOC
      }
-    <USUARIO: Mar10>{
-        "PASSWORD": Mar10,
-        "NOMBRE": MARIO MARCOS,
-        "INSTITUCION": CUNOC
-     }
-    <USUARIO: Mar10>{
-        "PASSWORD": Mar10,
-        "NOMBRE": MARIO MARCOS,
-        "INSTITUCION": CUNOC
-     }
-    <USUARIO: Mar10>{
-        "PASSWORD": Mar10,
-        "NOMBRE": MARIO MARCOS,
-        "INSTITUCION": CUNOC
-     }
-    <USUARIO: Mar10>{
-        "PASSWORD": Mar10,
-        "NOMBRE": MARIO MARCOS,
-        "INSTITUCION": CUNOC
-     }
-    <USUARIO: Mar10>{
-        "PASSWORD": Mar10,
-        "NOMBRE": MARIO MARCOS,
-        "INSTITUCION": CUNOC
-     }
-    <USUARIO: Mar10>{
-        "PASSWORD": Mar10,
+    <USUARIO: mario123>{
+        "PASSWORD": 12345678,
         "NOMBRE": MARIO MARCOS,
         "INSTITUCION": CUNOC
      }
